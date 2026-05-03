@@ -1,0 +1,40 @@
+name: Ping IndexNow on publish
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'src/content/posts/**'
+  workflow_dispatch:
+    inputs:
+      mode:
+        description: 'Submission mode'
+        type: choice
+        default: 'all'
+        options:
+          - all
+          - changed
+
+concurrency:
+  group: indexnow-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  ping:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 2
+
+      - name: Wait for Cloudflare to publish the new build
+        if: github.event_name == 'push'
+        run: sleep 150
+
+      - name: Submit URLs to IndexNow
+        env:
+          INDEXNOW_KEY: e98a31a13be44f5b8e06313f361e7820
+          EVENT_NAME: ${{ github.event_name }}
+          DISPATCH_MODE: ${{ github.event.inputs.mode || 'changed' }}
+        run: python3 .github/scripts/indexnow.py
