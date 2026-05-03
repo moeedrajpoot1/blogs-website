@@ -1,0 +1,41 @@
+---
+import { SITE } from '../consts';
+const year = new Date().getFullYear();
+---
+
+<footer class="mt-24 border-t border-ink-200 bg-white">
+  <div class="container-page py-12">
+    <div class="grid gap-10 sm:grid-cols-12">
+      <div class="sm:col-span-5">
+        <p class="font-serif text-xl font-semibold text-ink-900">Moeed Rajpoot</p>
+        <p class="mt-2 max-w-sm text-sm leading-relaxed text-ink-600">
+          A quiet corner of the internet for honest, tested writing on AI engineering.
+        </p>
+      </div>
+
+      <div class="sm:col-span-3">
+        <p class="mb-3 text-xs font-semibold uppercase tracking-wider text-ink-500">Topics</p>
+        <ul class="space-y-2 text-sm">
+          <li><a href="/tags/claude-code" class="text-ink-700 hover:text-accent">Claude Code</a></li>
+          <li><a href="/tags/claude-agent-sdk" class="text-ink-700 hover:text-accent">Agent SDK</a></li>
+          <li><a href="/tags/mcp" class="text-ink-700 hover:text-accent">MCP</a></li>
+          <li><a href="/tags/rag" class="text-ink-700 hover:text-accent">RAG</a></li>
+        </ul>
+      </div>
+
+      <div class="sm:col-span-4">
+        <p class="mb-3 text-xs font-semibold uppercase tracking-wider text-ink-500">Elsewhere</p>
+        <ul class="space-y-2 text-sm">
+          <li><a href={`https://github.com/${SITE.github}`} rel="me noopener" class="text-ink-700 hover:text-accent">GitHub</a></li>
+          <li><a href={`https://www.linkedin.com/in/${SITE.linkedin}`} rel="me noopener" class="text-ink-700 hover:text-accent">LinkedIn</a></li>
+          <li><a href={`mailto:${SITE.email}`} class="text-ink-700 hover:text-accent">Email</a></li>
+          <li><a href="/rss.xml" class="text-ink-700 hover:text-accent">RSS</a></li>
+        </ul>
+      </div>
+    </div>
+
+    <p class="mt-12 border-t border-ink-200 pt-6 text-xs text-ink-500">
+      © {year} {SITE.author}. Built with care.
+    </p>
+  </div>
+</footer>

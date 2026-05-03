@@ -1,0 +1,37 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import PostCard from '../../components/PostCard.astro';
+import { TAG_DESCRIPTIONS } from '../../consts';
+
+export async function getStaticPaths() {
+  const posts = await getCollection('posts', ({ data }) => !data.draft);
+  const tags = [...new Set(posts.flatMap((p) => p.data.tags))];
+  return tags.map((tag) => ({
+    params: { tag },
+    props: {
+      tag,
+      posts: posts
+        .filter((p) => p.data.tags.includes(tag))
+        .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf()),
+    },
+  }));
+}
+
+const { tag, posts } = Astro.props;
+const description = TAG_DESCRIPTIONS[tag] ?? `Articles about ${tag}.`;
+---
+
+<BaseLayout title={`${tag} articles`} description={description} tags={[tag]}>
+  <div class="container-page py-14">
+    <header class="mb-12 max-w-2xl">
+      <p class="mb-3 text-xs font-semibold uppercase tracking-wider text-accent">Topic</p>
+      <h1 class="mb-3 font-serif text-4xl font-semibold tracking-tight text-ink-900">{tag}</h1>
+      <p class="text-base leading-relaxed text-ink-600">{description}</p>
+    </header>
+
+    <div class="grid gap-12 sm:grid-cols-2">
+      {posts.map((post) => <PostCard post={post} />)}
+    </div>
+  </div>
+</BaseLayout>

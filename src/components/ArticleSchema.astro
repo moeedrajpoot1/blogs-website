@@ -1,0 +1,63 @@
+---
+// ArticleSchema.astro — JSON-LD structured data for blog posts.
+// Critical for Google rich results, AI Overview citations, and topical authority.
+import { SITE } from '../consts';
+
+interface Props {
+  title: string;
+  description: string;
+  url: string;
+  image?: string;
+  datePublished: Date;
+  dateModified?: Date;
+  author?: string;
+  tags?: string[];
+  wordCount?: number;
+}
+
+const {
+  title,
+  description,
+  url,
+  image = new URL(SITE.ogImage, SITE.url).toString(),
+  datePublished,
+  dateModified = datePublished,
+  author = SITE.author,
+  tags = [],
+  wordCount,
+} = Astro.props;
+
+const schema = {
+  '@context': 'https://schema.org',
+  '@type': 'BlogPosting',
+  headline: title,
+  description,
+  image: [image],
+  datePublished: datePublished.toISOString(),
+  dateModified: dateModified.toISOString(),
+  author: {
+    '@type': 'Person',
+    name: author,
+    url: SITE.url + '/about',
+    sameAs: [
+      `https://github.com/${SITE.github}`,
+      `https://www.linkedin.com/in/${SITE.linkedin}`,
+    ],
+  },
+  publisher: {
+    '@type': 'Person',
+    name: SITE.author,
+    url: SITE.url,
+  },
+  mainEntityOfPage: {
+    '@type': 'WebPage',
+    '@id': url,
+  },
+  url,
+  keywords: tags.join(', '),
+  ...(wordCount ? { wordCount } : {}),
+  inLanguage: SITE.locale,
+};
+---
+
+<script type="application/ld+json" set:html={JSON.stringify(schema)} />

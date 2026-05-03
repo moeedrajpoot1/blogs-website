@@ -1,0 +1,49 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import PersonSchema from '../components/PersonSchema.astro';
+import { SITE } from '../consts';
+---
+
+<BaseLayout
+  title="About Moeed Rajpoot"
+  description="A short note about who I am, what I write about, and how to get in touch."
+>
+  <PersonSchema slot="head" />
+
+  <div class="container-prose py-14">
+    <p class="mb-3 text-xs font-semibold uppercase tracking-wider text-accent">About</p>
+    <h1 class="mb-8 font-serif text-4xl font-semibold tracking-tight text-ink-900">Hi, I'm Moeed.</h1>
+
+    <article class="prose-blog">
+      <p>
+        I am a backend and AI engineer with five plus years of professional experience. I work across Python, Node.js, Go, and these days a lot of the LLM ecosystem.
+      </p>
+
+      <h2>What I write about</h2>
+      <p>
+        Most AI tutorials online are either marketing fluff or copied straight from the docs. I publish only what I have actually built and shipped, so the writing is closer to a notebook than to a brochure.
+      </p>
+      <ul>
+        <li><a href="/tags/claude-code">Claude Code</a>: hooks, slash commands, MCP integrations, real workflows.</li>
+        <li><a href="/tags/claude-agent-sdk">Claude Agent SDK</a>: building production agents with tool use, memory, and orchestration.</li>
+        <li><a href="/tags/mcp">MCP</a>: Model Context Protocol servers, from a first hello world to a real deployment.</li>
+        <li><a href="/tags/rag">RAG</a>: retrieval patterns that hold up under real data.</li>
+      </ul>
+
+      <h2>How I write</h2>
+      <p>
+        I try to keep the language simple. The tools are already complicated enough, so the writing should not add to that. Each article is meant to read like a friendly note from someone who has done the work, not a press release.
+      </p>
+
+      <h2>Work with me</h2>
+      <p>
+        I take on a small number of freelance and consulting projects each year, mostly around agent systems, RAG pipelines, and helping teams adopt Claude Code. If your work overlaps with that, feel free to reach out.
+      </p>
+      <ul>
+        <li>Email: <a href={`mailto:${SITE.email}`}>{SITE.email}</a></li>
+        <li>GitHub: <a href={`https://github.com/${SITE.github}`} rel="me">@{SITE.github}</a></li>
+        <li>LinkedIn: <a href={`https://www.linkedin.com/in/${SITE.linkedin}`} rel="me">moeed-rajpoot</a></li>
+      </ul>
+    </article>
+  </div>
+</BaseLayout>

@@ -1,0 +1,99 @@
+---
+import type { CollectionEntry } from 'astro:content';
+import BaseLayout from './BaseLayout.astro';
+import ArticleSchema from '../components/ArticleSchema.astro';
+import Breadcrumb from '../components/Breadcrumb.astro';
+import { SITE } from '../consts';
+
+interface Props {
+  post: CollectionEntry<'posts'>;
+  readingTime: string;
+  wordCount: number;
+}
+
+const { post, readingTime, wordCount } = Astro.props;
+const url = new URL(`/posts/${post.slug}`, SITE.url).toString();
+
+const formatted = post.data.pubDate.toLocaleDateString('en-US', {
+  year: 'numeric',
+  month: 'long',
+  day: 'numeric',
+});
+const updated = post.data.updatedDate?.toLocaleDateString('en-US', {
+  year: 'numeric',
+  month: 'long',
+  day: 'numeric',
+});
+---
+
+<BaseLayout
+  title={post.data.title}
+  description={post.data.description}
+  ogType="article"
+  publishedTime={post.data.pubDate}
+  modifiedTime={post.data.updatedDate}
+  tags={post.data.tags}
+>
+  <ArticleSchema
+    slot="head"
+    title={post.data.title}
+    description={post.data.description}
+    url={url}
+    datePublished={post.data.pubDate}
+    dateModified={post.data.updatedDate}
+    author={post.data.author}
+    tags={post.data.tags}
+    wordCount={wordCount}
+  />
+
+  <div class="container-prose pt-12 pb-16">
+    <Breadcrumb
+      items={[
+        { name: 'Home', url: '/' },
+        { name: 'Articles', url: '/archive' },
+        { name: post.data.title, url: `/posts/${post.slug}` },
+      ]}
+    />
+
+    <article data-pagefind-body>
+      <header class="mb-12">
+        <div class="mb-5 flex flex-wrap items-center gap-3 text-xs">
+          {post.data.tags.map((tag) => (
+            <a href={`/tags/${tag}`} class="font-medium uppercase tracking-wider text-accent hover:underline">
+              {tag}
+            </a>
+          ))}
+        </div>
+        <h1 class="mb-5 font-serif text-3xl font-semibold leading-tight tracking-tight text-ink-900 sm:text-4xl md:text-[2.75rem]">
+          {post.data.title}
+        </h1>
+        <p class="mb-8 font-serif text-lg leading-relaxed text-ink-600">
+          {post.data.description}
+        </p>
+        <div class="flex flex-wrap items-center gap-3 border-t border-ink-200 pt-5 text-sm text-ink-500">
+          <span>By <a href="/about" class="font-medium text-ink-900 hover:text-accent">{post.data.author}</a></span>
+          <span class="text-ink-300">·</span>
+          <time datetime={post.data.pubDate.toISOString()}>{formatted}</time>
+          {updated && <><span class="text-ink-300">·</span><span>Updated {updated}</span></>}
+          <span class="text-ink-300">·</span>
+          <span>{readingTime}</span>
+        </div>
+      </header>
+
+      <div class="prose-blog">
+        <slot />
+      </div>
+
+      <footer class="mt-16 border-t border-ink-200 pt-8">
+        <p class="mb-3 text-sm text-ink-600">
+          If this was useful, share it on
+          <a href={`https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(url)}`} rel="noopener" class="text-accent hover:underline">LinkedIn</a>.
+        </p>
+        <p class="text-sm text-ink-500">
+          Written by {post.data.author}, a backend and AI engineer.
+          <a href="/about" class="text-accent hover:underline">More about the author →</a>
+        </p>
+      </footer>
+    </article>
+  </div>
+</BaseLayout>

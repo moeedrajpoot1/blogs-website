@@ -1,0 +1,108 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../layouts/BaseLayout.astro';
+
+const posts = (await getCollection('posts', ({ data }) => !data.draft))
+  .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
+
+const allTags = [...new Set(posts.flatMap((p) => p.data.tags))].sort();
+
+// Group by year
+const byYear = posts.reduce<Record<number, typeof posts>>((acc, post) => {
+  const year = post.data.pubDate.getFullYear();
+  (acc[year] ||= []).push(post);
+  return acc;
+}, {});
+const years = Object.keys(byYear).map(Number).sort((a, b) => b - a);
+---
+
+<BaseLayout
+  title="All Articles"
+  description="A complete index of every article on Claude Code, Agent SDK, MCP, RAG, and AI engineering."
+>
+  <div class="container-page py-14">
+    <header class="mb-10 max-w-2xl">
+      <p class="mb-3 text-xs font-semibold uppercase tracking-wider text-accent">Library</p>
+      <h1 class="mb-3 font-serif text-4xl font-semibold tracking-tight text-ink-900">All articles</h1>
+      <p class="text-base leading-relaxed text-ink-600">
+        {posts.length} {posts.length === 1 ? 'article' : 'articles'} on AI engineering, sorted newest first. Use the filter below to narrow by topic.
+      </p>
+    </header>
+
+    <!-- Filter chips -->
+    <div class="mb-12 flex flex-wrap gap-2">
+      <button class="chip chip-active" data-filter="all">All</button>
+      {allTags.map((tag) => (
+        <button class="chip" data-filter={tag}>{tag}</button>
+      ))}
+    </div>
+
+    <div id="archive-list">
+      {years.map((year) => (
+        <section class="mb-12 archive-year" data-year={year}>
+          <h2 class="mb-4 font-serif text-xl font-semibold text-ink-700">{year}</h2>
+          <div class="border-t border-ink-200">
+            {byYear[year].map((post) => {
+              const date = post.data.pubDate.toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
+              return (
+                <article class="archive-item flex items-baseline justify-between gap-6 border-b border-ink-200 py-5" data-tags={post.data.tags.join(',')}>
+                  <div class="flex-1 min-w-0">
+                    <a href={`/posts/${post.slug}`} class="block group">
+                      <h3 class="font-serif text-lg font-semibold text-ink-900 group-hover:text-accent">
+                        {post.data.title}
+                      </h3>
+                      <p class="mt-1 text-sm text-ink-600 line-clamp-1">{post.data.description}</p>
+                      <div class="mt-2 flex flex-wrap gap-2 text-xs">
+                        {post.data.tags.slice(0, 3).map((tag) => (
+                          <span class="text-ink-500">#{tag}</span>
+                        ))}
+                      </div>
+                    </a>
+                  </div>
+                  <time class="shrink-0 font-mono text-xs text-ink-500" datetime={post.data.pubDate.toISOString()}>
+                    {date}
+                  </time>
+                </article>
+              );
+            })}
+          </div>
+        </section>
+      ))}
+    </div>
+
+    <p id="empty-state" class="hidden py-12 text-center text-ink-500">No articles match this filter yet.</p>
+  </div>
+</BaseLayout>
+
+<script is:inline>
+  document.addEventListener('DOMContentLoaded', () => {
+    const chips = document.querySelectorAll('[data-filter]');
+    const items = document.querySelectorAll('.archive-item');
+    const years = document.querySelectorAll('.archive-year');
+    const empty = document.getElementById('empty-state');
+
+    chips.forEach((chip) => {
+      chip.addEventListener('click', () => {
+        chips.forEach((c) => c.classList.remove('chip-active'));
+        chip.classList.add('chip-active');
+        const filter = chip.getAttribute('data-filter');
+        let visible = 0;
+
+        items.forEach((item) => {
+          const tags = (item.getAttribute('data-tags') || '').split(',');
+          const show = filter === 'all' || tags.includes(filter);
+          item.classList.toggle('hidden', !show);
+          if (show) visible++;
+        });
+
+        // Hide year headers with no visible items
+        years.forEach((section) => {
+          const visibleItems = section.querySelectorAll('.archive-item:not(.hidden)');
+          section.classList.toggle('hidden', visibleItems.length === 0);
+        });
+
+        empty.classList.toggle('hidden', visible > 0);
+      });
+    });
+  });
+</script>

@@ -1,0 +1,73 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;0,6..72,700;1,6..72,400&family=JetBrains+Mono:wght@400;500&display=swap');
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+  }
+  body {
+    @apply bg-ink-50 text-ink-800 font-sans;
+    font-feature-settings: 'cv02', 'cv03', 'cv04', 'cv11', 'ss01';
+  }
+  ::selection {
+    @apply bg-accent-soft text-ink-900;
+  }
+  h1, h2, h3, h4 {
+    @apply font-serif tracking-tight text-ink-900;
+    font-feature-settings: 'ss01', 'ss02';
+  }
+  hr {
+    @apply border-ink-200;
+  }
+}
+
+@layer components {
+  .container-prose {
+    @apply mx-auto w-full max-w-content px-5 sm:px-6;
+  }
+  .container-page {
+    @apply mx-auto w-full max-w-5xl px-5 sm:px-8;
+  }
+
+  .prose-blog {
+    @apply prose max-w-none
+           font-serif text-[1.0625rem] leading-[1.75]
+           prose-headings:font-serif prose-headings:scroll-mt-24
+           prose-h2:mt-14 prose-h2:mb-4 prose-h2:text-2xl prose-h2:font-semibold
+           prose-h3:mt-10 prose-h3:mb-3 prose-h3:text-xl prose-h3:font-semibold
+           prose-p:my-5
+           prose-a:text-accent prose-a:underline prose-a:underline-offset-4 prose-a:decoration-1 hover:prose-a:decoration-2
+           prose-strong:font-semibold prose-strong:text-ink-900
+           prose-blockquote:border-l-2 prose-blockquote:border-accent prose-blockquote:bg-accent-soft/30 prose-blockquote:py-1 prose-blockquote:px-5 prose-blockquote:font-normal prose-blockquote:not-italic prose-blockquote:text-ink-700
+           prose-code:rounded prose-code:bg-ink-100 prose-code:px-1.5 prose-code:py-0.5 prose-code:font-mono prose-code:text-[0.9em] prose-code:font-normal prose-code:text-ink-900
+           prose-pre:my-7 prose-pre:rounded-lg prose-pre:border prose-pre:border-ink-200 prose-pre:bg-ink-900 prose-pre:text-[0.9em] prose-pre:leading-relaxed
+           prose-img:rounded-lg prose-img:border prose-img:border-ink-200
+           prose-li:my-1
+           prose-table:text-[0.95em] prose-th:border-ink-200 prose-td:border-ink-200;
+  }
+
+  .chip {
+    @apply inline-flex items-center rounded-full border border-ink-200 bg-white px-3 py-1 text-xs font-medium text-ink-600 transition hover:border-ink-300 hover:bg-ink-100;
+  }
+  .chip-active {
+    @apply border-ink-900 bg-ink-900 text-white hover:bg-ink-800;
+  }
+}
+
+/* Pagefind UI styling overrides */
+:root {
+  --pagefind-ui-scale: 0.85;
+  --pagefind-ui-primary: #b1430b;
+  --pagefind-ui-text: #22251f;
+  --pagefind-ui-background: #ffffff;
+  --pagefind-ui-border: #e6e6e3;
+  --pagefind-ui-tag: #f4f4f2;
+  --pagefind-ui-border-width: 1px;
+  --pagefind-ui-border-radius: 8px;
+  --pagefind-ui-font: 'Inter', system-ui, sans-serif;
+}

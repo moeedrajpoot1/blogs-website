@@ -1,0 +1,32 @@
+---
+// PersonSchema.astro — homepage/about Person schema for E-E-A-T signals.
+// Helps Google associate articles with a real expert author.
+import { SITE } from '../consts';
+
+const schema = {
+  '@context': 'https://schema.org',
+  '@type': 'Person',
+  name: SITE.author,
+  url: SITE.url,
+  email: `mailto:${SITE.email}`,
+  jobTitle: 'Backend & AI Engineer',
+  description:
+    'Senior backend and AI engineer with 5+ years experience. Specializes in Claude Code, Claude Agent SDK, MCP servers, and production RAG systems.',
+  knowsAbout: [
+    'Claude Code',
+    'Claude Agent SDK',
+    'Model Context Protocol',
+    'Retrieval-Augmented Generation',
+    'AI Agents',
+    'Backend Engineering',
+    'Python',
+    'Node.js',
+  ],
+  sameAs: [
+    `https://github.com/${SITE.github}`,
+    `https://www.linkedin.com/in/${SITE.linkedin}`,
+  ],
+};
+---
+
+<script type="application/ld+json" set:html={JSON.stringify(schema)} />

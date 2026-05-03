@@ -1,0 +1,43 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { TAG_DESCRIPTIONS } from '../../consts';
+
+const posts = await getCollection('posts', ({ data }) => !data.draft);
+const tagCounts = posts.reduce<Record<string, number>>((acc, post) => {
+  for (const tag of post.data.tags) acc[tag] = (acc[tag] || 0) + 1;
+  return acc;
+}, {});
+const tags = Object.entries(tagCounts).sort((a, b) => b[1] - a[1]);
+---
+
+<BaseLayout
+  title="Topics"
+  description="Browse articles by topic. Pick the area you want to learn and start from there."
+>
+  <div class="container-page py-14">
+    <header class="mb-12 max-w-2xl">
+      <p class="mb-3 text-xs font-semibold uppercase tracking-wider text-accent">Topics</p>
+      <h1 class="mb-3 font-serif text-4xl font-semibold tracking-tight text-ink-900">Browse by topic</h1>
+      <p class="text-base leading-relaxed text-ink-600">
+        Each topic groups articles that build on each other. Pick the one closest to what you are working on.
+      </p>
+    </header>
+
+    <ul class="grid gap-px overflow-hidden rounded-xl border border-ink-200 bg-ink-200 sm:grid-cols-2">
+      {tags.map(([tag, count]) => (
+        <li class="bg-white">
+          <a href={`/tags/${tag}`} class="block p-6 transition hover:bg-ink-50">
+            <div class="mb-2 flex items-baseline justify-between">
+              <h2 class="font-serif text-lg font-semibold text-ink-900">{tag}</h2>
+              <span class="font-mono text-xs text-ink-500">{count}</span>
+            </div>
+            {TAG_DESCRIPTIONS[tag] && (
+              <p class="text-sm leading-relaxed text-ink-600">{TAG_DESCRIPTIONS[tag]}</p>
+            )}
+          </a>
+        </li>
+      ))}
+    </ul>
+  </div>
+</BaseLayout>
