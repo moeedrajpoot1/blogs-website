@@ -6,7 +6,7 @@ import { SITE } from './src/consts.ts';
 
 export default defineConfig({
   site: SITE.url,
-  trailingSlash: 'never',
+  trailingSlash: 'always',
   build: {
     format: 'directory',
   },
