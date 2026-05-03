@@ -1,23 +1,48 @@
 #!/usr/bin/env python3
-"""Submit blog post URLs to IndexNow so Bing, Yandex, and friends pick up
-new and updated articles within minutes instead of waiting for a sitemap
-re-crawl.
+"""Submit blog post URLs to IndexNow.
 
-Two modes:
+Used in two places:
 
-- changed: look at the most recent commit, find any added or modified
-  files under src/content/posts/, derive their public URLs, and submit
-  those plus the home and archive pages.
+  1. Automatically by the GitHub Action at .github/workflows/indexnow.yml
+     on every push that touches src/content/posts/.
 
-- all: fetch every URL from the production sitemap-0.xml and submit
-  the whole list. Useful for backfilling or after a domain change.
+  2. Manually from the command line, for ad-hoc pings without waiting
+     for a GitHub Action run.
 
-Mode is controlled by the EVENT_NAME and DISPATCH_MODE env vars, set
-by the GitHub Actions workflow.
+USAGE
+-----
+
+  # Detect added/modified posts in the latest commit and ping them.
+  # This is the default and is what the GitHub Action runs.
+  python3 .github/scripts/indexnow.py
+  python3 .github/scripts/indexnow.py --changed
+
+  # Ping every URL in the production sitemap. Useful for backfills.
+  python3 .github/scripts/indexnow.py --all
+
+  # Ping one or more specific URLs.
+  python3 .github/scripts/indexnow.py https://moeed.app/posts/foo/
+  python3 .github/scripts/indexnow.py \\
+      https://moeed.app/posts/foo/ \\
+      https://moeed.app/posts/bar/
+
+  # Show what would be sent without actually submitting.
+  python3 .github/scripts/indexnow.py --all --dry-run
+
+ENVIRONMENT
+-----------
+
+INDEXNOW_KEY  IndexNow API key. Defaults to the value baked into this
+              script if unset. Override only when rotating the key.
+
+The IndexNow key is not a secret; it has to be hosted publicly at
+https://moeed.app/<key>.txt for IndexNow to verify ownership. So it is
+safe to commit and to print in build logs.
 """
 
 from __future__ import annotations
 
+import argparse
 import json
 import os
 import subprocess
@@ -26,16 +51,21 @@ import urllib.error
 import urllib.request
 import xml.etree.ElementTree as ET
 
-KEY = os.environ['INDEXNOW_KEY']
+# --- Site config (edit these if the domain or key changes) -----------------
+
+DEFAULT_KEY = 'e98a31a13be44f5b8e06313f361e7820'
 HOST = 'moeed.app'
 SITE = f'https://{HOST}'
+
+# --- Derived ---------------------------------------------------------------
+
+KEY = os.environ.get('INDEXNOW_KEY', DEFAULT_KEY)
 KEY_LOCATION = f'{SITE}/{KEY}.txt'
-
-EVENT = os.environ.get('EVENT_NAME', 'push')
-DISPATCH_MODE = os.environ.get('DISPATCH_MODE', 'changed')
-
 POSTS_DIR = 'src/content/posts/'
+USER_AGENT = 'IndexNow-Pinger/1.0 (+moeed.app)'
 
+
+# --- URL collection --------------------------------------------------------
 
 def changed_post_urls() -> list[str]:
     """URLs of posts added or modified in the latest commit."""
@@ -45,7 +75,7 @@ def changed_post_urls() -> list[str]:
             capture_output=True, text=True, check=True,
         )
     except subprocess.CalledProcessError:
-        # First commit or a shallow clone with no parent; nothing to diff.
+        # Shallow clone or root commit, nothing to diff.
         return []
 
     files = [
@@ -59,11 +89,11 @@ def changed_post_urls() -> list[str]:
     return urls
 
 
-def all_post_urls_from_sitemap() -> list[str]:
+def all_urls_from_sitemap() -> list[str]:
     """Every URL listed in the production sitemap-0.xml."""
     req = urllib.request.Request(
         f'{SITE}/sitemap-0.xml',
-        headers={'User-Agent': 'IndexNow-Pinger/1.0 (+moeed.app)'},
+        headers={'User-Agent': USER_AGENT},
     )
     with urllib.request.urlopen(req, timeout=30) as resp:
         tree = ET.parse(resp)
@@ -71,7 +101,13 @@ def all_post_urls_from_sitemap() -> list[str]:
     return [loc.text for loc in tree.iter(f'{ns}loc') if loc.text]
 
 
-def submit(urls: list[str]) -> None:
+# --- Submission ------------------------------------------------------------
+
+def submit(urls: list[str], dry_run: bool = False) -> int:
+    if not urls:
+        print('No URLs to submit. Skipping.')
+        return 0
+
     payload = {
         'host': HOST,
         'key': KEY,
@@ -82,39 +118,78 @@ def submit(urls: list[str]) -> None:
     for u in urls:
         print(f'  - {u}')
 
+    if dry_run:
+        print('\n--dry-run: not actually submitting.')
+        return 0
+
     req = urllib.request.Request(
         'https://api.indexnow.org/indexnow',
         data=json.dumps(payload).encode(),
-        headers={'Content-Type': 'application/json'},
+        headers={'Content-Type': 'application/json', 'User-Agent': USER_AGENT},
         method='POST',
     )
     try:
         with urllib.request.urlopen(req, timeout=30) as resp:
             print(f'\nIndexNow accepted: HTTP {resp.status}')
+            return 0
     except urllib.error.HTTPError as e:
         body = e.read().decode(errors='replace')
         print(f'\nIndexNow rejected: HTTP {e.code}')
         print(body)
-        sys.exit(1)
+        return 1
+
+
+# --- CLI -------------------------------------------------------------------
+
+def parse_args() -> argparse.Namespace:
+    parser = argparse.ArgumentParser(
+        description='Submit URLs to IndexNow for moeed.app.',
+        formatter_class=argparse.RawDescriptionHelpFormatter,
+    )
+    group = parser.add_mutually_exclusive_group()
+    group.add_argument(
+        '--changed', action='store_true',
+        help='Submit posts added or modified in the latest commit (default).',
+    )
+    group.add_argument(
+        '--all', action='store_true',
+        help='Submit every URL listed in the production sitemap.',
+    )
+    parser.add_argument(
+        'urls', nargs='*',
+        help='Specific URLs to submit. Overrides --changed and --all.',
+    )
+    parser.add_argument(
+        '--dry-run', action='store_true',
+        help='Print what would be submitted without sending the request.',
+    )
+    return parser.parse_args()
+
+
+def resolve_urls(args: argparse.Namespace) -> list[str]:
+    # Honour the same env-var contract the GitHub Action used in earlier
+    # versions, so existing workflows keep working.
+    event = os.environ.get('EVENT_NAME')
+    dispatch_mode = os.environ.get('DISPATCH_MODE')
+
+    if args.urls:
+        return args.urls
+
+    if args.all or (event == 'workflow_dispatch' and dispatch_mode == 'all'):
+        return all_urls_from_sitemap()
+
+    # Default: changed mode.
+    urls = changed_post_urls()
+    if urls:
+        # When posts change, also re-ping the listing pages.
+        urls.extend([f'{SITE}/', f'{SITE}/archive/'])
+    return urls
 
 
 def main() -> int:
-    if EVENT == 'workflow_dispatch' and DISPATCH_MODE == 'all':
-        urls = all_post_urls_from_sitemap()
-        if not urls:
-            print('No URLs found in sitemap.')
-            return 1
-    else:
-        urls = changed_post_urls()
-        if not urls:
-            print('No post changes detected in this commit. Skipping IndexNow.')
-            return 0
-        # When posts change, also re-ping the home and archive,
-        # since their listings need to refresh too.
-        urls.extend([f'{SITE}/', f'{SITE}/archive/'])
-
-    submit(urls)
-    return 0
+    args = parse_args()
+    urls = resolve_urls(args)
+    return submit(urls, dry_run=args.dry_run)
 
 
 if __name__ == '__main__':
