@@ -29,3 +29,7 @@ pnpm-debug.log*
 
 # pagefind
 public/pagefind/
+
+# python
+__pycache__/
+*.pyc
