@@ -21,7 +21,7 @@ featured: true
 
 ![Claude Mythos: a new frontier in AI safety and security from Anthropic](/posts/claude-mythos-hero.jpg)
 
-Anthropic announced Claude Mythos on 7 April 2026, and the security side of the industry has not really been quiet since. The short version is this. Mythos is a new model from Anthropic that is unusually good at finding software vulnerabilities. So good that the company has chosen not to ship it as a public product. Access is being handed to a small group of partners, on conditions, under a program called Project Glasswing.
+Anthropic [announced Claude Mythos](https://red.anthropic.com/2026/mythos-preview/) on 7 April 2026, and the security side of the industry has not really been quiet since. The short version is this. Mythos is a new model from Anthropic that is unusually good at finding software vulnerabilities. So good that the company has chosen not to ship it as a public product. Access is being handed to a small group of partners, on conditions, under a program called Project Glasswing.
 
 If you have been seeing the words "mythos", "who has access to mythos", "mythos vulnerability" all over your timeline this week, this post is the plain explanation. What it is, what it has already found, who actually has the keys, and what it means if you are anywhere near security or platform engineering in 2026.
 
@@ -79,7 +79,7 @@ A core group of twelve large technology and security companies. Anthropic has na
 - Microsoft
 - Palo Alto Networks
 
-There are four more partners in the primary group that have not yet been named in Anthropic's announcement. The selection logic is straightforward. These are the companies whose code, hardware, or security products underpin the systems most other organisations rely on.
+[According to TechCrunch's coverage](https://techcrunch.com/2026/04/07/anthropic-mythos-ai-model-preview-security/), there are four more partners in the primary twelve that have not yet been named publicly. The selection logic is straightforward. These are the companies whose code, hardware, or security products underpin the systems most other organisations rely on.
 
 ### Around 40 additional organisations
 
@@ -166,6 +166,6 @@ Most AI launches in 2026 are about the next generation of chat. Mythos is not th
 
 Whether you think Project Glasswing is the right answer or not, the pattern it sets is going to show up again. Capability is moving faster than the markets and processes built around it. The labs are starting to ship the response to that reality, not just the capability itself.
 
-If you want a fuller picture of where Anthropic's models sit relative to the rest of the field, the [Claude Opus 4.7 vs GPT-5 comparison](/posts/claude-opus-4-7-vs-gpt-5) on this site walks through the developer-facing models you actually can build with today. For the agent and tool-use side of the same family, the [Claude Agent SDK vs LangChain piece](/posts/claude-agent-sdk-vs-langchain) is the better starting point.
+If you want a fuller picture of where Anthropic's models sit relative to the rest of the field, the [Claude Opus 4.7 vs GPT-5 comparison](/posts/claude-opus-4-7-vs-gpt-5) on this site walks through the developer-facing models you actually can build with today. For the agent and tool-use side of the same family, the [Claude Agent SDK vs LangChain piece](/posts/claude-agent-sdk-vs-langchain) is the better starting point. More on the broader [AI agents](/tags/ai-agents) topic on this site for follow-up reading.
 
 Mythos is the headline this week. The rest of the Claude lineup is still where the day-to-day work happens.
