@@ -81,6 +81,8 @@ A core group of twelve large technology and security companies. Anthropic has na
 
 [According to TechCrunch's coverage](https://techcrunch.com/2026/04/07/anthropic-mythos-ai-model-preview-security/), there are four more partners in the primary twelve that have not yet been named publicly. The selection logic is straightforward. These are the companies whose code, hardware, or security products underpin the systems most other organisations rely on.
 
+![Project Glasswing partner diagram showing the eight publicly named Claude Mythos partners — AWS, Apple, Broadcom, Microsoft, Cisco, Palo Alto Networks, CrowdStrike, and The Linux Foundation — along with four unnamed partner slots](/posts/claude-mythos-glasswing-partners.jpg)
+
 ### Around 40 additional organisations
 
 Beyond the primary twelve, Anthropic has granted **monitored access to roughly 40 more organisations** that build or maintain critical software. Think open-source maintainers, infrastructure projects, security research groups. They get the model under tighter logging and review than the primary partners, and the use cases they are allowed to pursue are narrower.
