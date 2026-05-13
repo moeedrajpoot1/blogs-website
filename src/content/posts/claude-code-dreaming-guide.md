@@ -19,6 +19,8 @@ keywords: [
 featured: true
 ---
 
+![Claude Code Dreaming Explained — AutoDream cleans MEMORY.md in the background, /dream runs it on demand](/posts/claude-code-dreaming-hero.png)
+
 If you have used Claude Code on the same project for more than a week, you have probably watched your memory files slowly turn into a mess. A few notes here. A list of conventions there. Some half-written instructions that were urgent on Tuesday and are stale by Friday. By the time you notice, your `MEMORY.md` is a few hundred lines long and Claude is using maybe a tenth of it.
 
 Dreaming is the feature Anthropic shipped to fix this.
