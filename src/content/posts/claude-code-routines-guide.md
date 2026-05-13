@@ -19,6 +19,8 @@ keywords: [
 featured: true
 ---
 
+![7 Claude Code Routines that save hours each week — scheduled, API and GitHub triggers, with a cloud session flow and the seven workflows: nightly issue triage, PR review pre-pass, Friday changelog, stale branch sweeper, dependency report, customer support synthesis, documentation drift watch](/posts/claude-code-routines-hero.png)
+
 For a long time, Claude Code felt like a power tool you had to pick up and put down. You opened the terminal, did the work, and closed it. If you wanted Claude to do something while your laptop was asleep — review a pull request, scan new issues, summarise the week — you needed a separate setup. A cron job, a GitHub Action, some glue code, and a way to keep your credentials safe.
 
 Routines remove all of that.
