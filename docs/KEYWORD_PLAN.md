@@ -19,11 +19,12 @@ Each pillar gets 6–7 articles. Each article targets a specific long-tail keywo
 |---|---|---|---|
 | 1 | Claude Code Hooks: The Complete Guide | "claude code hooks" | ✅ Published |
 | 2 | Claude Code Slash Commands Cheatsheet | "claude code slash commands" | TODO |
-| 3 | Claude Code vs Cursor: Honest Comparison | "claude code vs cursor" | TODO |
-| 4 | Claude Code MCP Setup in 5 Minutes | "claude code mcp" | TODO |
-| 5 | Best Claude Code Settings for Teams | "claude code settings.json" | TODO |
-| 6 | Claude Code in Docker / CI | "claude code ci" | TODO |
-| 7 | Claude Code Memory & CLAUDE.md Patterns | "claude code memory" | TODO |
+| 3 | Claude Code vs Cursor: 90 Days With Both | "claude code vs cursor" | ✅ Published |
+| 4 | Claude Code Ultraplan: Hands-On Guide | "claude code ultraplan" | ✅ Published |
+| 5 | Claude Code MCP Setup in 5 Minutes | "claude code mcp" | TODO |
+| 6 | Best Claude Code Settings for Teams | "claude code settings.json" | TODO |
+| 7 | Claude Code in Docker / CI | "claude code ci" | TODO |
+| 8 | Claude Code Memory & CLAUDE.md Patterns | "claude code memory" | TODO |
 
 ## Cluster 2: Claude Agent SDK
 
