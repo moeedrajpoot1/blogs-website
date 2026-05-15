@@ -5,7 +5,9 @@ pubDate: 2026-05-15
 author: "Moeed Rajpoot"
 tags: ["claude-code", "tutorials", "ai-agents", "ultraplan"]
 keywords: ["claude code ultraplan", "ultraplan claude code", "claude code cloud planning", "claude code plan mode", "ultraplan tutorial"]
-featured: true
+heroImage: "/posts/claude-code-ultraplan-hero.png"
+heroAlt: "Claude Code Ultraplan flow diagram — plan in terminal, review in browser, execute in cloud or back in terminal"
+featured: false
 ---
 
 The biggest annoyance with Claude Code's plan mode has always been that long plans are painful to read in a terminal. You scroll, you lose your place, you type a revision request, you scroll again. For a small change this is fine. For a forty-step migration it is awful.

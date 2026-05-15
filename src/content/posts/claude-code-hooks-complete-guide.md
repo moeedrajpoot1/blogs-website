@@ -183,9 +183,11 @@ Yes, and it is the recommended pattern. Commit `.claude/settings.json` and any s
 
 ## Where to go next
 
-Hooks pair well with two other Claude Code features.
+Hooks pair well with several other Claude Code features.
 
 - The [Claude Agent SDK and how it compares to LangChain](/posts/claude-agent-sdk-vs-langchain) for when you want to build your own version of Claude Code into a product.
 - [How to build your first MCP server](/posts/build-your-first-mcp-server) if you want to give Claude Code custom tools.
+- [Claude Code Ultraplan](/posts/claude-code-ultraplan-guide) when a task is too big to plan comfortably in the terminal and you want to draft the plan in the cloud.
+- [Claude Code Dreaming](/posts/claude-code-dreaming-guide) for the maintenance layer that keeps your `MEMORY.md` from rotting between sessions.
 
 Once you have written three or four hooks, the editor starts to feel less like a stranger and more like a tool that knows your team. That is the whole point. Spend an hour on hooks today, and your future self will quietly thank you for the next year.

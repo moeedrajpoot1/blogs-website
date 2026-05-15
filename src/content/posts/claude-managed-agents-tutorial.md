@@ -16,7 +16,7 @@ keywords: [
   "claude agent sessions",
   "claude agent environments"
 ]
-featured: true
+featured: false
 ---
 
 If you have ever tried to ship an AI agent to production, you already know the part nobody warns you about. The model is the easy bit. The real work is the harness around it. A safe place to run code. A way to keep state. A way to stream events back. Tool execution that does not crash on the third call. A queue. Logs. Retries. By the time the agent does anything useful, you have written a small distributed system.
@@ -310,11 +310,13 @@ Yes. Environments support mounted files in their config. Put your prompts, datas
 
 Managed Agents is the easiest production path Anthropic has shipped. The pattern is small enough to fit in your head: agent, environment, session, events. Once you have one running, the rest is shaping the system prompt, tightening the network policy, and wiring up the right tools.
 
-If you want to go deeper, three places I would point you next:
+If you want to go deeper, four places I would point you next:
 
 - The [first MCP server walkthrough](/posts/build-your-first-mcp-server) for plugging your own tools into the agent.
 - The [Claude Agent SDK vs LangChain comparison](/posts/claude-agent-sdk-vs-langchain) for picking the right harness when you outgrow the managed runtime.
 - The [Claude Code skills guide](/posts/claude-code-skills-complete-guide) and the [hooks guide](/posts/claude-code-hooks-complete-guide) — both translate cleanly to skills you can attach to a Managed Agent.
+- The [agentic RAG tutorial](/posts/agentic-rag-tutorial) for the most common knowledge-retrieval pattern these agents end up needing.
+- The [Claude Code Outcomes guide](/posts/claude-code-outcomes-guide) for adding a rubric-graded check on the agent's output so quality is measurable, not just felt.
 
 The ecosystem around all of this is moving fast. The stable parts are the four concepts above. Build your first session today, and you have a foundation that survives most of the changes still on the roadmap.
 

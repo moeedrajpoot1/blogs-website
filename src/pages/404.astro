@@ -1,14 +1,37 @@
 ---
+import { getCollection } from 'astro:content';
 import BaseLayout from '../layouts/BaseLayout.astro';
+
+const popular = (await getCollection('posts', ({ data }) => !data.draft && data.featured))
+  .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf())
+  .slice(0, 5);
 ---
 
 <BaseLayout title="Page not found" description="The page you are looking for does not exist." noindex>
-  <div class="container-prose py-24 text-center">
-    <p class="mb-2 font-mono text-sm text-ink-500">404</p>
-    <h1 class="mb-4 font-serif text-4xl font-semibold text-ink-900">This page does not exist.</h1>
-    <p class="mb-8 text-ink-600">The link may be wrong, or the page may have moved.</p>
-    <a href="/" class="inline-flex rounded-full bg-ink-900 px-5 py-2.5 text-sm font-medium text-white hover:bg-ink-800">
-      Back to home
-    </a>
+  <div class="container-prose py-20">
+    <div class="mb-12 text-center">
+      <p class="mb-2 font-mono text-sm text-ink-500">404</p>
+      <h1 class="mb-4 font-serif text-4xl font-semibold text-ink-900">This page does not exist.</h1>
+      <p class="mb-8 text-ink-600">The link may be wrong, or the page may have moved.</p>
+      <a href="/" class="inline-flex rounded-full bg-ink-900 px-5 py-2.5 text-sm font-medium text-white hover:bg-ink-800">
+        Back to home
+      </a>
+    </div>
+
+    {popular.length > 0 && (
+      <section class="border-t border-ink-200 pt-10">
+        <h2 class="mb-6 font-serif text-xl font-semibold text-ink-900">Popular articles</h2>
+        <ul class="space-y-4">
+          {popular.map((p) => (
+            <li>
+              <a href={`/posts/${p.slug}`} class="group block">
+                <h3 class="text-base font-semibold text-ink-900 group-hover:text-accent">{p.data.title}</h3>
+                <p class="line-clamp-2 text-sm text-ink-600">{p.data.description}</p>
+              </a>
+            </li>
+          ))}
+        </ul>
+      </section>
+    )}
   </div>
 </BaseLayout>

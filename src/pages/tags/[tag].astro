@@ -22,7 +22,7 @@ const { tag, posts } = Astro.props;
 const description = TAG_DESCRIPTIONS[tag] ?? `Articles about ${tag}.`;
 ---
 
-<BaseLayout title={`${tag} articles`} description={description} tags={[tag]}>
+<BaseLayout title={`${tag} articles`} description={description} tags={[tag]} noindex={posts.length < 3}>
   <div class="container-page py-14">
     <header class="mb-12 max-w-2xl">
       <p class="mb-3 text-xs font-semibold uppercase tracking-wider text-accent">Topic</p>

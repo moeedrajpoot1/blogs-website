@@ -16,7 +16,7 @@ keywords: [
   "claude code feature comparison",
   "claude code 2026"
 ]
-featured: true
+featured: false
 ---
 
 If you have spent more than a week with Claude Code, you have probably hit this question. You want Claude to do something repeatable. Should it be a skill? A slash command? An MCP server? A subagent? A hook? Each one feels like it could work, the docs treat them as separate concepts, and the lines between them are genuinely fuzzy.
@@ -236,3 +236,11 @@ The whole point of having four features is that "extending an AI agent" is not o
 If you are setting up Claude Code on a new repo today, the order I would suggest is the same as the decision tree. Start with a `CLAUDE.md` for always-on context. Add one or two **skills** for the conventions you keep repeating. Add one **hook** for the rule you cannot afford to forget. Add one **MCP server** when there is a system Claude clearly cannot reach. Reach for **subagents** when, and only when, you start seeing context pollution from heavy tasks.
 
 Three of those changes can ship this week. The fourth comes when you actually need it. That is the right pace.
+
+## Where to go next
+
+Once you have the four primitives in place, two more pieces fill out the picture for serious use.
+
+- [Claude Code Ultraplan](/posts/claude-code-ultraplan-guide) takes the planning phase to the cloud, which matters once tasks get too large to plan comfortably in a terminal.
+- [Claude Code Outcomes](/posts/claude-code-outcomes-guide) adds a rubric-graded check so the agent's work is judged on real criteria, not just "looks fine to me."
+- [Claude Code vs Cursor](/posts/claude-code-vs-cursor) is worth a read if you are still picking a primary AI coding tool.

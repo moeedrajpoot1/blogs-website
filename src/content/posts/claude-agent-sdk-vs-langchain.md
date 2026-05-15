@@ -5,7 +5,7 @@ pubDate: 2026-05-04
 author: "Moeed Rajpoot"
 tags: ["claude-agent-sdk", "ai-agents", "tutorials"]
 keywords: ["claude agent sdk", "langchain vs claude", "agent framework comparison", "production ai agents", "anthropic sdk"]
-featured: false
+featured: true
 ---
 
 If you are about to start a new agent project in 2026, the two main libraries you will compare are the Claude Agent SDK and LangChain. Both let you build AI agents that use tools, manage context, and run multi step workflows. They aim at the same problem, but they take different paths to get there. Picking the wrong one will not ruin your project, but it can cost you a few weeks of unnecessary refactoring.
@@ -160,5 +160,7 @@ This stack ships in days, not weeks, and it scales cleanly when the project grow
 
 - [Claude Code hooks: a friendly guide](/posts/claude-code-hooks-complete-guide), since the same hook system shows up in the SDK.
 - [How to build your first MCP server](/posts/build-your-first-mcp-server), to extend either library with custom tools.
+- [Agentic RAG with the Claude Agent SDK and pgvector](/posts/agentic-rag-tutorial), if your agent needs to read from a private knowledge base.
+- [Claude Managed Agents tutorial](/posts/claude-managed-agents-tutorial), for the production runtime that handles sessions, sandboxes, and rate limits for you.
 
 The truth is, the framework matters less than getting your first agent into production this week. Pick one. Ship something small. Iterate from there. Both libraries are good enough that the decision will not block you.

@@ -16,7 +16,9 @@ keywords: [
   "claude code sleep mode",
   "claude code 2026"
 ]
-featured: true
+heroImage: "/posts/claude-code-dreaming-hero.png"
+heroAlt: "Claude Code Dreaming Explained — AutoDream cleans MEMORY.md in the background, /dream runs it on demand"
+featured: false
 ---
 
 ![Claude Code Dreaming Explained — AutoDream cleans MEMORY.md in the background, /dream runs it on demand](/posts/claude-code-dreaming-hero.png)

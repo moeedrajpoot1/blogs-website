@@ -16,7 +16,9 @@ keywords: [
   "claude mythos preview",
   "mythos zero day"
 ]
-featured: true
+heroImage: "/posts/claude-mythos-hero.jpg"
+heroAlt: "Claude Mythos: a new frontier in AI safety and security from Anthropic"
+featured: false
 ---
 
 ![Claude Mythos: a new frontier in AI safety and security from Anthropic](/posts/claude-mythos-hero.jpg)

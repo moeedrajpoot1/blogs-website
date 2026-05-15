@@ -11,6 +11,7 @@ export const SITE = {
   email: 'moeedrajpoot1@gmail.com',
   github: 'moeedrajpoot1',
   linkedin: 'moeed-rajpoot',
+  twitter: 'moeedrajpoot',
   locale: 'en-US',
   ogImage: '/og-default.png',
   themeColor: '#0b1020',

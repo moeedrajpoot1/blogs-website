@@ -16,7 +16,9 @@ keywords: [
   "claude routines examples",
   "claude code 2026"
 ]
-featured: true
+heroImage: "/posts/claude-code-routines-hero.png"
+heroAlt: "7 Claude Code Routines: scheduled, API and GitHub triggers with a cloud session flow"
+featured: false
 ---
 
 ![7 Claude Code Routines that save hours each week — scheduled, API and GitHub triggers, with a cloud session flow and the seven workflows: nightly issue triage, PR review pre-pass, Friday changelog, stale branch sweeper, dependency report, customer support synthesis, documentation drift watch](/posts/claude-code-routines-hero.png)
@@ -285,3 +287,9 @@ The thing routines change is not the work Claude Code can do. It is whether that
 A weekly changelog you intend to write rarely gets written. A weekly changelog that writes itself and opens a PR for your review does. Multiply that across triage, review, dependency reports, and docs drift, and the change is not a productivity boost — it is a different relationship with your repo. You stop being the only person who notices.
 
 If you have not set one up yet, the issue triage routine is the best place to start. Pick a repo. Write the prompt. Run it manually once. Schedule it for 7am tomorrow. You will know within two days whether it earns its place. Most do.
+
+## Related reading
+
+- [Claude Code Ultraplan](/posts/claude-code-ultraplan-guide) for moving long planning sessions out of the terminal entirely.
+- [Claude Code Outcomes](/posts/claude-code-outcomes-guide) for graded quality checks on the work a routine produces, so you can trust it to run unattended.
+- [Claude Code Dreaming](/posts/claude-code-dreaming-guide) for keeping memory files coherent across the many sessions a heavy routine schedule will generate.

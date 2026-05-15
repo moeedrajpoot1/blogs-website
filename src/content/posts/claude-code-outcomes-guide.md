@@ -16,7 +16,7 @@ keywords: [
   "claude code 2026 features",
   "code with claude 2026"
 ]
-featured: true
+featured: false
 ---
 
 If you have spent time pushing Claude Code on real work, you have probably hit the same problem I have. The agent does the task. The output looks fine on the surface. You scroll through it, find a small but real mistake on line forty, and now you are stuck in the loop of "almost right, ask again, almost right, ask again". The model is not bad. It just does not know what you actually meant by "done".

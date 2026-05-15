@@ -16,7 +16,7 @@ keywords: [
   "whatsapp liquid glass android",
   "whatsapp floating chat bar"
 ]
-featured: true
+featured: false
 ---
 
 If you have updated your iPhone recently, you may have noticed something different about WhatsApp. The tab bar feels lighter. The message input floats. Buttons seem to pick up colors from whatever wallpaper is behind them. That is not a bug. It is the new Liquid Glass look that WhatsApp is rolling out on iOS 26.

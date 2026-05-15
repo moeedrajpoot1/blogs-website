@@ -5,7 +5,7 @@ pubDate: 2026-05-04
 author: "Moeed Rajpoot"
 tags: ["rag", "ai-agents", "tutorials", "claude-agent-sdk"]
 keywords: ["agentic rag tutorial", "agentic rag vs rag", "agentic rag claude", "agentic rag python", "agentic rag pgvector"]
-featured: false
+featured: true
 ---
 
 If you have built a RAG system before, you may have noticed a pattern. The system always retrieves, even when it does not need to. It always retrieves the same number of chunks. It always reads them in the same order. The retrieval step is fixed, and the language model has to deal with whatever comes back.

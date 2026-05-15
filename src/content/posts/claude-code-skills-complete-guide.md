@@ -16,7 +16,7 @@ keywords: [
   "claude code skills examples",
   "claude code skills 2026"
 ]
-featured: true
+featured: false
 ---
 
 If you have spent any real time with Claude Code, you have probably noticed the same problem I did. You write the same instructions in the prompt every other day. "Use four-space indentation here." "Always run the linter after edits." "Format commit messages this way." After the third or fourth repeat, it stops feeling like a prompt and starts feeling like missing config.
@@ -281,3 +281,5 @@ The reason skills matter is not that they are clever. It is that they remove the
 Start with one. The smallest one you can think of. A commit format, a lint rule, a PR template. Once one is working, write the next one. Within a week or two you will have a folder of small files that quietly shape how Claude works on your project, and you will wonder how you ever managed without them.
 
 If you are extending Claude Code with [hooks for shell-level enforcement](/posts/claude-code-hooks-complete-guide) or [building MCP servers for richer integrations](/posts/build-your-first-mcp-server), skills sit comfortably between the two: lighter than a server, more flexible than a hook, and easier to share across a team than either.
+
+Two related reads if you want to round out the picture. [Claude Code Dreaming](/posts/claude-code-dreaming-guide) explains the maintenance layer that keeps your memory and skill notes coherent across sessions. [Claude Code Outcomes](/posts/claude-code-outcomes-guide) explains how to add a rubric-graded check so a skill's output is judged on more than vibes.

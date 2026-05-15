@@ -5,7 +5,7 @@ pubDate: 2026-05-04
 author: "Moeed Rajpoot"
 tags: ["claude-agent-sdk", "ai-agents", "tutorials"]
 keywords: ["claude opus 4.7 vs gpt-5", "best llm 2026", "anthropic vs openai 2026", "claude 4.7 review", "gpt-5 vs claude"]
-featured: true
+featured: false
 ---
 
 If you have been keeping an eye on language models in 2026, you are likely choosing between two big names. On one side, Claude Opus 4.7 from Anthropic. On the other, GPT-5 from OpenAI. Both are excellent. Both are expensive. Both have small but real strengths the other does not.
@@ -183,6 +183,8 @@ Probably not. Both providers ship steady improvements every few months. If you w
 ## Where to go next
 
 If you are leaning toward Claude, the [Claude Agent SDK guide](/posts/claude-agent-sdk-vs-langchain) is the next step for production work, and the [Claude Code hooks guide](/posts/claude-code-hooks-complete-guide) is the next step for everyday coding workflows.
+
+Anthropic is also building specialized models on top of the Claude family. [Claude Mythos](/posts/claude-mythos-explained), the security-focused model rolled out through Project Glasswing, is one of the most interesting examples and worth a read if you work on application security.
 
 If you are leaning toward GPT-5, OpenAI's own docs are the best starting point. There is no equivalent of MCP in the OpenAI ecosystem yet, but the Responses API has matured nicely and covers most of the same use cases inside their own walls.
 

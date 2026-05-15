@@ -9,9 +9,10 @@ interface Props {
   post: CollectionEntry<'posts'>;
   readingTime: string;
   wordCount: number;
+  related?: CollectionEntry<'posts'>[];
 }
 
-const { post, readingTime, wordCount } = Astro.props;
+const { post, readingTime, wordCount, related = [] } = Astro.props;
 const url = new URL(`/posts/${post.slug}`, SITE.url).toString();
 
 const formatted = post.data.pubDate.toLocaleDateString('en-US', {
@@ -30,6 +31,7 @@ const updated = post.data.updatedDate?.toLocaleDateString('en-US', {
   title={post.data.title}
   description={post.data.description}
   ogType="article"
+  ogImage={post.data.heroImage}
   publishedTime={post.data.pubDate}
   modifiedTime={post.data.updatedDate}
   tags={post.data.tags}
@@ -39,6 +41,7 @@ const updated = post.data.updatedDate?.toLocaleDateString('en-US', {
     title={post.data.title}
     description={post.data.description}
     url={url}
+    image={post.data.heroImage}
     datePublished={post.data.pubDate}
     dateModified={post.data.updatedDate}
     author={post.data.author}
@@ -87,7 +90,9 @@ const updated = post.data.updatedDate?.toLocaleDateString('en-US', {
       <footer class="mt-16 border-t border-ink-200 pt-8">
         <p class="mb-3 text-sm text-ink-600">
           If this was useful, share it on
-          <a href={`https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(url)}`} rel="noopener" class="text-accent hover:underline">LinkedIn</a>.
+          <a href={`https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(url)}`} rel="noopener" class="text-accent hover:underline">LinkedIn</a>
+          or
+          <a href={`https://twitter.com/intent/tweet?url=${encodeURIComponent(url)}&text=${encodeURIComponent(post.data.title)}`} rel="noopener" class="text-accent hover:underline">X</a>.
         </p>
         <p class="text-sm text-ink-500">
           Written by {post.data.author}, a backend and AI engineer.
@@ -95,5 +100,25 @@ const updated = post.data.updatedDate?.toLocaleDateString('en-US', {
         </p>
       </footer>
     </article>
+
+    {related.length > 0 && (
+      <aside class="mt-16 border-t border-ink-200 pt-10" aria-label="Related articles">
+        <h2 class="mb-6 font-serif text-2xl font-semibold text-ink-900">Keep reading</h2>
+        <ul class="grid gap-6 sm:grid-cols-3">
+          {related.map((r) => (
+            <li>
+              <a href={`/posts/${r.slug}`} class="group block">
+                <h3 class="mb-2 text-base font-semibold text-ink-900 group-hover:text-accent">
+                  {r.data.title}
+                </h3>
+                <p class="line-clamp-3 text-sm leading-relaxed text-ink-600">
+                  {r.data.description}
+                </p>
+              </a>
+            </li>
+          ))}
+        </ul>
+      </aside>
+    )}
   </div>
 </BaseLayout>
