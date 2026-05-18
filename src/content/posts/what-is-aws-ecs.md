@@ -18,6 +18,8 @@ This guide assumes you know none of them. We will build the picture from the gro
 
 > Amazon ECS is a managed container orchestration service. You hand it a container image, describe how you want it to run, and ECS places it on compute, keeps it healthy, scales it, and wires it to networking. It runs containers either on EC2 servers you own or on Fargate, where AWS owns the servers and you never see them.
 
+![How AWS ECS works end to end: a Dockerfile builds the image, ECR stores it, ECS runs and scales and heals it, an ALB routes traffic to users](/posts/what-is-aws-ecs-hero.png)
+
 ## First, what a container actually is
 
 Skip this section if you already work with Docker. If you do not, this is the foundation everything else sits on.
@@ -80,6 +82,8 @@ EC2 and ECS are not competitors. They are not two ways to do the same thing. The
 
 So the relationship is not "ECS or EC2." It is often "ECS running containers on top of EC2." ECS is the head chef. EC2 is the kitchen the chef works in. You can also choose a kitchen you never see or maintain, which is **Fargate**: AWS's serverless way to run containers, where there is no server for you to create, log into, or patch. We cover Fargate properly in its own section below, but keep that one-line meaning in mind, because it shows up in the diagram at the top of this article and you should not have to wait to know what it means.
 
+![ECS and EC2 are different layers: ECS is the orchestration layer with tasks, services, and the scheduler, sitting on top of a compute layer that is either EC2 instances you manage or serverless Fargate, which in turn sits on AWS infrastructure](/posts/what-is-aws-ecs-layers.png)
+
 Here is the comparison most beginners actually need:
 
 | | EC2 (on its own) | ECS |
@@ -130,6 +134,8 @@ A cluster is the logical box that holds the above. Our service and its tasks wou
 ### One more, for the EC2 launch type
 
 If you run on the EC2 launch type, there is a fifth piece: the **container agent**, a small program on each EC2 machine that lets ECS talk to it. With Fargate you never see the agent because you never see the machine. If "Fargate" still feels vague, the next section defines it properly.
+
+![How the ECS pieces fit: a task definition is the blueprint that becomes a running task; a service keeps N tasks running, each task holding a container; all of it lives inside a cluster](/posts/what-is-aws-ecs-concepts.png)
 
 ## Where ECS actually runs your containers
 
