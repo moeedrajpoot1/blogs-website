@@ -59,6 +59,21 @@ Each pillar gets 6–7 articles. Each article targets a specific long-tail keywo
 | 24 | Reranking Strategies that Actually Work | "rag reranking" | TODO |
 | 25 | RAG Evaluation: Metrics that Matter | "rag evaluation" | TODO |
 
+## Cluster 5: AWS / DevOps
+
+Second content pillar, backed by first-hand DevOps experience (real E-E-A-T, not keyword-chasing). The ECS guide is the pillar; siblings link back to it and sideways to each other. This cluster also has the strongest affiliate potential after RAG, since DevOps readers have budget authority.
+
+| # | Article | Primary keyword | Status |
+|---|---|---|---|
+| 26 | What Is AWS ECS and How It Works (Beginner Guide) | "what is aws ecs" | ✅ Published |
+| 27 | What Is AWS ECR and How It Works | "what is aws ecr" | In progress |
+| 28 | ECS vs EKS: Which One to Pick | "ecs vs eks" | TODO |
+| 29 | Fargate vs EC2 Launch Type: Cost Breakdown | "fargate vs ec2 cost" | TODO |
+| 30 | Deploy a Docker Container to ECS Fargate | "deploy docker to ecs fargate" | TODO |
+| 31 | ECS CI/CD with GitHub Actions | "ecs github actions deploy" | TODO |
+| 32 | Fixing CannotPullContainerError in ECS | "cannotpullcontainererror ecs" | TODO |
+| 33 | ECS Networking: VPC, Subnets, ALB Explained | "ecs networking explained" | TODO |
+
 ## Affiliate opportunities by cluster
 
 | Cluster | Affiliate programs |
@@ -67,8 +82,9 @@ Each pillar gets 6–7 articles. Each article targets a specific long-tail keywo
 | Agent SDK | Anthropic credits via partner programs, observability tools |
 | MCP | Tooling vendors building MCP servers |
 | RAG | **Pinecone**, **Weaviate**, **Qdrant Cloud**, **Voyage AI**, **Cohere** — $50–200/conversion |
+| AWS / DevOps | **Better Stack**, **Datadog**, **Vantage**, **CloudZero**, **Pulumi**, **Spacelift**, **Snyk** — recurring commissions; the Fargate-vs-EC2 cost post is the natural placement for cost tools |
 
-The RAG cluster has the strongest affiliate revenue potential. Prioritize publishing those once 2 articles in each other cluster are live.
+The RAG cluster has the strongest affiliate revenue potential, with AWS/DevOps a close second. Prioritize publishing those once 2 articles in each other cluster are live.
 
 ## Publishing cadence
 
