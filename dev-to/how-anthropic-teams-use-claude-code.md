@@ -4,6 +4,7 @@ published: true
 description: A plain summary of Anthropic's internal report on how its own teams use Claude Code, plus the parts a normal developer can actually copy.
 tags: claudecode, ai, productivity, tutorial
 canonical_url: https://moeed.app/posts/how-anthropic-teams-use-claude-code/
+cover_image: https://moeed.app/posts/how-anthropic-teams-use-claude-code-hero.png
 ---
 
 Anthropic published a report on how its own staff use Claude Code. It comes from interviews with internal power users across ten teams, including non-technical ones like legal and marketing. A lot of people have been looking for the PDF, so here is the short version plus the parts that matter even if you are one person and not a company with a large monorepo.

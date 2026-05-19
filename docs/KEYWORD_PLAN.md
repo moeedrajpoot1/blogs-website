@@ -70,13 +70,16 @@ Second content pillar, backed by first-hand DevOps experience (real E-E-A-T, not
 | # | Article | Primary keyword | Status |
 |---|---|---|---|
 | 26 | What Is AWS ECS and How It Works (Beginner Guide) | "what is aws ecs" | ✅ Published |
-| 27 | What Is AWS ECR and How It Works | "what is aws ecr" | In progress |
+| 27 | What Is AWS ECR and How It Works | "what is aws ecr" | ✅ Published |
 | 28 | ECS vs EKS: Which One to Pick | "ecs vs eks" | TODO |
 | 29 | Fargate vs EC2 Launch Type: Cost Breakdown | "fargate vs ec2 cost" | TODO |
 | 30 | Deploy a Docker Container to ECS Fargate | "deploy docker to ecs fargate" | TODO |
 | 31 | ECS CI/CD with GitHub Actions | "ecs github actions deploy" | TODO |
 | 32 | Fixing CannotPullContainerError in ECS | "cannotpullcontainererror ecs" | TODO |
 | 33 | ECS Networking: VPC, Subnets, ALB Explained | "ecs networking explained" | TODO |
+| 34 | What Is AWS ECS Express Mode (and When to Use It) | "what is aws ecs express mode" | ✅ Published |
+
+Article 34 added from May 2026 trend research: ECS Express Mode (re:Invent 2025 feature, adoption rising through 2026) had a weak SERP (AWS docs + conference recaps, no quality beginner explainer) and slots straight into the ECS pillar for fast indexing.
 
 ## Affiliate opportunities by cluster
 
