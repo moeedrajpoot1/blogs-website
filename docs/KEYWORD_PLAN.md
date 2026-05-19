@@ -25,6 +25,10 @@ Each pillar gets 6–7 articles. Each article targets a specific long-tail keywo
 | 6 | Best Claude Code Settings for Teams | "claude code settings.json" | TODO |
 | 7 | Claude Code in Docker / CI | "claude code ci" | TODO |
 | 8 | Claude Code Memory & CLAUDE.md Patterns | "claude code memory" | TODO |
+| 9 | How Anthropic's Own Teams Use Claude Code | "how anthropic teams use claude code" | ✅ Published |
+| 10 | Is There a Claude Code Certification? | "claude code certification" | TODO |
+
+Articles 9–10 added from Google Trends rising-query research (May 2026): "anthropic claude code teams pdf" was a +1,400% breakout with no quality competition, and "claude code certification" a +60% riser with evergreen, monetizable intent (Anthropic Academy / Coursera).
 
 ## Cluster 2: Claude Agent SDK
 
