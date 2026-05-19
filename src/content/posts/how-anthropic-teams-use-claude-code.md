@@ -5,6 +5,8 @@ pubDate: 2026-05-19
 author: "Moeed Rajpoot"
 tags: ["claude-code", "ai-agents", "tutorials"]
 keywords: ["how anthropic teams use claude code", "anthropic claude code teams pdf", "claude code workflows", "claude code use cases", "how anthropic uses claude code", "claude code best practices", "claude code at anthropic"]
+heroImage: "/posts/how-anthropic-teams-use-claude-code-hero.png"
+heroAlt: "Title card for the article How Anthropic's own teams use Claude Code, with the ten internal teams covered listed below the title"
 featured: false
 ---
 
@@ -13,6 +15,8 @@ Anthropic put out a report on how its own staff use Claude Code. It is based on 
 The original document is [How Anthropic teams use Claude Code](https://www-cdn.anthropic.com/58284b19e702b49db9302d5b6f135ad8871e7658.pdf) (PDF). What follows is my reading of it, not a copy of it.
 
 > Anthropic interviewed Claude Code power users on ten internal teams, including non-technical ones like legal and marketing. The recurring lessons are simple: write a detailed CLAUDE.md, commit checkpoints often so you can revert, treat Claude Code as a partner you iterate with rather than a one-shot machine, paste screenshots instead of describing things, and learn which tasks can run on their own versus which need you watching. The biggest jumps in productivity came from people who were not engineers.
+
+![Title card for the article How Anthropic's own teams use Claude Code, with the ten internal teams covered listed below the title](/posts/how-anthropic-teams-use-claude-code-hero.png)
 
 ## What this report actually is
 
