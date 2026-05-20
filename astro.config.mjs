@@ -10,13 +10,15 @@ const postDateCache = new Map();
 function readPostDates(slug) {
   if (postDateCache.has(slug)) return postDateCache.get(slug);
   const file = path.join('src/content/posts', `${slug}.md`);
-  let result = { pub: null, upd: null };
+  let result = { pub: null, upd: null, noindex: false };
   try {
     const src = fs.readFileSync(file, 'utf8');
     const pub = src.match(/^pubDate:\s*([0-9-]+)/m);
     const upd = src.match(/^updatedDate:\s*([0-9-]+)/m);
+    const ni = src.match(/^noindex:\s*true\b/m);
     if (pub) result.pub = new Date(pub[1]);
     if (upd) result.upd = new Date(upd[1]);
+    if (ni) result.noindex = true;
   } catch {}
   postDateCache.set(slug, result);
   return result;
@@ -32,7 +34,12 @@ export default defineConfig({
     tailwind({ applyBaseStyles: false }),
     mdx(),
     sitemap({
-      filter: (page) => !page.includes('/404'),
+      filter: (page) => {
+        if (page.includes('/404')) return false;
+        const m = page.match(/\/posts\/([^/]+)\//);
+        if (m && readPostDates(m[1]).noindex) return false;
+        return true;
+      },
       serialize(item) {
         const url = item.url;
         if (url === `${SITE.url}/`) {

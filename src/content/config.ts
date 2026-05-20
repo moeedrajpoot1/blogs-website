@@ -13,6 +13,7 @@ const posts = defineCollection({
       heroAlt: z.string().optional(),
       draft: z.boolean().default(false),
       featured: z.boolean().default(false),
+      noindex: z.boolean().default(false),
       canonicalUrl: z.string().url().optional(),
       keywords: z.array(z.string()).default([]),
     }),

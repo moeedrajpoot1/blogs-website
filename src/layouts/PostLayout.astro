@@ -35,6 +35,7 @@ const updated = post.data.updatedDate?.toLocaleDateString('en-US', {
   publishedTime={post.data.pubDate}
   modifiedTime={post.data.updatedDate}
   tags={post.data.tags}
+  noindex={post.data.noindex}
 >
   <ArticleSchema
     slot="head"
