@@ -79,8 +79,11 @@ Second content pillar, backed by first-hand DevOps experience (real E-E-A-T, not
 | 32 | Fixing CannotPullContainerError in ECS | "cannotpullcontainererror ecs" | TODO |
 | 33 | ECS Networking: VPC, Subnets, ALB Explained | "ecs networking explained" | TODO |
 | 34 | What Is AWS ECS Express Mode (and When to Use It) | "what is aws ecs express mode" | ✅ Published |
+| 35 | AWS Copilot CLI End of Support: Migration Guide for 2026 | "aws copilot cli end of support" | ✅ Published |
 
 Article 34 added from May 2026 trend research: ECS Express Mode (re:Invent 2025 feature, adoption rising through 2026) had a weak SERP (AWS docs + conference recaps, no quality beginner explainer) and slots straight into the ECS pillar for fast indexing.
+
+Article 35 added on the AWS Copilot CLI end-of-support news peg (hard deadline June 12, 2026). Near-empty SERP outside the AWS deprecation notice itself. AWS officially recommends migrating to ECS Express Mode (#34) or AWS CDK L3 constructs, so this article funnels readers directly into the Express Mode pillar piece. Bottom-of-funnel migration intent — higher conversion potential than informational searches.
 
 ## Affiliate opportunities by cluster
 
