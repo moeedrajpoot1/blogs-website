@@ -74,7 +74,7 @@ After updating the role, restart the service so it picks up a fresh task with th
 
 Or:
 
-> API error (500): Get https://...dkr.ecr.us-east-1.amazonaws.com/v2/: net/http: request canceled while waiting for connection
+> `API error (500): Get https://aws_account.dkr.ecr.us-east-1.amazonaws.com/v2/: net/http: request canceled while waiting for connection`
 
 This is the second most common cause and the most painful, because the configuration is split across several AWS services and there is no single page that shows it. The fix depends on which subnet your task runs in.
 
@@ -88,7 +88,7 @@ This is the second most common cause and the most painful, because the configura
 - `com.amazonaws.{region}.ecr.dkr` (Interface endpoint)
 - `com.amazonaws.{region}.s3` (Gateway endpoint, with a route entry added to the route table)
 
-All three are required on Fargate platform version 1.4.0 and later. The S3 gateway endpoint is the one most people forget — ECR stores image layers in S3, so without that endpoint the layers can never be pulled. The interface endpoints also need a security group that allows inbound TCP 443 from the task's security group.
+All three are required on Fargate platform version 1.4.0 and later, as documented in the official [Amazon ECR interface VPC endpoints page](https://docs.aws.amazon.com/AmazonECR/latest/userguide/vpc-endpoints.html). The S3 gateway endpoint is the one most people forget — ECR stores image layers in S3, so without that endpoint the layers can never be pulled. The interface endpoints also need a security group that allows inbound TCP 443 from the task's security group.
 
 **Last check: outbound from the task's security group.** Whichever network model you use, the task's security group must allow outbound TCP 443 to the ECR or VPC endpoint addresses. Most teams who hit this issue have it locked down to only the load balancer.
 
@@ -155,12 +155,12 @@ The image is larger than the disk available to extract it. On EC2, this means th
 
 > ERROR: toomanyrequests: Too Many Requests or You have reached your pull rate limit.
 
-The image lives on Docker Hub and you have hit the anonymous pull rate limit (100 pulls per 6 hours from an IP) or the authenticated free tier (200 pulls per 6 hours). This usually shows up in CI environments where many tasks share an outbound IP via NAT.
+The image lives on Docker Hub and you have hit the [anonymous pull rate limit](https://docs.docker.com/docker-hub/usage/) (100 pulls per 6 hours from an IP) or the authenticated free tier (200 pulls per 6 hours). This usually shows up in CI environments where many tasks share an outbound IP via NAT.
 
 **Fix, in order of effort:**
 
 1. **Authenticate the pull.** Store Docker Hub credentials in AWS Secrets Manager and reference the secret in your task definition's `repositoryCredentials` block. This doubles your limit and de-anonymizes the request.
-2. **Use ECR pull through cache.** Create a pull-through cache rule that proxies Docker Hub images through ECR. After the first pull, subsequent ones come from ECR with no Docker Hub limit. Change the task definition `image` to the ECR URI of the cached repo.
+2. **Use ECR pull through cache.** Create a [pull-through cache rule](https://docs.aws.amazon.com/AmazonECR/latest/userguide/pull-through-cache.html) that proxies Docker Hub images through ECR. After the first pull, subsequent ones come from ECR with no Docker Hub limit. Change the task definition `image` to the ECR URI of the cached repo.
 3. **Pay for Docker Hub.** A paid Docker plan increases the rate limit. Worth it only if you cannot move off Docker Hub for organizational reasons.
 
 The pull-through cache is the right answer for most teams.
