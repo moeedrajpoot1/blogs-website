@@ -27,12 +27,14 @@ const {
   wordCount,
 } = Astro.props;
 
+const imageUrl = /^https?:\/\//.test(image) ? image : new URL(image, SITE.url).toString();
+
 const schema = {
   '@context': 'https://schema.org',
   '@type': 'BlogPosting',
   headline: title,
   description,
-  image: [image],
+  image: [imageUrl],
   datePublished: datePublished.toISOString(),
   dateModified: dateModified.toISOString(),
   author: {

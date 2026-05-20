@@ -21,7 +21,7 @@ heroAlt: "Title card for the article AWS Copilot CLI End of Support, listing the
 featured: false
 ---
 
-If you have been using AWS Copilot CLI to deploy containers on ECS, the tool has a date on it. **AWS Copilot CLI reaches end of support on June 12, 2026.** After that date, the open-source project stays on GitHub, but AWS will not ship new features, fixes, or security patches for it. The official AWS blog post from March 6, 2026 spells out what to do instead.
+If you have been using AWS Copilot CLI to deploy containers on ECS, the tool has a date on it. **AWS Copilot CLI reaches end of support on June 12, 2026.** After that date, the open-source project stays on GitHub, but AWS will not ship new features, fixes, or security patches for it. The [official AWS announcement from March 6, 2026](https://aws.amazon.com/blogs/containers/announcing-the-end-of-support-for-the-aws-copilot-cli/) spells out what to do instead, and the [GitHub repo banner](https://github.com/aws/copilot-cli) confirms the same date.
 
 This guide is the short, honest version. What stops, what keeps running, what AWS actually recommends, and how to pick between the two recommended paths for the kind of service you have. Every fact here is from the official AWS announcement or the docs it links to.
 
