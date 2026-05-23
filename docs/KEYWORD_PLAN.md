@@ -42,6 +42,9 @@ Articles 9–11 added from Google Trends + news-peg research (May 2026): "anthro
 | 12 | Streaming Responses with Agent SDK | "claude agent streaming" | TODO |
 | 13 | Cost Optimization with Agent SDK | "claude agent caching" | TODO |
 | 14 | Production Logging with Agent SDK | "claude agent observability" | TODO |
+| 14a | Claude Agent SDK vs Vercel AI SDK 6: Which to Pick (2026) | "claude agent sdk vs vercel ai sdk" | ✅ Published |
+
+Article 14a (Claude Agent SDK vs Vercel AI SDK 6) shipped 2026-05-23. Comparison format = high CTR (decision-stage developers click every result). Vercel AI SDK 6 launched 2025-12-22 with the first real Agent abstraction; SERP for "claude agent sdk vs vercel ai sdk" had only one quality Medium piece + Vercel's own launch post. Completes the Agent SDK comparison trio with the LangChain article. Internal-links into agent-sdk-vs-langchain, claude-managed-agents-tutorial, build-your-first-mcp-server, claude-code-hooks-complete-guide, agentic-rag-tutorial.
 
 ## Cluster 3: MCP
 
