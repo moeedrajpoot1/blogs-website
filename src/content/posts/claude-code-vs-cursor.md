@@ -167,6 +167,10 @@ Yes. Cursor reads the same `.cursor/mcp.json` configuration format and can run M
 
 Cursor has a free tier that gives you a limited number of requests per month. Claude Code requires a paid plan or API credits. If you want to try the agent style without paying, Cursor is the easier place to start.
 
+### Why does Claude Code feel slower than it used to?
+
+There was a real, documented six week dip in early 2026. Anthropic fixed all three causes by April 20. If you are still seeing slowness, the [Claude Code slow or worse diagnose and fix guide](/posts/claude-code-slow-fix) walks through what to check.
+
 ### Which one is better for AI agent development?
 
 If you are building agents yourself, Claude Code is the natural fit because it is built on the same primitives. You can use [skills, subagents, hooks, and MCP](/posts/claude-code-skills-vs-mcp-vs-subagents-vs-hooks) directly in your work, and the lessons transfer to the [Claude Agent SDK](/posts/claude-agent-sdk-vs-langchain).

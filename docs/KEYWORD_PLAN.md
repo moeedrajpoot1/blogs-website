@@ -28,8 +28,11 @@ Each pillar gets 6–7 articles. Each article targets a specific long-tail keywo
 | 9 | How Anthropic's Own Teams Use Claude Code | "how anthropic teams use claude code" | ✅ Published |
 | 10 | Is There a Claude Code Certification? | "claude code certification" | TODO |
 | 11 | Claude Code /goal and Agent View: A Practical Guide | "claude code goal command" | ✅ Published |
+| 12 | Claude Code Slow or Worse? How to Diagnose and Fix It (2026) | "claude code slow" | ✅ Published |
 
 Articles 9–11 added from Google Trends + news-peg research (May 2026): "anthropic claude code teams pdf" was a +1,400% breakout with no quality competition; "claude code certification" a +60% riser with evergreen, monetizable intent (Anthropic Academy / Coursera); /goal + Agent View are fresh from the "Code w/ Claude 2026" event (v2.1.139) with a weak SERP (changelogs + news roundups, no deep guide), published into the freshness window. Next: #10 certification (evergreen affiliate).
+
+Article 12 (Claude Code Slow or Worse) shipped 2026-05-23 as the SECOND article of the day. Targets gap in the SERP for "claude code slow / got worse / degradation". Anthropic published the April 23 postmortem and Fortune/VentureBeat/Register covered it as news; NO tutorial-style how-to-diagnose-and-fix guide existed. Calm, both-sides tone (not pitchforks, not apologetics). Inbound links from 4 sibling Cluster 1 articles (hooks, anthropic-teams, /goal+Agent View, vs-cursor) — plus auto related-posts widget. Highest expected CTR of any article shipped so far because the query intent is acute pain ("Claude broken, what do I do").
 
 ## Cluster 2: Claude Agent SDK
 
