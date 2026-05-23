@@ -2,7 +2,7 @@
 title: "Agentic RAG: A Friendly Tutorial With Real Code"
 description: "Learn what agentic RAG is, how it differs from traditional RAG, and how to build one with the Claude Agent SDK and pgvector. Step by step, with full code."
 pubDate: 2026-05-04
-author: "Moeed Rajpoot"
+author: "Muhammad Moeed"
 tags: ["rag", "ai-agents", "tutorials", "claude-agent-sdk"]
 keywords: ["agentic rag tutorial", "agentic rag vs rag", "agentic rag claude", "agentic rag python", "agentic rag pgvector"]
 featured: true

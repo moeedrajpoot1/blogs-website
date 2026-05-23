@@ -2,7 +2,7 @@
 title: "Claude Code /goal and Agent View: A Practical Guide"
 description: "What Claude Code's /goal command and Agent View do, how they work together, how to write a completion condition that holds, and when to actually use them."
 pubDate: 2026-05-19
-author: "Moeed Rajpoot"
+author: "Muhammad Moeed"
 tags: ["claude-code", "ai-agents", "tutorials"]
 keywords: ["claude code goal command", "claude code /goal", "claude code agent view", "claude code background sessions", "claude code autonomous agents", "claude code v2.1.139", "how does claude code goal work"]
 heroImage: "/posts/claude-code-goal-and-agent-view-hero.png"

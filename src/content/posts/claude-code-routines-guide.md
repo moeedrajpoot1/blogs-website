@@ -2,7 +2,7 @@
 title: "Claude Code Routines: 7 Real Workflows You Can Set Up Today"
 description: "What Claude Code Routines are, how scheduled, API, and GitHub triggers work, and seven practical workflows you can copy into your own setup this week."
 pubDate: 2026-05-13
-author: "Moeed Rajpoot"
+author: "Muhammad Moeed"
 tags: ["claude-code", "tutorials", "ai-agents"]
 keywords: [
   "claude code routines",

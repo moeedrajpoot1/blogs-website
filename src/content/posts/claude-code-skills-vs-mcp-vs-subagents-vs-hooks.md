@@ -2,7 +2,7 @@
 title: "Claude Code: Skills vs MCP vs Subagents vs Hooks (2026)"
 description: "A plain-English comparison of Claude Code skills, MCP servers, subagents, and hooks. When to pick each, with a decision tree, code, and common confusion."
 pubDate: 2026-05-09
-author: "Moeed Rajpoot"
+author: "Muhammad Moeed"
 tags: ["claude-code", "tutorials", "ai-agents"]
 keywords: [
   "claude code skills vs mcp",

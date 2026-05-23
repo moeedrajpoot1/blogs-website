@@ -2,7 +2,7 @@
 title: "What Is AWS ECR and How It Works (Beginner Guide)"
 description: "A plain-English guide to Amazon ECR: what it is, the push and pull flow, IAM auth, lifecycle policies, image scanning, pull-through cache, and cost."
 pubDate: 2026-05-18
-author: "Moeed Rajpoot"
+author: "Muhammad Moeed"
 tags: ["aws", "ecr", "devops", "tutorials"]
 keywords: ["what is aws ecr", "aws ecr explained", "ecr vs docker hub", "ecr push pull tutorial", "ecr lifecycle policy", "ecr image scanning", "amazon elastic container registry"]
 heroImage: "/posts/what-is-aws-ecr-hero.png"

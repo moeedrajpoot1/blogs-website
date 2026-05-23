@@ -2,7 +2,7 @@
 title: "How Anthropic's Own Teams Use Claude Code"
 description: "A plain-English breakdown of Anthropic's internal report on how its own teams use Claude Code: the real workflows, the numbers, and what you can copy."
 pubDate: 2026-05-19
-author: "Moeed Rajpoot"
+author: "Muhammad Moeed"
 tags: ["claude-code", "ai-agents", "tutorials"]
 keywords: ["how anthropic teams use claude code", "anthropic claude code teams pdf", "claude code workflows", "claude code use cases", "how anthropic uses claude code", "claude code best practices", "claude code at anthropic"]
 heroImage: "/posts/how-anthropic-teams-use-claude-code-hero.png"

@@ -2,7 +2,7 @@
 title: "Claude Opus 4.7 vs GPT-5: A Calm, Honest Comparison"
 description: "A side by side look at Claude Opus 4.7 and GPT-5 in 2026, with notes on coding, reasoning, long context, vision, agent work, speed, and price."
 pubDate: 2026-05-04
-author: "Moeed Rajpoot"
+author: "Muhammad Moeed"
 tags: ["claude-agent-sdk", "ai-agents", "tutorials"]
 keywords: ["claude opus 4.7 vs gpt-5", "best llm 2026", "anthropic vs openai 2026", "claude 4.7 review", "gpt-5 vs claude"]
 featured: false

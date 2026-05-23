@@ -2,7 +2,7 @@
 title: "Claude Code Skills: A Practical Guide for 2026"
 description: "What Claude Code Skills are, how to write your first SKILL.md, where skills live, and how they compare to slash commands and subagents."
 pubDate: 2026-05-05
-author: "Moeed Rajpoot"
+author: "Muhammad Moeed"
 tags: ["claude-code", "tutorials", "ai-agents"]
 keywords: [
   "claude code skills",

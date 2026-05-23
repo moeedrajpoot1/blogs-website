@@ -3,11 +3,11 @@
 
 export const SITE = {
   url: 'https://moeed.app',
-  title: 'Moeed Rajpoot — Claude Code, Agent SDK & MCP Engineering',
-  shortTitle: 'Moeed Rajpoot',
+  title: 'Muhammad Moeed — Claude Code, Agent SDK & MCP Engineering',
+  shortTitle: 'Muhammad Moeed',
   description:
     'Production-grade tutorials on Claude Code, Claude Agent SDK, MCP servers, RAG, and AI agent engineering by a senior backend + AI engineer.',
-  author: 'Moeed Rajpoot',
+  author: 'Muhammad Moeed',
   email: 'moeedrajpoot1@gmail.com',
   github: 'moeedrajpoot1',
   linkedin: 'moeed-rajpoot',

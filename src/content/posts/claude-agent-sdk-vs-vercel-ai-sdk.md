@@ -2,7 +2,7 @@
 title: "Claude Agent SDK vs Vercel AI SDK 6: Which to Pick (2026)"
 description: "A practical side by side look at the Claude Agent SDK and Vercel AI SDK 6 for production AI agents in 2026, with code, defaults, and a clear pick."
 pubDate: 2026-05-23
-author: "Moeed Rajpoot"
+author: "Muhammad Moeed"
 tags: ["claude-agent-sdk", "ai-agents", "tutorials"]
 keywords: [
   "claude agent sdk vs vercel ai sdk",

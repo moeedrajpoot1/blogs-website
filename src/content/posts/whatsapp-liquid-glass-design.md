@@ -2,7 +2,7 @@
 title: "WhatsApp Liquid Glass Design: A Plain Guide for iOS 26 Users"
 description: "A practical guide to the WhatsApp Liquid Glass design on iOS 26: what changes, how to enable it, and what to do if it has not arrived yet."
 pubDate: 2026-05-05
-author: "Moeed Rajpoot"
+author: "Muhammad Moeed"
 tags: ["whatsapp", "ios", "design", "tutorials"]
 keywords: [
   "whatsapp liquid glass",

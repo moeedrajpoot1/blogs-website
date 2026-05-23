@@ -2,7 +2,7 @@
 title: "AWS Copilot CLI End of Support: Migration Guide for 2026"
 description: "AWS Copilot CLI reaches end of support on June 12, 2026. What AWS recommends migrating to, how to choose, and a service-by-service map."
 pubDate: 2026-05-19
-author: "Moeed Rajpoot"
+author: "Muhammad Moeed"
 tags: ["aws", "ecs", "devops", "tutorials"]
 keywords: [
   "aws copilot cli end of support",

@@ -2,7 +2,7 @@
 title: "Claude Code Hooks: A Friendly Guide for Beginners"
 description: "Hooks let Claude Code run small commands before and after it does things. This guide explains what they are, how to set them up, and the few mistakes to avoid."
 pubDate: 2026-05-04
-author: "Moeed Rajpoot"
+author: "Muhammad Moeed"
 tags: ["claude-code", "tutorials", "ai-agents"]
 keywords: ["claude code hooks", "claude code settings.json", "PreToolUse hook", "PostToolUse", "claude code automation"]
 featured: true

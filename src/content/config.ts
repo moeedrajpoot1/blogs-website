@@ -7,7 +7,7 @@ const posts = defineCollection({
       description: z.string().min(50).max(160),
       pubDate: z.coerce.date(),
       updatedDate: z.coerce.date().optional(),
-      author: z.string().default('Moeed Rajpoot'),
+      author: z.string().default('Muhammad Moeed'),
       tags: z.array(z.string()).default([]),
       heroImage: z.string().optional(),
       heroAlt: z.string().optional(),

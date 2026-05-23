@@ -2,7 +2,7 @@
 title: "Claude Code vs Cursor: 90 Days With Both in 2026"
 description: "I used Claude Code and Cursor side by side for three months on production work. Here is where each one wins, where it loses, and the one I kept."
 pubDate: 2026-05-15
-author: "Moeed Rajpoot"
+author: "Muhammad Moeed"
 tags: ["claude-code", "cursor", "comparisons", "ai-agents"]
 keywords: ["claude code vs cursor", "cursor vs claude code", "claude code or cursor", "best ai coding assistant 2026", "cursor ai alternative"]
 heroImage: "/posts/claude-code-vs-cursor-hero.png"

@@ -2,7 +2,7 @@
 title: "What Is AWS ECS Express Mode (and When to Use It)"
 description: "A plain-English guide to Amazon ECS Express Mode: what it is, the three inputs it needs, the infrastructure it builds, its limits, and when to use it."
 pubDate: 2026-05-19
-author: "Moeed Rajpoot"
+author: "Muhammad Moeed"
 tags: ["aws", "ecs", "devops", "tutorials"]
 keywords: ["what is aws ecs express mode", "aws ecs express mode", "ecs express mode explained", "ecs express mode vs ecs", "ecs express mode tutorial", "ecs express mode pricing", "amazon ecs express mode"]
 heroImage: "/posts/what-is-aws-ecs-express-mode-hero.png"

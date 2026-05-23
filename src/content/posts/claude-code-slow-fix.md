@@ -2,7 +2,7 @@
 title: "Claude Code Slow or Worse? How to Diagnose and Fix It (2026)"
 description: "If Claude Code feels slower or less capable, here is how to diagnose your setup and the fixes that actually work, calmly explained with no hype."
 pubDate: 2026-05-23
-author: "Moeed Rajpoot"
+author: "Muhammad Moeed"
 tags: ["claude-code", "tutorials"]
 keywords: [
   "claude code slow",

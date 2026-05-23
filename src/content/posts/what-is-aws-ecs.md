@@ -2,7 +2,7 @@
 title: "What Is AWS ECS and How It Works (Beginner Guide)"
 description: "A plain-English guide to Amazon ECS: what it is, how it differs from EC2, what ECR does, when to use it, and the full container deployment flow."
 pubDate: 2026-05-18
-author: "Moeed Rajpoot"
+author: "Muhammad Moeed"
 tags: ["aws", "ecs", "devops", "tutorials"]
 keywords: ["what is aws ecs", "aws ecs vs ec2", "amazon ecs explained", "ecs ecr fargate", "aws ecs tutorial", "container orchestration aws", "when to use ecs"]
 heroImage: "/posts/what-is-aws-ecs-hero.png"

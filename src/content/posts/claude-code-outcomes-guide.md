@@ -2,7 +2,7 @@
 title: "Claude Code Outcomes: A Friendly Guide to Rubric-Graded Agents"
 description: "How Claude Code Outcomes work, why a separate grading agent improves agent quality, and how to write a rubric that catches the failures you actually care about."
 pubDate: 2026-05-13
-author: "Moeed Rajpoot"
+author: "Muhammad Moeed"
 tags: ["claude-code", "tutorials", "ai-agents"]
 keywords: [
   "claude code outcomes",

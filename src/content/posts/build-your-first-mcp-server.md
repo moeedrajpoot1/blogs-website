@@ -2,7 +2,7 @@
 title: "How to Build Your First MCP Server, Step by Step"
 description: "A short and friendly walk through of building a Model Context Protocol server in Node.js. Plain code, no jargon, and the small mistakes to watch for."
 pubDate: 2026-05-04
-author: "Moeed Rajpoot"
+author: "Muhammad Moeed"
 tags: ["mcp", "tutorials", "claude-code", "ai-agents"]
 keywords: ["mcp server", "model context protocol", "build mcp server", "mcp tutorial", "claude mcp"]
 featured: true

@@ -2,7 +2,7 @@
 title: "Claude Managed Agents: A Production Tutorial for 2026"
 description: "Build your first Claude Managed Agent step by step: agent, environment, session, streaming events, rate limits, and the production gotchas no one mentions."
 pubDate: 2026-05-09
-author: "Moeed Rajpoot"
+author: "Muhammad Moeed"
 tags: ["claude-agent-sdk", "ai-agents", "tutorials"]
 keywords: [
   "claude managed agents",

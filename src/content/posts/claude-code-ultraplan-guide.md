@@ -2,7 +2,7 @@
 title: "Claude Code Ultraplan: A Hands-On Guide for 2026"
 description: "Claude Code Ultraplan moves your planning to the cloud while your terminal stays free. Here is what it does, how to use it, and when it actually helps."
 pubDate: 2026-05-15
-author: "Moeed Rajpoot"
+author: "Muhammad Moeed"
 tags: ["claude-code", "tutorials", "ai-agents", "ultraplan"]
 keywords: ["claude code ultraplan", "ultraplan claude code", "claude code cloud planning", "claude code plan mode", "ultraplan tutorial"]
 heroImage: "/posts/claude-code-ultraplan-hero.png"

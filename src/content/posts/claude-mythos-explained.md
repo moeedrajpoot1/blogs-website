@@ -2,7 +2,7 @@
 title: "Claude Mythos Explained: Who Has Access and Why It Matters"
 description: "What Claude Mythos is, who got access through Project Glasswing, the zero-days it has already found, and what its arrival means for security teams in 2026."
 pubDate: 2026-05-05
-author: "Moeed Rajpoot"
+author: "Muhammad Moeed"
 tags: ["claude-agent-sdk", "ai-agents", "tutorials"]
 keywords: [
   "claude mythos",

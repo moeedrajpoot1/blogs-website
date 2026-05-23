@@ -2,7 +2,7 @@
 title: "Claude Code Dreaming Explained: A Friendly Guide to AutoDream"
 description: "What Claude Code Dreaming is, how AutoDream consolidates your memory files between sessions, what the /dream command does, and when to trigger it by hand."
 pubDate: 2026-05-13
-author: "Moeed Rajpoot"
+author: "Muhammad Moeed"
 tags: ["claude-code", "tutorials", "ai-agents"]
 keywords: [
   "claude code dreaming",

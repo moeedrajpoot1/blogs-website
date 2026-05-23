@@ -2,7 +2,7 @@
 title: "MCP Server Security: Auth, Rate Limits, Audit Logs (2026)"
 description: "How to secure a Model Context Protocol server in production: OAuth 2.1, RFC 8707 audience binding, rate limiting, audit logs, and the mistakes I keep seeing."
 pubDate: 2026-05-09
-author: "Moeed Rajpoot"
+author: "Muhammad Moeed"
 tags: ["mcp", "tutorials", "ai-agents"]
 keywords: [
   "mcp server security",

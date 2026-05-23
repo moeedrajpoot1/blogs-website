@@ -2,7 +2,7 @@
 title: "Claude Agent SDK vs LangChain: An Honest Comparison"
 description: "A calm side by side look at the Claude Agent SDK and LangChain for production AI agents, written by someone who has shipped both."
 pubDate: 2026-05-04
-author: "Moeed Rajpoot"
+author: "Muhammad Moeed"
 tags: ["claude-agent-sdk", "ai-agents", "tutorials"]
 keywords: ["claude agent sdk", "langchain vs claude", "agent framework comparison", "production ai agents", "anthropic sdk"]
 featured: true

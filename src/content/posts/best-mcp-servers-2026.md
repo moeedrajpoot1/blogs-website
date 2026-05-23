@@ -2,7 +2,7 @@
 title: "Top 15 MCP Servers Worth Installing in 2026"
 description: "A friendly, hands-picked list of the best MCP servers to use in 2026, with notes on what each one does, who it is for, and when it actually helps."
 pubDate: 2026-05-04
-author: "Moeed Rajpoot"
+author: "Muhammad Moeed"
 tags: ["mcp", "ai-agents", "tutorials", "claude-code"]
 keywords: ["best mcp servers 2026", "mcp servers list", "claude mcp servers", "mcp server examples", "top mcp servers"]
 featured: false
