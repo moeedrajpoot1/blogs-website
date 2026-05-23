@@ -313,7 +313,7 @@ Managed Agents is the easiest production path Anthropic has shipped. The pattern
 If you want to go deeper, four places I would point you next:
 
 - The [first MCP server walkthrough](/posts/build-your-first-mcp-server) for plugging your own tools into the agent.
-- The [Claude Agent SDK vs LangChain comparison](/posts/claude-agent-sdk-vs-langchain) for picking the right harness when you outgrow the managed runtime.
+- The [Claude Agent SDK vs LangChain comparison](/posts/claude-agent-sdk-vs-langchain) and the [Claude Agent SDK vs Vercel AI SDK 6 comparison](/posts/claude-agent-sdk-vs-vercel-ai-sdk) for picking the right harness when you outgrow the managed runtime.
 - The [Claude Code skills guide](/posts/claude-code-skills-complete-guide) and the [hooks guide](/posts/claude-code-hooks-complete-guide) — both translate cleanly to skills you can attach to a Managed Agent.
 - The [agentic RAG tutorial](/posts/agentic-rag-tutorial) for the most common knowledge-retrieval pattern these agents end up needing.
 - The [Claude Code Outcomes guide](/posts/claude-code-outcomes-guide) for adding a rubric-graded check on the agent's output so quality is measurable, not just felt.

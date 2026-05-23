@@ -370,6 +370,6 @@ Once your basic agentic RAG works, the natural next steps are:
 - Add a hybrid search (vector plus BM25) for better recall on rare terms
 - Switch the embedding model to Voyage or Cohere for slightly better quality
 
-If you are building this inside a larger agent product, the [Claude Agent SDK comparison](/posts/claude-agent-sdk-vs-langchain) and the [MCP server tutorial](/posts/build-your-first-mcp-server) are both good follow ups. You can wrap your agentic RAG as an MCP server and let other tools (Claude Code, Claude Desktop, Cursor) all use it.
+If you are building this inside a larger agent product, the [Claude Agent SDK vs LangChain comparison](/posts/claude-agent-sdk-vs-langchain), the [Claude Agent SDK vs Vercel AI SDK 6 comparison](/posts/claude-agent-sdk-vs-vercel-ai-sdk), and the [MCP server tutorial](/posts/build-your-first-mcp-server) are all good follow ups. You can wrap your agentic RAG as an MCP server and let other tools (Claude Code, Claude Desktop, Cursor) all use it.
 
 Agentic RAG is not a magic bullet. For simple cases, traditional RAG is enough. But for the cases where it shines, multi step reasoning over multiple sources, with refinement, the experience is a real step up. Try it on your own data, measure it against a fixed pipeline, and let the numbers tell you which one fits your use.

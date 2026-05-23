@@ -265,7 +265,7 @@ If you found a server here that you want to set up, the next step depends on wha
 
 For coding workflows, look at the [Claude Code hooks guide](/posts/claude-code-hooks-complete-guide) and pair a hook with the Filesystem and GitHub servers above.
 
-For agent product work, the [Claude Agent SDK comparison](/posts/claude-agent-sdk-vs-langchain) explains how to wire MCP servers into your own agent runtime, instead of inside Claude Desktop.
+For agent product work, the [Claude Agent SDK vs LangChain comparison](/posts/claude-agent-sdk-vs-langchain) and the [Claude Agent SDK vs Vercel AI SDK 6 comparison](/posts/claude-agent-sdk-vs-vercel-ai-sdk) explain how to pick a runtime and wire MCP servers into your own agent, instead of inside Claude Desktop.
 
 Before any of these touch production, read the [MCP server security guide](/posts/mcp-server-security-guide). The single most common mistake on new MCP servers is shipping them without auth, rate limits, or an audit trail.
 
