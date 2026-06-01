@@ -59,6 +59,9 @@ Article 14a (Claude Agent SDK vs Vercel AI SDK 6) shipped 2026-05-23. Comparison
 | 18 | MCP Authentication Patterns | "mcp auth" | TODO |
 | 19 | Top 10 MCP Servers Worth Using | "best mcp servers" | TODO |
 | 20 | MCP Resources vs Tools vs Prompts | "mcp resources tutorial" | TODO |
+| 20a | NSA MCP Security Guidance: A Developer's Action List (2026) | "nsa mcp security" | ✅ Published |
+
+Article 20a (NSA MCP Security Guidance) shipped 2026-05-24. News-peg article on the NSA Cybersecurity Information Sheet published May 20, 2026. SERP had 10 journalism summaries but ZERO developer-translation tutorial — that was the gap. Translates the abstract NSA threats into a concrete 6-item action list. Tone is calm, both-sides, with explicit caveats on what NSA guidance does NOT cover. Inbound links from 3 MCP cluster siblings (mcp-server-security-guide, build-your-first-mcp-server, best-mcp-servers-2026) plus auto related-posts widget. Enterprise/security-team audience = strongest consulting/sponsorship lead potential of any article so far.
 
 ## Cluster 4: Production RAG
 

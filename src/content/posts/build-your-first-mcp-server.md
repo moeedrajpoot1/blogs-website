@@ -196,6 +196,7 @@ The pattern is always the same. Declare your tools, validate the inputs, return 
 - [Claude Code hooks: a friendly guide](/posts/claude-code-hooks-complete-guide), for the simpler kind of automation that does not need a server at all.
 - [Claude Agent SDK vs LangChain](/posts/claude-agent-sdk-vs-langchain), for when you want to embed an agent inside your own product.
 - [MCP server security: auth, rate limits, audit logs](/posts/mcp-server-security-guide), the next thing to read before you take any MCP server to production.
+- [NSA MCP security guidance, translated for developers](/posts/nsa-mcp-security-guidance), the four named controls every production MCP server should ship.
 - [Agentic RAG with the Claude Agent SDK and pgvector](/posts/agentic-rag-tutorial), if the data your tools return is going to come from a vector store.
 
 Once you have shipped your first MCP server, you will likely find five more places where one fits. Start with something small, like the weather example. Get it into Claude. Watch it work. Then keep adding.

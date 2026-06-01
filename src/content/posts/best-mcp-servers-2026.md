@@ -267,6 +267,6 @@ For coding workflows, look at the [Claude Code hooks guide](/posts/claude-code-h
 
 For agent product work, the [Claude Agent SDK vs LangChain comparison](/posts/claude-agent-sdk-vs-langchain) and the [Claude Agent SDK vs Vercel AI SDK 6 comparison](/posts/claude-agent-sdk-vs-vercel-ai-sdk) explain how to pick a runtime and wire MCP servers into your own agent, instead of inside Claude Desktop.
 
-Before any of these touch production, read the [MCP server security guide](/posts/mcp-server-security-guide). The single most common mistake on new MCP servers is shipping them without auth, rate limits, or an audit trail.
+Before any of these touch production, read the [MCP server security guide](/posts/mcp-server-security-guide) and the [NSA MCP security guidance for developers](/posts/nsa-mcp-security-guidance). The single most common mistake on new MCP servers is shipping them without auth, rate limits, or an audit trail.
 
 The MCP ecosystem moves quickly. I update this list every few months, so if you are reading this in late 2026 or 2027, do check the date at the top of the post and treat older entries as a starting point rather than the final word.
