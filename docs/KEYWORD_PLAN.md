@@ -46,6 +46,9 @@ Article 12 (Claude Code Slow or Worse) shipped 2026-05-23 as the SECOND article 
 | 13 | Cost Optimization with Agent SDK | "claude agent caching" | TODO |
 | 14 | Production Logging with Agent SDK | "claude agent observability" | TODO |
 | 14a | Claude Agent SDK vs Vercel AI SDK 6: Which to Pick (2026) | "claude agent sdk vs vercel ai sdk" | ✅ Published |
+| 14b | Microsoft RAMPART for Claude Agents: A Hands-On Guide (2026) | "microsoft rampart claude agents" | ✅ Published |
+
+Article 14b (Microsoft RAMPART for Claude Agents) shipped 2026-05-25. Same SERP-gap pattern as NSA MCP: 9+ news articles, ZERO developer-translation tutorial. Translates Microsoft's May 20, 2026 RAMPART release into a hands-on guide for Claude Agent SDK users with adapter code pattern, CI roadmap, and explicit caveats on what RAMPART does NOT catch. Pairs as companion article to NSA MCP guidance (both AI security, mutual cluster reinforcement). Inbound links from 4 sibling articles (nsa-mcp-security-guidance, mcp-server-security-guide, agent-sdk-vs-vercel, agent-sdk-vs-langchain) plus auto related-posts widget. Enterprise dev audience = highest sponsorship/consulting lead potential alongside NSA MCP.
 
 Article 14a (Claude Agent SDK vs Vercel AI SDK 6) shipped 2026-05-23. Comparison format = high CTR (decision-stage developers click every result). Vercel AI SDK 6 launched 2025-12-22 with the first real Agent abstraction; SERP for "claude agent sdk vs vercel ai sdk" had only one quality Medium piece + Vercel's own launch post. Completes the Agent SDK comparison trio with the LangChain article. Internal-links into agent-sdk-vs-langchain, claude-managed-agents-tutorial, build-your-first-mcp-server, claude-code-hooks-complete-guide, agentic-rag-tutorial.
 

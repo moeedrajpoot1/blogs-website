@@ -163,5 +163,6 @@ This stack ships in days, not weeks, and it scales cleanly when the project grow
 - [Agentic RAG with the Claude Agent SDK and pgvector](/posts/agentic-rag-tutorial), if your agent needs to read from a private knowledge base.
 - [Claude Managed Agents tutorial](/posts/claude-managed-agents-tutorial), for the production runtime that handles sessions, sandboxes, and rate limits for you.
 - [Claude Agent SDK vs Vercel AI SDK 6](/posts/claude-agent-sdk-vs-vercel-ai-sdk), if Vercel's TypeScript first toolkit is the other option you are weighing.
+- [Microsoft RAMPART for Claude agents](/posts/microsoft-rampart-claude-agents), the pytest-native safety testing framework for your agent's adversarial test suite.
 
 The truth is, the framework matters less than getting your first agent into production this week. Pick one. Ship something small. Iterate from there. Both libraries are good enough that the decision will not block you.

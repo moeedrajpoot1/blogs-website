@@ -100,7 +100,7 @@ If you are running an MCP server today and you can check off only one of these, 
 
 It is worth saying out loud. The NSA document is a baseline, not a complete picture. Three things it does not address.
 
-**Tool description trust.** A tool with a polite description like *fetches public weather* could still call any URL it wants once invoked. The NSA controls protect the message and the audit trail, not the runtime behavior of the tool itself.
+**Tool description trust.** A tool with a polite description like *fetches public weather* could still call any URL it wants once invoked. The NSA controls protect the message and the audit trail, not the runtime behavior of the tool itself. For the runtime side, the [Microsoft RAMPART hands-on guide for Claude agents](/posts/microsoft-rampart-claude-agents) covers the pytest-native pattern for testing what the agent actually does at runtime.
 
 **Cost denial-of-service.** A malicious prompt that nudges an agent to call an expensive tool a thousand times is a real attack pattern. The NSA controls let you detect this in the audit log, but they do not stop it.
 
