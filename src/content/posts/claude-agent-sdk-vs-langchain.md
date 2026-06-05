@@ -164,5 +164,6 @@ This stack ships in days, not weeks, and it scales cleanly when the project grow
 - [Claude Managed Agents tutorial](/posts/claude-managed-agents-tutorial), for the production runtime that handles sessions, sandboxes, and rate limits for you.
 - [Claude Agent SDK vs Vercel AI SDK 6](/posts/claude-agent-sdk-vs-vercel-ai-sdk), if Vercel's TypeScript first toolkit is the other option you are weighing.
 - [Microsoft RAMPART for Claude agents](/posts/microsoft-rampart-claude-agents), the pytest-native safety testing framework for your agent's adversarial test suite.
+- [Claude Agent SDK cost tracking guide](/posts/claude-agent-sdk-cost-tracking), to log `total_cost_usd` and size your plan correctly before the June 15, 2026 credit change.
 
 The truth is, the framework matters less than getting your first agent into production this week. Pick one. Ship something small. Iterate from there. Both libraries are good enough that the decision will not block you.

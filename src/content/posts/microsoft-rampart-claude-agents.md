@@ -163,5 +163,6 @@ If you only ship one safety test in the next month, RAMPART is the right place t
 - [Claude Agent SDK vs Vercel AI SDK 6](/posts/claude-agent-sdk-vs-vercel-ai-sdk), for choosing the runtime you will write the adapter against.
 - [Claude Agent SDK vs LangChain](/posts/claude-agent-sdk-vs-langchain), if your decision is between Anthropic and LangChain instead.
 - [Claude Managed Agents tutorial](/posts/claude-managed-agents-tutorial), for the hosted alternative to running the agent loop yourself.
+- [Claude Agent SDK cost tracking guide](/posts/claude-agent-sdk-cost-tracking), to make sure a failed safety test does not silently drain your credit pool.
 
 The shortest path from where you are today to where Microsoft wants you to be is one adapter and one cross-prompt-injection test. That takes an afternoon. Everything else is what you build on top.

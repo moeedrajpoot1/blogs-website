@@ -275,5 +275,6 @@ Yes, although you rarely want to. A common split is the Vercel AI SDK on the fro
 - [Claude Managed Agents tutorial](/posts/claude-managed-agents-tutorial), for when you want Anthropic to host the sandbox.
 - [Agentic RAG with the Claude Agent SDK and pgvector](/posts/agentic-rag-tutorial), if your agent needs a private knowledge base.
 - [Microsoft RAMPART for Claude agents](/posts/microsoft-rampart-claude-agents), to add pytest-native safety tests once your agent is shipping.
+- [Claude Agent SDK cost tracking guide](/posts/claude-agent-sdk-cost-tracking), to measure what your workload actually spends before the June 15, 2026 credit change.
 
 Pick the one that matches your model and your stack, write the smallest version of your agent that works end to end, and ship it this week. The framework will not be the thing that decides whether your project succeeds.

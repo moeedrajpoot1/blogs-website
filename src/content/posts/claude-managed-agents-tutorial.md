@@ -317,6 +317,7 @@ If you want to go deeper, four places I would point you next:
 - The [Claude Code skills guide](/posts/claude-code-skills-complete-guide) and the [hooks guide](/posts/claude-code-hooks-complete-guide) — both translate cleanly to skills you can attach to a Managed Agent.
 - The [agentic RAG tutorial](/posts/agentic-rag-tutorial) for the most common knowledge-retrieval pattern these agents end up needing.
 - The [Claude Code Outcomes guide](/posts/claude-code-outcomes-guide) for adding a rubric-graded check on the agent's output so quality is measurable, not just felt.
+- The [Claude Agent SDK cost tracking guide](/posts/claude-agent-sdk-cost-tracking) for measuring `total_cost_usd` and sizing the right plan before the June 15, 2026 credit change.
 
 The ecosystem around all of this is moving fast. The stable parts are the four concepts above. Build your first session today, and you have a foundation that survives most of the changes still on the roadmap.
 
