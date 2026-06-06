@@ -1,6 +1,6 @@
 ---
 title: "Deployment Strategies: Recreate, Rolling, Blue-Green, Canary, A/B"
-description: "A plain-English guide to the five common deployment strategies with diagrams: recreate, rolling, blue-green, canary, and A/B, and when to use each."
+description: "Learn the five deployment strategies (recreate, rolling, blue-green, canary, A/B) with diagrams and pick the right one for your next release without guessing."
 pubDate: 2026-06-06
 author: "Muhammad Moeed"
 tags: ["devops", "kubernetes", "tutorials"]
@@ -69,7 +69,7 @@ There is a gap between step 1 and step 3 where nothing is running. That gap is t
 
 - There is real downtime. Users see errors during the swap.
 - Rollback means going through the same shut-down-then-start cycle again.
-- Anything in flight when you stop the app dies with it.
+- Any request still being processed when you stop the app is lost.
 
 ### When to use it
 
@@ -100,7 +100,7 @@ Replace your instances one at a time, or in small batches, instead of all at onc
 
 During the rollout, some users are served by v1 and some by v2. The load balancer never has zero instances available, so users see no downtime.
 
-This is the default for a Kubernetes Deployment, which is why it is the strategy most teams encounter first whether they know the name or not.
+This is the [default for a Kubernetes Deployment](https://kubernetes.io/docs/concepts/workloads/controllers/deployment/#deployment-strategy). That is why most teams encounter it first, even if they do not know its name.
 
 ### Advantages
 
@@ -120,7 +120,7 @@ This is the default for a Kubernetes Deployment, which is why it is the strategy
 - The default for most Kubernetes workloads.
 - Internal services where a slow rollback is acceptable.
 
-If your changes are backward compatible and you trust your tests, rolling is the workhorse strategy for almost everything.
+If your changes are backward compatible and you trust your tests, rolling is the default, reliable strategy for almost everything.
 
 ## 3. Blue-green deployment
 
@@ -162,7 +162,7 @@ The "blue" and "green" names are just labels. The point is two environments that
 - Financial services, payments, anything regulated.
 - Releases that change a lot at once and need a clean way out if something is wrong.
 
-Blue-green is the strategy you reach for when "we cannot afford to be down" is a real business constraint rather than a slogan.
+Blue-green is the strategy you choose when "we cannot afford to be down" is a real business requirement, not just a marketing phrase.
 
 ## 4. Canary deployment
 
@@ -190,7 +190,7 @@ If anything looks wrong at any step, you flip the traffic back to v1 and stop.
 
 ### Advantages
 
-- Limited blast radius. A bad release hits a small fraction of users before you catch it.
+- Limited impact. A bad release affects only a small fraction of users before you catch it.
 - Real-user validation. Synthetic tests miss things real production traffic exposes.
 - Confidence in changes that are hard to test in staging, like a new model, a new caching layer, or a performance optimization.
 
@@ -262,7 +262,7 @@ The five strategies, side by side, on the dimensions that usually matter.
 
 ![Comparison table: deployment strategies scored on zero downtime, real traffic testing, conditional routing, rollback time, and infrastructure overhead](/posts/diagrams/comparison-table.png)
 
-The last column is often the deciding factor in practice. Blue-green is the safest strategy on paper, but if you cannot afford to run two full environments at once, the math kills the idea before the engineering does.
+The last column is often the deciding factor in practice. Blue-green is the safest strategy on paper, but if you cannot afford to run two full environments at once, the cost rules it out before the engineering does.
 
 ## How to actually choose
 
