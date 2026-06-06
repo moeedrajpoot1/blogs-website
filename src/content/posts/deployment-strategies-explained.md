@@ -46,8 +46,16 @@ The simplest possible approach. Stop the old version, then start the new one.
 ### How it works
 
 1. Stop the old version.
+
+![Recreate step 1: a STOP arrow hits the v1 server, shutting it down](/posts/diagrams/recreate-step-1-stop.png)
+
 2. Deploy the new version.
+
+![Recreate step 2: nothing is running, users see errors during the downtime gap](/posts/diagrams/recreate-step-2-downtime.png)
+
 3. Start the new version.
+
+![Recreate step 3: v2 starts and the service is back](/posts/diagrams/recreate-step-3-start.png)
 
 There is a gap between step 1 and step 3 where nothing is running. That gap is the downtime.
 
@@ -78,9 +86,17 @@ Replace your instances one at a time, or in small batches, instead of all at onc
 ### How it works
 
 1. You have N copies of v1 running behind a load balancer.
+
+![Rolling initial state: 4 v1 pods behind the load balancer](/posts/diagrams/rolling-initial.png)
+
 2. Take one copy out of rotation. Replace it with v2.
+
+![Rolling mid-rollout: 2 pods on v2, 2 still on v1, traffic keeps flowing](/posts/diagrams/rolling-mid-rollout.png)
+
 3. Wait for it to pass a health check. Put it back in rotation.
 4. Repeat until all copies are running v2.
+
+![Rolling complete: all 4 pods now on v2](/posts/diagrams/rolling-complete.png)
 
 During the rollout, some users are served by v1 and some by v2. The load balancer never has zero instances available, so users see no downtime.
 
@@ -114,9 +130,17 @@ Run two complete copies of your environment. One is live, the other is staged wi
 
 1. Blue is your current production environment, running v1. All user traffic goes to blue.
 2. You build a second environment, green, that is identical in shape. Deploy v2 to green.
+
+![Blue-green step 1: blue serves traffic while green is built in parallel](/posts/diagrams/blue-green-step-1-built.png)
+
 3. Test green end to end. It can hit your real database (carefully) and real downstream services because it is configured exactly like blue.
+
+![Blue-green step 2: green has passed tests and is ready for the switch](/posts/diagrams/blue-green-step-2-tested.png)
+
 4. When green is healthy, you flip the load balancer or DNS to send traffic to green instead of blue.
 5. Blue stays running. If anything goes wrong, you flip back to blue and you are recovered in seconds.
+
+![Blue-green step 3: traffic flipped to green, blue stays warm for instant rollback](/posts/diagrams/blue-green-step-3-switched.png)
 
 The "blue" and "green" names are just labels. The point is two environments that can swap roles.
 
@@ -149,10 +173,18 @@ The name comes from the old practice of taking a canary into a coal mine. If the
 ### How it works
 
 1. Deploy v2 alongside v1. Both run at the same time.
+
+![Canary step 1: v2 deployed alongside v1 but receives no traffic yet](/posts/diagrams/canary-step-1-deployed.png)
+
 2. Configure your load balancer to send 5 percent of traffic to v2 and 95 percent to v1.
+
+![Canary step 2: 5 percent of traffic flows to v2, the metrics dashboard watches live](/posts/diagrams/canary-step-2-5pct.png)
+
 3. Watch error rates, latency, business metrics. Compare v2 to v1.
 4. If v2 looks healthy, raise the percentage. 5 percent, then 25, then 50, then 100.
 5. Once v2 is at 100 percent, retire v1.
+
+![Canary step 3: progressive expansion from 5 percent to 25 percent to 100 percent, v1 retires](/posts/diagrams/canary-step-3-expanded.png)
 
 If anything looks wrong at any step, you flip the traffic back to v1 and stop.
 
@@ -183,8 +215,17 @@ Route traffic by user attribute rather than by random percentage. The infrastruc
 ### How it works
 
 1. Deploy v2 alongside v1, like a canary.
+
+![A/B step 1: both versions deployed, router not yet conditional](/posts/diagrams/ab-step-1-deployed.png)
+
 2. Configure routing so that traffic is sent based on a condition, not a random split. Examples: "users in Germany go to v2," "users on the paid tier go to v2," "users with cookie `experiment_id=2` go to v2."
+
+![A/B step 2: router checks a condition and routes German users to v2, everyone else to v1](/posts/diagrams/ab-step-2-conditional.png)
+
 3. Measure how the targeted segment behaves on v2 versus the rest on v1.
+
+![A/B step 3: measure both segments side by side, decide whether to roll out, hold, or roll back](/posts/diagrams/ab-step-3-measured.png)
+
 4. Decide whether to expand v2 to everyone, keep both variants permanently, or roll back.
 
 ### Advantages
@@ -218,6 +259,8 @@ The five strategies, side by side, on the dimensions that usually matter.
 | Blue-green | Yes | No | No | Instant | Two parallel environments |
 | Canary | Yes | Yes | No | Fast | Small surge for v2 |
 | A/B testing | Yes | Yes | Yes | Fast | Small surge plus a routing layer |
+
+![Comparison table: deployment strategies scored on zero downtime, real traffic testing, conditional routing, rollback time, and infrastructure overhead](/posts/diagrams/comparison-table.png)
 
 The last column is often the deciding factor in practice. Blue-green is the safest strategy on paper, but if you cannot afford to run two full environments at once, the math kills the idea before the engineering does.
 
