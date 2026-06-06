@@ -188,4 +188,6 @@ You now have the registry half of the container deployment story. The other half
 
 If your container is an [MCP server](/posts/build-your-first-mcp-server) or an agent backend, ECR is exactly where its image lives before ECS or Lambda runs it, and the [MCP server security guide](/posts/mcp-server-security-guide) covers the auth and audit work to do before exposing it.
 
+Once a new image lands in ECR, the question is which deployment strategy your service should use to pick it up. The [deployment strategies guide](/posts/deployment-strategies-explained/) walks through recreate, rolling, blue-green, canary, and A/B testing in plain English with diagrams, and tells you which one fits an ECS or Kubernetes service.
+
 The fastest way to make ECR stick is the same advice as ECS: create one repository, push one trivial image, attach a lifecycle policy, and turn on basic scanning. Do that loop once and every feature above is just the same loop with one more setting turned on.

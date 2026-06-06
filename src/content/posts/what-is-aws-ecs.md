@@ -263,4 +263,6 @@ If you are deploying a backend service this way, the natural follow-on topics ar
 
 If your container happens to be an [MCP server](/posts/build-your-first-mcp-server) or an agent backend, the deployment flow above is exactly how you would take it to production, and the [MCP server security guide](/posts/mcp-server-security-guide) covers the auth, rate limiting, and audit logging you should add before you expose it. For longer-running agent workloads specifically, it is worth comparing this self-managed path against a managed runtime like [Claude Managed Agents](/posts/claude-managed-agents-tutorial), which handles the sandbox and scaling concerns for you.
 
+Once your service is live, the next decision is how you ship new versions of it without breaking the people already using it. The [deployment strategies guide](/posts/deployment-strategies-explained/) covers the five common approaches, recreate, rolling, blue-green, canary, and A/B testing, and tells you which one to pick for an ECS service.
+
 The fastest way to make ECS click is to deploy one trivial container end to end: a single page that returns "hello." Do the whole flow once, on Fargate, with the defaults. Once that loop is in your hands, every more complex setup is just the same flow with more knobs.
