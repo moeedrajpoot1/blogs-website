@@ -2,7 +2,7 @@
 title: "CannotPullContainerError on ECS Fargate: 7 Root Causes and Fixes"
 description: "Seven causes of CannotPullContainerError on ECS Fargate: IAM, networking, image tag, architecture, disk, Docker Hub, VPC endpoints. Match the cause and fix it."
 pubDate: 2026-05-20
-updatedDate: 2026-06-11
+updatedDate: 2026-06-12
 author: "Muhammad Moeed"
 tags: ["aws", "ecs", "devops", "tutorials"]
 keywords: [
@@ -27,6 +27,22 @@ featured: false
 This guide takes every variant the [official AWS troubleshooting page](https://docs.aws.amazon.com/AmazonECS/latest/developerguide/task_cannot_pull_image.html) documents, groups them by root cause, and gives you the exact diagnosis and fix for each. Open your stopped task error message in another tab, match it to one of the seven, and skip to that section.
 
 > `CannotPullContainerError` has seven causes: IAM role missing ECR permissions, network can't reach ECR (no NAT/VPC endpoints, no public IP, blocked security groups), the image or tag does not exist, architecture mismatch (ARM vs AMD), disk space or ephemeral storage too small, Docker Hub rate limit, or a missing S3 gateway endpoint when using VPC endpoints. The fix depends on which one. Read the exact error message first, then match it to the right section.
+
+## Quick error message lookup
+
+Open the stopped task, copy the text after `CannotPullContainerError`, and match it to the row below. The cause column points to the section with the fix.
+
+| If your error message contains... | The root cause is | Jump to |
+|---|---|---|
+| `pull access denied` or "role has the permissions" | IAM role missing ECR permissions | Cause 1 below |
+| `i/o timeout`, `dial tcp`, `connection issue`, `request canceled` | Network can't reach ECR | Cause 2 below |
+| `failed to resolve ref`, `image manifest`, `manifest unknown` | Image or tag does not exist | Cause 3 below |
+| `unexpected status code`, `failed to copy`, or you build on Apple Silicon | Architecture mismatch | Cause 4 below |
+| `no space left on device` | Disk or ephemeral storage too small | Cause 5 below |
+| `toomanyrequests`, `pull rate limit` | Docker Hub rate limit | Cause 6 below |
+| `Context canceled` after VPC endpoints look correct | Missing S3 gateway endpoint | Cause 7 below |
+
+Most users find their fix in a single scan of this table.
 
 ![Title card for the article on fixing CannotPullContainerError in ECS, listing the seven causes](/posts/fix-cannotpullcontainererror-ecs-hero.png)
 
@@ -211,6 +227,30 @@ If you do these once when you set up the service, six of the seven causes never 
 If you also use a base image from Docker Hub, set up the ECR pull-through cache. That covers the last case.
 
 ## Frequently asked questions
+
+### Why does CannotPullContainerError say "no space left on device"?
+
+The task ran out of disk while extracting the image. On Fargate, your ephemeral storage (20 GiB by default) is too small for the image layers. Raise `ephemeralStorage.sizeInGiB` in the task definition (up to 200 GiB), or rebuild the image smaller with `.dockerignore` and multi-stage builds. On EC2, the container instance disk is full — clear `/var/lib/docker/containers/` logs or switch the log driver to `awslogs`.
+
+### Why does CannotPullContainerError say "pull access denied"?
+
+The task execution role does not have permission to read from ECR, or the image is private and no credentials are attached. Attach the AWS managed policy `AmazonECSTaskExecutionRolePolicy` to the task execution role for Fargate, or `AmazonEC2ContainerRegistryReadOnly` to the EC2 instance profile. For a private Docker Hub image, add `repositoryCredentials` to the task definition pointing at a Secrets Manager secret.
+
+### Why does CannotPullContainerError say "toomanyrequests"?
+
+You hit the Docker Hub anonymous pull rate limit, which is 100 pulls per 6 hours per outbound IP. Fix it in order of effort: authenticate the pull with `repositoryCredentials` (doubles the limit), set up an ECR pull-through cache so subsequent pulls come from ECR instead of Docker Hub, or move the base image into ECR entirely. The pull-through cache is the right answer for most teams.
+
+### Why does CannotPullContainerError say "i/o timeout" or "dial tcp"?
+
+The task cannot reach the ECR endpoint over the network. If the task is in a private subnet, you need either a NAT gateway with a default route to `0.0.0.0/0`, or three VPC endpoints — `com.amazonaws.<region>.ecr.api`, `com.amazonaws.<region>.ecr.dkr`, and the `com.amazonaws.<region>.s3` gateway endpoint. Check the route tables and the task's security group egress on TCP 443.
+
+### Why does CannotPullContainerError say "failed to resolve ref" or "image manifest not found"?
+
+The tag in your task definition does not exist in the repository. The most common causes are a typo in the `image` field, a `:latest` tag that was overwritten, or a tag that was deleted by a lifecycle policy. Verify the tag with `aws ecr describe-images --repository-name <repo> --image-ids imageTag=<tag>`. If the command returns `ImageNotFoundException`, push the image again or change the task definition to a tag that exists.
+
+### Why does CannotPullContainerError say "Context canceled" in a VPC endpoint setup?
+
+You set up the two ECR interface endpoints but forgot the S3 gateway endpoint. ECR stores image layers in S3, so the API authenticates fine and then the layer download hangs and times out. Add a `com.amazonaws.<region>.s3` gateway endpoint and confirm the route table for the private subnets points at the gateway endpoint for the S3 prefix list.
 
 ### What is CannotPullContainerError in ECS?
 

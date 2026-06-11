@@ -2,7 +2,7 @@
 title: "Claude Code Slow? 7 Real Fixes for /doctor, /compact, and MCP Bloat"
 description: "Claude Code feels slow when context bloats, MCP tools chain in loops, or memory files grow. See the seven fixes with /doctor and /compact walkthroughs."
 pubDate: 2026-05-23
-updatedDate: 2026-06-11
+updatedDate: 2026-06-12
 author: "Muhammad Moeed"
 tags: ["claude-code", "tutorials"]
 keywords: [
@@ -167,7 +167,39 @@ After all of the above, if you still see consistently lower quality than you rem
 
 **Keep a fallback in your pocket.** Not because Claude is broken, but because every model has bad days. The [Claude Agent SDK vs Vercel AI SDK 6](/posts/claude-agent-sdk-vs-vercel-ai-sdk) comparison covers the case where you want one library that lets you swap models. Even if you stay on Claude ninety nine percent of the time, having an out for the one bad afternoon is cheap insurance.
 
+## When to /clear, /compact, or start a new session
+
+These three look similar but solve different problems. Picking the lightest action that works keeps your skills, MCP servers, and memory file loaded across the boundary.
+
+| Action | What it does | When to use it |
+|---|---|---|
+| `/compact` | Summarises older turns in place and replaces them with the summary. Same session, smaller context. | Mid-task and you want to keep the goal but drop the noisy tool traces. |
+| `/clear` | Wipes the conversation but keeps the same terminal, skills, and MCP connections loaded. | The topic is done and you want to start clean without restarting the CLI. |
+| New session | Closes the CLI process and starts a fresh one. | Switching projects, switching repos, after a freeze that did not respond to `/clear`, or after upgrading Claude Code. |
+
+A normal week looks like two or three `/compact` calls per session, one `/clear` when the topic ends, and a new session when you change repos. If you find yourself restarting the CLI every hour, the cause is usually a misbehaving MCP server or a runaway hook — `/doctor` will spot it.
+
 ## Frequently asked questions
+
+### Why is Claude Code slow?
+
+The two most common causes are context bloat (long sessions with too much loaded into the conversation) and tool-call chains where MCP servers or subagents call each other in a loop. The fix is usually `/compact` or a fresh session, then trimming the MCP servers you are not actively using this week. Anthropic also confirmed a server-side degradation in spring 2026, which was fixed by April 20, 2026 — the platform itself is back to the January baseline.
+
+### How do I run /doctor in Claude Code?
+
+Type `/doctor` inside an active Claude Code session, or run `claude doctor` in your terminal. It reports your version, model, memory file size, loaded skills, MCP servers, active hooks, and authentication state. Anything red or yellow is a slowness suspect; fix those first before blaming the model.
+
+### What does /compact do in Claude Code?
+
+`/compact` summarises the current conversation in place and replaces the older turns with that summary. You keep the goal and the decisions, you drop the noisy tool traces. The result is a smaller context window, which makes the next responses faster and often sharper. Use it once a session crosses about thirty messages, or any time `/doctor` flags context size as the bottleneck.
+
+### Why does Claude Code use so much memory?
+
+High memory use usually traces back to one of three things: a large `MEMORY.md` file, several connected MCP servers, or a long conversation that has not been compacted. Run `/doctor` first to see all three at once. If `MEMORY.md` is over two pages, let [AutoDream](/posts/claude-code-dreaming-guide/) clean it. If three or more MCP servers are connected, disconnect the ones you are not using this week.
+
+### Why is Claude Code freezing?
+
+A freeze is almost always a stuck tool call, not the model itself hanging. The most common cases are an MCP server that does not return, a hook script that hangs on a network call, or a tool waiting for confirmation that never arrives. Cancel the turn, then start a fresh session with `/doctor` to spot the failing tool. If the same MCP server hangs across sessions, disable it and file a bug on its repo.
 
 ### Is Claude Code actually worse than it was in January 2026?
 

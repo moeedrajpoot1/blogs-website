@@ -2,7 +2,7 @@
 title: "How to Build a Claude Code Skill: SKILL.md Format and Setup"
 description: "Build your first Claude Code skill. See the SKILL.md format, where skills live on disk, the YAML frontmatter fields, and how to test the skill."
 pubDate: 2026-05-05
-updatedDate: 2026-06-11
+updatedDate: 2026-06-12
 author: "Muhammad Moeed"
 tags: ["claude-code", "tutorials", "ai-agents"]
 keywords: [
@@ -254,26 +254,41 @@ A few patterns I see again and again.
 
 ## Frequently asked questions
 
-**Where exactly do project skills go?**
-Inside your repo at `.claude/skills/<skill-name>/SKILL.md`. The folder is committed to git unless you ignore it.
+### Where do Claude Code skills live?
 
-**How is this different from a slash command?**
-A skill file is a slash command. The same file gives you both auto-discovery and a `/skill-name` invocation. Slash commands are the manual entry point. Skills are the auto-discovered side of the same thing.
+Project skills live inside the repo at `.claude/skills/<skill-name>/SKILL.md`. Personal skills live at `~/.claude/skills/<skill-name>/SKILL.md`. Plugin-shipped skills live wherever the plugin is installed. Project skills win over personal ones when there is a name conflict, which is almost always what you want inside a repo.
 
-**How is it different from a subagent?**
-Subagents run in a fresh, isolated context. Skills run inside your current conversation. Use a skill when you want the work in front of you. Use a subagent when you want it offloaded.
+### What is SKILL.md?
 
-**Do I need to restart Claude Code after adding a skill?**
-Yes. New skills are picked up when a session starts. End the conversation and open a new one to load them.
+SKILL.md is the single file that defines a Claude Code skill. It has two parts: a YAML frontmatter at the top with `name` and `description`, and a markdown body underneath with the instructions Claude follows when the skill triggers. The filename is exact and case-sensitive. Everything else in the skill folder — supporting scripts, templates, helper files — is optional.
 
-**Can a skill use external scripts?**
-Yes. You can include shell or Python scripts in the skill folder and reference them from SKILL.md. For most workflows, plain markdown instructions are enough.
+### How do I test a Claude Code skill?
 
-**Does this work in Claude Chat or only in Claude Code?**
-The same SKILL.md format works across Claude Code, Claude Chat, and Claude Cowork. Each product looks for skills in its own location, but the file format is identical.
+Restart Claude Code (skills load on session start), then send a prompt that contains the trigger words named in the skill's `description` field. If the skill loads, Claude follows the instructions in the body. If it does not load, the most common cause is a vague description that does not match the words you actually type. Read the description out loud; it should start with a clear verb and end with a clear trigger phrase.
 
-**Should I put skills in CLAUDE.md instead?**
-No. CLAUDE.md is for always-on project context. Skills are for triggered workflows. Loading every workflow into CLAUDE.md bloats the main context and slows the model down.
+### Claude Code skills vs slash commands — what is the difference?
+
+A skill file is also a slash command. The same SKILL.md gives you both auto-discovery and a `/skill-name` invocation. Slash commands are the manual entry point. Skills are the auto-discovered side of the same thing. Use the slash command when you want explicit control over when something runs; lean on auto-discovery when the workflow should fire any time the trigger words show up.
+
+### Claude Code skills vs subagents — when to use which?
+
+Subagents run in a fresh, isolated context with their own tools and memory. Skills run inside your current conversation and stay visible. Use a skill when the work is small and should stay in front of you (commit formatting, lint runs, PR templates). Use a subagent when the work is large and should run as a side process (repo-wide search, long evals, summarising a 5,000-line diff).
+
+### Do I need to restart Claude Code after adding a skill?
+
+Yes. New skills are picked up when a session starts. End the conversation and open a new one to load them. If you keep editing a skill and it does not seem to fire, double-check that you restarted the session, not just refreshed the terminal.
+
+### Can a Claude Code skill use external scripts?
+
+Yes. You can ship shell or Python scripts inside the skill folder and reference them from SKILL.md. For most workflows, plain markdown instructions are enough and easier to maintain. Use scripts when the work is genuinely deterministic, not just because you can.
+
+### Does this work in Claude Chat or only in Claude Code?
+
+The same SKILL.md format works across Claude Code, Claude Chat, and Claude Cowork. Each product looks for skills in its own location, but the file format is identical, so a well-written skill is portable.
+
+### Should I put skills in CLAUDE.md instead?
+
+No. CLAUDE.md is for always-on project context — architecture, style, common commands. Skills are for triggered workflows that should only load when relevant. Loading every workflow into CLAUDE.md bloats the main context and slows the model down. If you have skills that drift into CLAUDE.md, the [Claude Code Skills vs MCP vs Subagents vs Hooks comparison](/posts/claude-code-skills-vs-mcp-vs-subagents-vs-hooks) explains where each primitive belongs.
 
 ## A short closing thought
 
