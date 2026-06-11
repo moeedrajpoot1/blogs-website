@@ -1,7 +1,8 @@
 ---
-title: "What Is AWS ECS Express Mode (and When to Use It)"
-description: "A plain-English guide to Amazon ECS Express Mode: what it is, the three inputs it needs, the infrastructure it builds, its limits, and when to use it."
+title: "What is AWS ECS Express Mode? (vs Fargate and App Runner)"
+description: "ECS Express Mode takes one container image and builds the load balancer, HTTPS URL, auto scaling, and monitoring. See when to use it vs Fargate or App Runner."
 pubDate: 2026-05-19
+updatedDate: 2026-06-11
 author: "Muhammad Moeed"
 tags: ["aws", "ecs", "devops", "tutorials"]
 keywords: ["what is aws ecs express mode", "aws ecs express mode", "ecs express mode explained", "ecs express mode vs ecs", "ecs express mode tutorial", "ecs express mode pricing", "amazon ecs express mode"]

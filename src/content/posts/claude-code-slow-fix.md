@@ -1,7 +1,8 @@
 ---
-title: "Claude Code Slow or Worse? How to Diagnose and Fix It (2026)"
-description: "If Claude Code feels slower or less capable, here is how to diagnose your setup and the fixes that actually work, calmly explained with no hype."
+title: "Claude Code Slow? 7 Real Fixes for /doctor, /compact, and MCP Bloat"
+description: "Claude Code feels slow when context bloats, MCP tools chain in loops, or memory files grow. See the seven fixes with /doctor and /compact walkthroughs."
 pubDate: 2026-05-23
+updatedDate: 2026-06-11
 author: "Muhammad Moeed"
 tags: ["claude-code", "tutorials"]
 keywords: [

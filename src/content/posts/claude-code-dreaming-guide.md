@@ -1,7 +1,8 @@
 ---
-title: "Claude Code Dreaming Explained: A Friendly Guide to AutoDream"
-description: "What Claude Code Dreaming is, how AutoDream consolidates your memory files between sessions, what the /dream command does, and when to trigger it by hand."
+title: "Claude Code AutoDream: MEMORY.md Cleanup and the /dream Command"
+description: "AutoDream cleans Claude Code's MEMORY.md between sessions. /dream runs it on demand. See what gets rewritten and how to turn it off."
 pubDate: 2026-05-13
+updatedDate: 2026-06-11
 author: "Muhammad Moeed"
 tags: ["claude-code", "tutorials", "ai-agents"]
 keywords: [
