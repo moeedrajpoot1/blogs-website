@@ -190,4 +190,6 @@ If your container is an [MCP server](/posts/build-your-first-mcp-server) or an a
 
 Once a new image lands in ECR, the question is which deployment strategy your service should use to pick it up. The [deployment strategies guide](/posts/deployment-strategies-explained/) walks through recreate, rolling, blue-green, canary, and A/B testing in plain English with diagrams, and tells you which one fits an ECS or Kubernetes service.
 
+If a task ever fails to pull from this registry, the [fix CannotPullContainerError in ECS](/posts/fix-cannotpullcontainererror-ecs/) guide groups every variant of that error by root cause and gives the exact fix. And if you want the lightest-weight way to actually run the image you pushed, the [AWS ECS Express Mode guide](/posts/what-is-aws-ecs-express-mode/) is the one-command path that builds the load balancer, scaling, and monitoring for you.
+
 The fastest way to make ECR stick is the same advice as ECS: create one repository, push one trivial image, attach a lifecycle policy, and turn on basic scanning. Do that loop once and every feature above is just the same loop with one more setting turned on.

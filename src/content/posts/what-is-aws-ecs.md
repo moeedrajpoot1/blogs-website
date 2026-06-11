@@ -265,4 +265,6 @@ If your container happens to be an [MCP server](/posts/build-your-first-mcp-serv
 
 Once your service is live, the next decision is how you ship new versions of it without breaking the people already using it. The [deployment strategies guide](/posts/deployment-strategies-explained/) covers the five common approaches, recreate, rolling, blue-green, canary, and A/B testing, and tells you which one to pick for an ECS service.
 
+If your first ECS task stops before its container even starts, the [CannotPullContainerError in ECS: 7 causes and fixes](/posts/fix-cannotpullcontainererror-ecs/) guide tells you which of the seven root causes is hitting you and the exact fix. And if you want the simplest path to a running web service without wiring up the load balancer and IAM roles by hand, [what AWS ECS Express Mode is and when to use it](/posts/what-is-aws-ecs-express-mode/) is the easier path.
+
 The fastest way to make ECS click is to deploy one trivial container end to end: a single page that returns "hello." Do the whole flow once, on Fargate, with the defaults. Once that loop is in your hands, every more complex setup is just the same flow with more knobs.

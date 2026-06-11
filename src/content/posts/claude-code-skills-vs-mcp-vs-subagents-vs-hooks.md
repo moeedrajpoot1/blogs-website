@@ -244,3 +244,4 @@ Once you have the four primitives in place, two more pieces fill out the picture
 - [Claude Code Ultraplan](/posts/claude-code-ultraplan-guide) takes the planning phase to the cloud, which matters once tasks get too large to plan comfortably in a terminal.
 - [Claude Code Outcomes](/posts/claude-code-outcomes-guide) adds a rubric-graded check so the agent's work is judged on real criteria, not just "looks fine to me."
 - [Claude Code vs Cursor](/posts/claude-code-vs-cursor) is worth a read if you are still picking a primary AI coding tool.
+- [Claude Code Skills practical guide](/posts/claude-code-skills-complete-guide/) is the step-by-step SKILL.md walkthrough for when you have decided a skill is the right primitive for the job.

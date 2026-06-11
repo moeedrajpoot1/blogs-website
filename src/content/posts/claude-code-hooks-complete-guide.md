@@ -190,5 +190,6 @@ Hooks pair well with several other Claude Code features.
 - [Claude Code Ultraplan](/posts/claude-code-ultraplan-guide) when a task is too big to plan comfortably in the terminal and you want to draft the plan in the cloud.
 - [Claude Code Dreaming](/posts/claude-code-dreaming-guide) for the maintenance layer that keeps your `MEMORY.md` from rotting between sessions.
 - [Claude Code slow or worse? How to diagnose and fix it](/posts/claude-code-slow-fix) when a hook is misbehaving silently and the model takes the blame.
+- [Claude Code Skills complete guide](/posts/claude-code-skills-complete-guide/) for when you want reusable instructions Claude loads on demand, instead of a hook that runs on every event.
 
 Once you have written three or four hooks, the editor starts to feel less like a stranger and more like a tool that knows your team. That is the whole point. Spend an hour on hooks today, and your future self will quietly thank you for the next year.

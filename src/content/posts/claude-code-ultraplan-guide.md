@@ -224,4 +224,6 @@ If you have not yet set up Claude Code with hooks for the post-implementation ph
 
 If you want to understand how Ultraplan sits next to the rest of the Claude Code extension surface, the [skills, MCP, subagents, and hooks comparison](/posts/claude-code-skills-vs-mcp-vs-subagents-vs-hooks) lays out where each one belongs.
 
+If big plans are slowing your Claude Code sessions, follow the steps in [diagnose and fix Claude Code slowness](/posts/claude-code-slow-fix/) first — most of the sluggishness is context bloat, MCP loops, or oversized memory files, not Ultraplan itself. And once the plan ships, [Claude Code Dreaming explained](/posts/claude-code-dreaming-guide/) covers how memory files get consolidated between runs so Ultraplan does not load a stale plan next session.
+
 For the most part, Ultraplan is something you learn by using. Pick a task that is too big to plan comfortably in a terminal. Run it through Ultraplan once. The feature either fits your work or it does not, and you will know which it is after the first try.

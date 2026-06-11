@@ -205,5 +205,6 @@ Yes, peak hours hit infrastructure harder, and you will see longer first respons
 - [Claude Code vs Cursor: 90 days with both](/posts/claude-code-vs-cursor), if you want a calm comparison for when to reach for which.
 - [Claude Code Skills practical guide](/posts/claude-code-skills-complete-guide), to move repeated context out of every prompt and into reusable skill files.
 - [Claude Agent SDK cost tracking guide](/posts/claude-agent-sdk-cost-tracking), because the June 15, 2026 credit change makes a slow or runaway session cost real dollars, not just patience.
+- [How Claude Code AutoDream works](/posts/claude-code-dreaming-guide/), so AutoDream can compact your `MEMORY.md` between sessions and stop the file from bloating context.
 
 The honest summary is that Claude Code in late May 2026 is in a much better place than it was in March. Update your install, run `/doctor`, keep your sessions short, and write a real `CLAUDE.md`. Most "Claude got worse" cases I have seen since the April fixes were one of those four things, not the platform.

@@ -183,6 +183,8 @@ Cursor is easier for someone who has never touched a terminal. It looks like a n
 
 If you decided on Claude Code, the next thing worth reading is the [hooks guide](/posts/claude-code-hooks-complete-guide), which is the single feature that moves you from "this is interesting" to "this is now part of how I work."
 
+If Claude Code felt off when you tried it and that is biasing the comparison, run through [fix Claude Code when it feels slow](/posts/claude-code-slow-fix/) first — most "Claude got worse" cases trace back to context bloat, MCP loops, or oversized memory files rather than the tool itself.
+
 If you are mixing both, the [MCP servers list](/posts/best-mcp-servers-2026) shows you which extensions are worth installing once, since both tools can use them.
 
 If you are still on the fence, the honest move is to run both for a week on the same project and see which one your hand reaches for. The friction of switching is low. The cost of picking wrong is low. The cost of picking nothing and writing all that code yourself is much higher.
