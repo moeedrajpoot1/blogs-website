@@ -1,6 +1,6 @@
 ---
-title: "Claude Agent SDK Credit Pool: June 15 Billing Change Explained"
-description: "Anthropic moved Agent SDK, claude -p, and Claude Code Actions off subscriptions to a capped credit pool June 15. See the rates and overflow setup."
+title: "Claude Agent SDK Credit Pool: A Plain Guide to the June 15 Change"
+description: "On June 15 Anthropic split Agent SDK billing into a separate monthly pool. Plain guide to what changed, what breaks, and how to keep your tools running."
 pubDate: 2026-06-16
 author: "Muhammad Moeed"
 tags: ["claude-agent-sdk", "claude-code", "tutorials"]
@@ -20,67 +20,75 @@ keywords: [
 featured: true
 ---
 
-On June 15, 2026, Anthropic split how programmatic Claude usage is billed. If you run the Claude Agent SDK, `claude -p` in a shell script, a Claude Code GitHub Action, or any third-party app built on the Agent SDK, those calls no longer draw from your subscription rate limits. They draw from a separate, capped monthly credit pool: **$20 for Pro, $100 for Max 5x, $200 for Max 20x.** Interactive `claude` use in your terminal is unchanged.
+On June 15, 2026, Anthropic changed how it bills Claude when you use it from code instead of from your keyboard.
 
-The change is not a price hike. It is a usage cap on programmatic workloads. If you run a Claude Code GitHub Action on every pull request, or a long-running Agent SDK loop in production, it matters today.
+If you only use Claude in your terminal, by typing prompts and reading the answers, nothing changed for you. Your subscription works the same as it always did.
 
-This guide walks through what changed, the math, the breakage pattern, the GitHub Action YAML fix, how to enable overflow billing, and how to cut Agent SDK costs so the new pool actually lasts the month.
+But if you run the Claude Agent SDK, or `claude -p` inside a shell script, or a Claude Code GitHub Action that reviews pull requests, those calls now come out of a separate monthly pot of money. Pro plans get $20 a month for this pot. Max 5x plans get $100. Max 20x plans get $200.
 
-## What changed in three sentences
+When the pot is empty, those tools stop working until next month, unless you turn on overflow billing. This guide walks through what changed, what breaks, what to do about it, and a few ways to make the pot last longer.
 
-Before June 15, every call your code made to Claude through the Agent SDK, `claude -p`, or a GitHub Action drew from the same subscription rate limits as your interactive Claude Code sessions. After June 15, all programmatic calls draw from a separate monthly credit pool sized to your plan, metered at standard API rates, with no rollover. Interactive Claude Code in your terminal is unaffected, and your subscription rate limits there work exactly as before.
+## What changed, in plain words
 
-## What still uses the subscription and what does not
+The simple rule is this. If a human is sitting at the keyboard, the call still comes out of your subscription, the same as before. If your code is running on its own, the call now comes out of the new pot.
 
-The line between subscription and credit pool is whether a human is at the keyboard.
+That is the whole change. Subscription rate limits did not move. API prices did not move. Anthropic just split the two kinds of usage so the automated kind is metered against a fixed monthly budget instead of sharing the interactive rate limits.
 
-| Workload | Before June 15 | After June 15 |
+| What you are doing | Before June 15 | After June 15 |
 |---|---|---|
-| Interactive `claude` (you typing in a terminal) | Subscription | Subscription (unchanged) |
-| `claude -p "..."` in a shell script | Subscription | Agent credit pool |
-| Claude Agent SDK app (Python / TypeScript) | Subscription | Agent credit pool |
-| Claude Code GitHub Action | Subscription | Agent credit pool |
-| Third-party app built on the Agent SDK | Subscription | Agent credit pool |
-| Direct Anthropic API calls (existing API key) | API billing | API billing (unchanged) |
+| Typing in `claude` in your terminal | Subscription | Subscription (same as before) |
+| `claude -p "..."` inside a shell script | Subscription | New monthly pot |
+| Claude Agent SDK app (Python or TypeScript) | Subscription | New monthly pot |
+| Claude Code GitHub Action | Subscription | New monthly pot |
+| Third-party app built on the Agent SDK | Subscription | New monthly pot |
+| Direct API calls with your existing API key | API billing | API billing (same as before) |
 
-The split is intentional. Interactive use is what subscribers pay for. Programmatic use is closer to running a small piece of cloud infrastructure, so it gets metered like one.
+The split is on purpose. Interactive use is what people pay the subscription for. Automated use looks more like running a small piece of cloud infrastructure, so it now gets billed the same way.
 
-## The credit pool math
+## How much does the pot actually buy you
 
-The pool tracks usage against full standard API rates. Token prices have not changed.
+The pot uses the normal API prices. Token prices have not changed.
 
-| Plan | Monthly pool | Approx. Opus 4.7 output budget | Approx. Sonnet 4.6 output budget |
+| Plan | Monthly pot | Pure Opus 4.7 output budget | Pure Sonnet 4.6 output budget |
 |---|---|---|---|
-| Pro ($20) | $20 | ~266K output tokens | ~1.3M output tokens |
-| Max 5x ($100) | $100 | ~1.3M output tokens | ~6.7M output tokens |
-| Max 20x ($200) | $200 | ~2.7M output tokens | ~13.3M output tokens |
+| Pro ($20) | $20 | about 266K output tokens | about 1.3M output tokens |
+| Max 5x ($100) | $100 | about 1.3M output tokens | about 6.7M output tokens |
+| Max 20x ($200) | $200 | about 2.7M output tokens | about 13.3M output tokens |
 
-A more honest example with both input and output tokens included. A large Claude Code GitHub Action review of a 500-line pull request can read 100,000 to 300,000 input tokens and generate 50,000 to 150,000 output tokens. At Opus 4.7 rates that costs roughly $5 to $16 per review. A Pro Agent SDK pool covers about 2 to 4 of those large reviews per month, a Max 5x pool covers 6 to 20, and a Max 20x pool covers 12 to 40. Smaller reviews on Sonnet 4.6 cost five to ten times less, so the model split matters more than the plan tier in most cases.
+A simple example so the numbers feel real. Each Claude Code review of a 500-line pull request reads a lot of code (often 100,000 to 300,000 input tokens) and writes a smaller summary back (50,000 to 150,000 output tokens). On Opus 4.7 prices, one big review like that costs roughly $5 to $16.
 
-Credits do not roll over between months. Unused budget at month end is gone.
+So in plain numbers:
+
+- A Pro pot ($20) covers about 2 to 4 big Opus reviews per month
+- A Max 5x pot ($100) covers about 6 to 20
+- A Max 20x pot ($200) covers about 12 to 40
+
+If you use Sonnet 4.6 instead of Opus, each review costs five to ten times less, so the same pot lasts much longer. The model you pick matters more than the plan you pick.
+
+Unused pot at the end of the month is gone. It does not roll over.
 
 ## Why this matters today, not next month
 
-If you have a Claude Code GitHub Action wired to run on every pull request, you are now metered against the pool. Three or four large reviews per week on Opus 4.7 can exhaust a Pro pool before the month is out. The Action does not warn you. It fails the workflow when the next call hits an empty pool.
+If you have a Claude Code GitHub Action that runs on every pull request, your pot is being used every time someone opens one. Three or four big reviews per week on Opus 4.7 can empty a Pro pot before the month is done. The Action does not warn you. It just fails when the pot is empty.
 
-The same applies to any Agent SDK loop running unattended: a nightly summarisation job, a Slack triage bot, a Discord moderation agent, a documentation auto-updater. They were all subsidised by your subscription before June 15. They are not now.
+The same thing applies to any agent that runs on its own. A nightly script that summarises a Slack channel. A bot that triages support tickets. A Discord moderator. A documentation updater that runs on a schedule. All of these were quietly paid for by your subscription before June 15. They are not now.
 
-If you are a normal interactive user who runs `claude` in a terminal a few times a day, nothing about your day changed. If you are running anything automated, today is the day to check.
+If you only use Claude in your terminal a few times a day, today changed nothing for you. If anything in your setup runs by itself, today is a good day to look at it.
 
-## The breakage pattern when the pool runs out
+## What breaks when the pot is empty
 
-When the credit pool is exhausted and overflow is not enabled:
+When the pot runs out and overflow billing is off:
 
-- Subscription tools (interactive `claude` in your terminal) keep working as before.
-- Programmatic tools (`claude -p`, Agent SDK, GitHub Action) start returning an error on the next call.
-- The error is a 402-style response with a body that explicitly names the credit pool.
-- For a GitHub Action, the workflow step fails. The next pull request also fails until either the next billing cycle, or you enable overflow, or you upgrade the plan.
+- Interactive `claude` in your terminal keeps working the same way.
+- Automated tools (`claude -p`, Agent SDK, GitHub Action) start returning errors.
+- The error is a 402-style response, and the message inside says something about the credit pool by name.
+- For a GitHub Action, the workflow step fails. The next pull request also fails. This keeps happening until you either wait for next month, turn on overflow, or change the token to a regular API key.
 
-The interactive vs. programmatic asymmetry can be confusing to debug for a few minutes. If you can still run `claude` in your terminal but your GitHub Action is failing on the same account, you are out of pool credits, not actually rate limited at the model level.
+The split between "interactive still works" and "automated is failing" can be confusing for a few minutes the first time you see it. If you can still run `claude` in your terminal but your GitHub Action is failing on the same account, you are out of pot money. You are not actually being rate limited.
 
-## Detecting credit exhaustion in code
+## How to spot pot exhaustion in your code
 
-The Anthropic SDK raises a regular API error when the pool is empty. The error code is the same 429 family that classic rate limits use, but the body carries a distinct message naming the credit pool. Treat them as two different cases.
+The Anthropic SDK throws a normal API error when the pot is empty. The status code is `429`, which is the same code used for normal rate limits. The difference is in the error message: it mentions the credit pool by name. Treat the two as different problems.
 
 ```python
 from anthropic import Anthropic, APIStatusError
@@ -96,34 +104,36 @@ try:
 except APIStatusError as e:
     body = str(e)
     if e.status_code == 429 and "credit pool" in body.lower():
-        # The agent credit pool is exhausted. Don't retry blindly —
-        # either fail loud, switch to a billable API key, or stop the job.
+        # The pot is empty. Don't retry blindly — either stop, show a
+        # clear error, or switch to a separate billable API key.
         handle_credit_exhaustion()
     elif e.status_code == 429:
-        # Classic rate limit. Backoff and retry.
+        # Normal rate limit. Wait and try again.
         backoff_and_retry()
     else:
         raise
 ```
 
-If you do not split these two cases, a backoff-and-retry loop on credit exhaustion will burn your remaining minutes against a wall. The exhaustion case should fail loud or hand off to a billable API key, not retry.
+If you do not split these two cases, a retry loop on an empty pot will just keep trying against a wall. The empty-pot case should stop and show an error, not retry.
 
-## How to set up overflow billing
+## How to turn on overflow billing
 
-Overflow billing lets programmatic usage continue past the pool by billing the surplus directly to your payment method at standard API rates. Without overflow, the call simply fails.
+Overflow billing lets your automated tools keep working after the pot is empty. The extra usage goes straight to your payment method at normal API prices. Without overflow, the call just fails.
 
-1. Open https://console.anthropic.com.
-2. Go to Settings, then Billing.
-3. Toggle "Allow overflow for Agent SDK."
-4. Save.
+Steps:
 
-After overflow is enabled, the pool drains first, then any additional usage bills at API rates. There is no cap unless you add a budget alert (Console, Usage, Set a budget). For production agent apps that cannot tolerate a mid-month failure, overflow plus a budget alert at 80 percent of your monthly expectation is the safe default.
+1. Open https://console.anthropic.com
+2. Go to Settings, then Billing
+3. Turn on "Allow overflow for Agent SDK"
+4. Save
 
-If you maintain a serious agent app, the cleanest path is often to skip the credit pool entirely and run that app on a regular Anthropic API key. That removes the pool coupling and gives you the same direct billing you had before June 15.
+After it is on, the pot empties first, then any more usage bills at API prices. There is no cap unless you add a budget alert (Console, then Usage, then Set a budget). For real agent apps that cannot afford to stop in the middle of the month, overflow plus a budget alert at 80% of what you expect to use is a safe default.
 
-## The GitHub Action YAML pattern that breaks vs. the fix
+For a serious production agent app, the cleanest option is often to skip the pot entirely and use a regular Anthropic API key. That removes the link between your subscription and the app, and you get plain direct billing again, the same as before June 15.
 
-Before June 15, this workflow ran indefinitely under your subscription rate limits.
+## The GitHub Action YAML that breaks, and the fix
+
+Before June 15, this workflow ran forever under your subscription:
 
 ```yaml
 name: Claude Code Review
@@ -139,9 +149,9 @@ jobs:
           anthropic-api-key: ${{ secrets.ANTHROPIC_SUBSCRIPTION_TOKEN }}
 ```
 
-After June 15, the same workflow still runs, but every review draws from the Agent SDK credit pool. When the pool empties, the next pull request triggers a failed step.
+After June 15, the same workflow still runs, but every review takes money from the new pot. When the pot is empty, the next pull request fails the step.
 
-The minimum fix is to switch the token to a billable Anthropic API key with overflow already covered:
+The simplest fix is to switch the token to a regular Anthropic API key (one that bills directly and has overflow on):
 
 ```yaml
 name: Claude Code Review
@@ -156,75 +166,75 @@ jobs:
         with:
           anthropic-api-key: ${{ secrets.ANTHROPIC_API_KEY }}
         env:
-          # Cap the per-run cost so a runaway review cannot exhaust your account
+          # Stop a runaway review from eating your account
           CLAUDE_MAX_TURNS: "30"
           CLAUDE_MAX_TOKENS: "4096"
 ```
 
-The two environment caps in the second example are not strictly required, but they are how most teams who hit a single $200 review story stop the same thing from happening again. A runaway agent with no `max_turns` can loop tool calls until something forces a stop.
+The two limits in the second example are optional, but they are how most teams who lost a $200 review story stop the same thing from happening again. A loop with no `max_turns` can keep calling tools until something forces it to stop.
 
-## A pragmatic checklist before the next billing cycle
+## A short checklist for the next billing cycle
 
-Run through these once and the new structure stops being a surprise.
+Run through this once and the new structure stops being a surprise.
 
-1. Open the Anthropic Console, Billing, and read your current credit pool balance.
-2. Open Usage, filter to the last 30 days, and split the spend by model and by source.
-3. Identify which calls were interactive (free under subscription) and which were programmatic (now metered).
-4. If programmatic usage in the last 30 days exceeds your pool, decide which fix applies: upgrade the plan, enable overflow, or move that workload to a billable API key.
-5. Add a budget alert in the Console at 80 percent of your monthly expectation.
-6. Update your error handling code to detect credit-pool exhaustion as a distinct case from classic rate limits.
-7. Walk the GitHub Action workflows in your top three repos and confirm each one points at a billable API key, not a subscription token, if you want them to keep running past the pool.
+1. Open the Anthropic Console, then Billing, and read your current pot balance.
+2. Open Usage, set the filter to the last 30 days, and split the cost by model and by source.
+3. Sort the calls into two buckets: interactive (free under subscription) and automated (now uses the pot).
+4. If your automated usage last month was bigger than your pot, you have three choices: upgrade the plan, turn on overflow, or move that work to a separate API key.
+5. Add a budget alert at 80% of what you expect to use this month.
+6. Change your error-handling code so empty-pot errors are treated differently from normal rate limits.
+7. Open your top three GitHub Actions and confirm each one uses an API key you are happy to bill against, not a subscription token, if you want them to keep running after the pot is gone.
 
-The owners I have seen most rattled by this change were running a Claude Code GitHub Action on every push to several busy repos. The fix for them was the model split below, not a plan upgrade.
+The owners I have seen caught most off guard by this were running a Claude Code GitHub Action on every push across several busy repos. The fix was not a bigger plan. It was the model split below.
 
-## How to cut Agent SDK costs so the pool actually lasts
+## How to make the pot last longer
 
-The Agent SDK credit pool is not generous if you run Opus 4.7 on everything. It is fine if you treat it as a budget and route work accordingly.
+The pot is not generous if you run everything on Opus 4.7. It is fine if you treat it as a budget and send each piece of work to the right model.
 
-- **Use Haiku 4.5 for triage and Opus 4.7 for synthesis.** Haiku is roughly 15 times cheaper for output tokens. A triage step that decides which files to read or which tool to call almost never needs Opus. Save Opus for the synthesis pass that writes the final answer.
-- **Enable prompt caching with a 5-minute TTL.** Agent SDK loops that re-send the same context for many turns are the textbook case for prompt caching. The cost saving on cached input tokens is large, and the integration is one parameter on the call.
-- **Move non-interactive work to the Batch API.** If a job can wait minutes rather than seconds, the Batch API is half price. Nightly summarisation, evals, large dataset labelling — all good fits.
-- **Cap `max_tokens`.** An agent generating 4096 tokens when the answer needed 512 is straight waste. Set the cap on every call.
-- **Profile your spend.** The Anthropic Console Usage tab breaks spend down by model. If 80 percent of your pool is going to Opus calls that produce one-line responses, that is the first thing to fix.
+- **Use Haiku for the small steps and Opus only for the hard ones.** Haiku 4.5 costs about 15 times less than Opus on output. The step that decides "which files should I read" or "which tool should I call next" almost never needs Opus. Save Opus for the part that writes the final answer.
+- **Turn on prompt caching with a 5-minute timeout.** If your agent loop sends the same context many times, prompt caching is the obvious win. Cached input tokens cost a fraction of fresh ones, and turning it on is one extra parameter on the call.
+- **Use the Batch API for work that does not need to be instant.** If a job can wait a few minutes, the Batch API is half price. Good fits: nightly summaries, evals, large dataset labelling.
+- **Set a small `max_tokens` cap.** An agent writing 4096 tokens when 512 would have done the job is paying for waste. Set the cap on every call.
+- **Look at your spend by model.** The Anthropic Console Usage tab shows where the money goes. If 80% of your pot is going to Opus calls that produce one-line answers, that is the first thing to fix.
 
-For deeper instrumentation patterns, see the [Claude Agent SDK cost tracking guide](/posts/claude-agent-sdk-cost-tracking). The patterns it covers (per-call cost logging, per-tool-call budgets, weekly burn reports) become more important now that the pool is a fixed budget instead of a soft rate limit.
+For more on how to instrument an Agent SDK app so you can see where each token goes, see the [Claude Agent SDK cost tracking guide](/posts/claude-agent-sdk-cost-tracking). Those patterns matter more now that the pot is a fixed monthly budget instead of a soft rate limit.
 
 ## Frequently asked questions
 
 ### What is the Claude Agent SDK credit pool?
 
-The Agent SDK credit pool is a separate monthly budget that all programmatic Claude usage draws from after June 15, 2026. Pro plans get $20, Max 5x plans get $100, Max 20x plans get $200. It is metered at standard API rates, does not roll over, and applies to the Agent SDK, `claude -p`, Claude Code GitHub Actions, and third-party Agent SDK apps.
+The Agent SDK credit pool is a separate monthly budget that all automated Claude usage takes from after June 15, 2026. Pro plans get $20, Max 5x plans get $100, and Max 20x plans get $200. It is metered at normal API prices, does not roll over, and applies to the Agent SDK, `claude -p`, Claude Code GitHub Actions, and any third-party app built on the Agent SDK.
 
 ### Does the June 15 billing change affect interactive Claude Code?
 
-No. Interactive `claude` use in your terminal still draws from your subscription rate limits exactly as before. Only programmatic usage moves to the credit pool.
+No. Interactive `claude` in your terminal still uses your subscription rate limits, the same as before. Only automated usage moves to the new pot.
 
 ### What happens when the Agent SDK credit pool runs out?
 
-Without overflow billing enabled, your next programmatic API call returns a 402-style error and your Agent SDK app, `claude -p` script, or GitHub Action fails. With overflow enabled, additional usage continues at standard API rates billed directly to your payment method.
+Without overflow billing on, the next automated call returns a 402-style error, and your Agent SDK app, `claude -p` script, or GitHub Action fails. With overflow on, more usage carries on at normal API prices and bills your payment method directly.
 
-### How do I enable overflow billing for the Agent SDK?
+### How do I turn on overflow billing for the Agent SDK?
 
-Open the Anthropic Console, go to Settings, then Billing, and toggle "Allow overflow for Agent SDK." Save. Add a budget alert under Usage so you get a warning before a runaway agent exhausts your account.
+Open the Anthropic Console, go to Settings, then Billing, and turn on "Allow overflow for Agent SDK". Save. Then add a budget alert under Usage so you get a warning before a runaway agent eats your account.
 
 ### Can I keep using my subscription token in a GitHub Action?
 
-Yes, but the calls now draw from the Agent SDK credit pool instead of your interactive limits. When the pool empties, the Action fails. For production workflows, the cleaner pattern is a regular Anthropic API key with overflow billing or a budget cap.
+Yes, but those calls now take money from the pot instead of your interactive rate limits. When the pot is empty, the Action fails. For real production workflows, the cleaner pattern is a regular Anthropic API key with overflow on or a budget cap set.
 
 ### Why did Anthropic make the June 15 change?
 
-Anthropic has said the change separates interactive subscriber usage from programmatic workloads, which were being run 24/7 by some accounts at an actual cost far higher than the flat subscription rate. The structural separation lets interactive subscription pricing stay where it is, while programmatic usage is metered closer to the underlying cost.
+Anthropic has said the change splits interactive subscription use from automated workloads. Some accounts were running Agent SDK loops 24 hours a day at a real cost much higher than the flat subscription rate. Splitting the two kinds of use lets the interactive subscription stay the same while automated use is billed closer to its real cost.
 
-### How do I detect credit-pool exhaustion in my Agent SDK code?
+### How do I tell pot exhaustion apart from a rate limit in code?
 
-The exhaustion error is a 429-family status code with an error body that explicitly mentions the credit pool. Check the body string for "credit pool" or the specific error code Anthropic ships with the response, and branch your error handling so an exhaustion does not trigger a regular rate-limit retry loop.
+The pot exhaustion error is a `429` status with a body that mentions the credit pool by name. Check the body text for "credit pool" (or the specific error code Anthropic ships with the response) and branch your error handling so an empty pot does not trigger a normal rate-limit retry loop.
 
-### Should I upgrade my plan or enable overflow?
+### Should I upgrade my plan or turn on overflow?
 
-Upgrade the plan if your steady-state programmatic usage is reliably above the pool every month and you want a predictable bill. Enable overflow if your usage is bursty and a small monthly spillover is cheaper than the next plan tier. Many teams do both.
+Upgrade the plan if your steady automated usage is over the pot every month and you want a predictable bill. Turn on overflow if your usage is uneven and a small monthly spillover is cheaper than the next plan tier. Many teams do both.
 
 ## Where to go next
 
-For the longer view of Agent SDK billing, see the [Claude Agent SDK cost tracking guide](/posts/claude-agent-sdk-cost-tracking). For comparison with other agent frameworks before you commit any deeper, the [Claude Agent SDK vs LangChain](/posts/claude-agent-sdk-vs-langchain) and [Claude Agent SDK vs Vercel AI SDK 6](/posts/claude-agent-sdk-vs-vercel-ai-sdk) comparisons cover when each one is the right tool. If your Agent SDK app is also a Claude Code user, the [Claude Code Skills practical guide](/posts/claude-code-skills-complete-guide) covers how to bound model behavior with skills so you stop re-prompting (and re-paying) for the same instructions.
+For the bigger view of Agent SDK billing, see the [Claude Agent SDK cost tracking guide](/posts/claude-agent-sdk-cost-tracking). To compare other agent frameworks before you commit deeper, the [Claude Agent SDK vs LangChain](/posts/claude-agent-sdk-vs-langchain) and [Claude Agent SDK vs Vercel AI SDK 6](/posts/claude-agent-sdk-vs-vercel-ai-sdk) comparisons cover when each one is the right pick. If your Agent SDK app is also a Claude Code user, the [Claude Code Skills practical guide](/posts/claude-code-skills-complete-guide) covers how to use skills to keep model behavior tight so you stop re-prompting (and re-paying) for the same instructions.
 
-The summary is short. The June 15 change is not a price hike. It is a cap on programmatic usage. If you run agents in production or a Claude Code GitHub Action on every pull request, the credit pool matters today. Open the Anthropic Console, confirm your balance, enable overflow if you cannot tolerate a mid-month failure, and split your model use so Haiku does the triage and Opus does the work. The interactive Claude Code experience you have been paying for has not changed at all.
+The short version. The June 15 change is not a price hike. It is a cap on automated usage. If you only use Claude in your terminal, your day did not change. If you run agents in production or a Claude Code GitHub Action on every pull request, the pot matters today. Open the Anthropic Console, check your balance, turn on overflow if you cannot risk a mid-month failure, and split your work so Haiku does the small steps and Opus does the hard ones. The interactive Claude Code experience you have been paying for has not changed at all.
