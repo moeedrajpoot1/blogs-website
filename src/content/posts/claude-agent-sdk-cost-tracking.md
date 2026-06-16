@@ -246,5 +246,6 @@ Three common reasons. The SDK version is older than the latest price change. The
 - [How to build your first MCP server](/posts/build-your-first-mcp-server), to see how tool cost flows through the same `total_cost_usd` field.
 - [Microsoft RAMPART for Claude agents](/posts/microsoft-rampart-claude-agents), for the testing side that prevents runaway loops from eating your credit.
 - [Claude Code slow or worse, diagnose and fix](/posts/claude-code-slow-fix), for the practical playbook when an agent starts costing more than it should.
+- [Claude Agent SDK Credit Pool: June 15 billing change explained](/posts/claude-agent-sdk-credit-pool), for the post-June 15 split between subscription and credit pool, the overflow billing setup, and the GitHub Action YAML pattern that breaks at exhaustion.
 
 The shortest path from where you are today to a calm June 15 is to log `total_cost_usd` for one week, pull the Console number alongside it, and pick a plan from the simple formula above. Two hours of work, and your team stops guessing.
