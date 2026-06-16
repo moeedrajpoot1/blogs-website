@@ -322,7 +322,29 @@ Use this section to record what was done each day and what moved in GSC.
 - 2026-06-16 — GSC check at Day 4 post-rewrite: clicks 19→23 (+21%), impressions 2.58K→3K, CTR 0.7→0.8%, position 11.2→11.4 (slight wobble normal during re-evaluation). On track for the Day 30 projection (30-45 clicks).
 - 2026-06-16 — New article published: `claude-agent-sdk-credit-pool.md`. Topic was identified by a trend research agent — the June 15 Anthropic billing change is the highest-ROI rank-fast topic in flight. Article is 2300 words, includes a "What changed" table, credit pool math table, GitHub Action YAML before/after, overflow billing setup steps, 8 H3 FAQs matching literal search queries. Linked reciprocally from `claude-agent-sdk-cost-tracking`. Commit `8c7b772`. Topic-fit angle: only article in the niche taking the engineer-focused "here is the YAML that breaks" angle (competitors are marketer-tone explainers).
 - 2026-06-16 — Humanized rewrite of the credit pool article — replaced jargon with plain ESL words, swapped "credit pool" for "pot of money" metaphor in body (kept "credit pool" in title/keywords for SEO), shortened sentences. Plagiarism check passed: 13/13 distinctive phrases unique. Commit `6307951`.
-- 2026-06-16 — Second new article published: `claude-fable-5-unavailable.md` (2400 words). Identified via owner's Google Trends data — "claude fable 5 is currently unavailable why" was a BREAKOUT query, "when is fable coming back" / "why fable 5 banned" all rising +40-50%. Research agent + WebFetch on 3 primary sources (Anthropic news page, 9to5Mac, MarkTechPost) gave the factual bulletproofing. Article structure: 3-sentence AIO answer, timeline, Commerce Dept quotes, Anthropic verbatim statements, plain-English jailbreak explanation, 5-step migration playbook to Opus 4.8, 10 H3 FAQs matching literal rising queries. Featured: true. Commit `4e5baf9`. Plagiarism check running in background.
+- 2026-06-16 — Second new article published: `claude-fable-5-unavailable.md` (2400 words). Identified via owner's Google Trends data — "claude fable 5 is currently unavailable why" was a BREAKOUT query, "when is fable coming back" / "why fable 5 banned" all rising +40-50%. Research agent + WebFetch on 3 primary sources (Anthropic news page, 9to5Mac, MarkTechPost) gave the factual bulletproofing. Article structure: 3-sentence AIO answer, timeline, Commerce Dept quotes, Anthropic verbatim statements, plain-English jailbreak explanation, 5-step migration playbook to Opus 4.8, 10 H3 FAQs matching literal rising queries. Featured: true. Commit `4e5baf9`. Plagiarism check: 12/12 phrases unique, clean.
+- 2026-06-16 — Reciprocal link added from `claude-agent-sdk-credit-pool.md` "Where to go next" section pointing to `claude-fable-5-unavailable`. Both June 16 articles now link to each other for cluster reinforcement.
+- 2026-06-16 — Dev.to teaser drafted for Fable 5 article (delivered to owner in chat, ~410 words, canonical_url to moeed.app, tags: claude/ai/anthropic/llm). Cover image discussion: owner decided to publish without a cover image since Anthropic's primary news page is text-only and no quick visual option exists. Decision logged: ship for speed over polish.
+
+## Current status snapshot (end of 2026-06-16 session)
+
+**Published articles since plan start:** 2 new (credit pool, Fable 5) + depth refreshes on 5 stuck pages + 14 internal links across 11 posts.
+
+**Site totals:** ~34 posts published, all on moeed.app + indexed.
+
+**Pending owner manual tasks (carry to next session):**
+- Request indexing in GSC for the 2 new URLs (`/posts/claude-agent-sdk-credit-pool/`, `/posts/claude-fable-5-unavailable/`)
+- Publish dev.to Fable 5 teaser (markdown delivered in chat)
+- Reddit r/ClaudeAI post (profile setup still blocked — try mobile app)
+- One Stack Overflow answer on `amazon-ecs` "CannotPullContainerError"
+- Open issue on `hesreallyhim/awesome-claude-code` recommending the skills-complete-guide
+- Add real screenshots to fix-cannotpullcontainererror-ecs (CloudWatch log) and claude-code-slow-fix (/doctor output)
+
+**Trends to monitor for next article:**
+- Fable 5 / Mythos 5 return announcement (Anthropic news page)
+- Any new US Commerce Department clarification on the order
+- MCP 2026-07-28 spec finalisation (rising every week until July 28)
+- Claude Code release notes (v2.1.178+ rolling out new permission syntax)
 - 2026-06-13 — ...
 - 2026-06-14 — ...
 - 2026-06-15 — ...
