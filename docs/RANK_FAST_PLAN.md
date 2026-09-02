@@ -400,11 +400,24 @@ Discovery lanes: Claude Code releases · Agent SDK updates · MCP ecosystem · A
 - **Updated commitment:** page carries dated "Last updated: September 2, 2026" line and a promise to re-check on Sept 14. If Anthropic publishes real numbers or the WSJ lawsuit surfaces a table, this page updates
 
 **Pending owner manual tasks after this session:**
-- Request indexing in GSC for `/posts/claude-code-weekly-limit-september-2026/`
-- On Sept 14, take a `/usage` screenshot to compare with today's baseline (if the derived math is off, update the table)
+- Request indexing in GSC for `/posts/claude-code-weekly-limit-september-2026/` and `/posts/claude-code-auto-mode-default-guide/`
+- On Sept 14, take a `/usage` screenshot to compare with today's baseline (if the derived math is off, update the weekly-limit table)
 - Watch @ClaudeDevs and Anthropic newsroom for the "exciting changes" they teased alongside the announcement
 - Watch WSJ / archive.ph mirror for lawsuit developments that might force plan-number disclosure
 - Reddit r/ClaudeAI post on the weekly-limit change (once profile access is unblocked)
+- Register moeed.app in Bing Webmaster Tools via "Import from Google Search Console" (indexing is already automated via IndexNow GitHub Action — this is just to unlock the analytics dashboard)
+
+### 2026-09-02 — Second article this session: `claude-code-auto-mode-default-guide.md`
+
+- **Trigger:** two changes 18 days apart. (a) Aug 14 2026 — auto mode became the default permission mode on Pro/Max/Team (server-side feature-flag rollout, no dedicated changelog bullet). (b) Sept 1 2026 v2.1.257 changelog added the "Containment Escape" rule to auto mode's classifier: blocks cloud metadata-credential fetches (IMDSv2), egress evasion (domain fronting), and cross-tenant reach unless the environment marks them expected.
+- **Rank rationale:** critic demoted #2 (Fable 5.1) below #3 (Auto Mode) because Anthropic + VentureBeat + DataCamp will lock top 5 for the model launch; the Sept 1 Containment Escape rule has zero third-party explainer as of Sept 2 — clear SERP wedge.
+- **Fact sheet:** built via a 7-lane fact-gathering workflow (71 raw facts). Primary sources: code.claude.com/docs/en/whats-new/2026-w32 (verbatim Aug 14 announcement), code.claude.com/docs/en/permission-modes (full mode reference + version requirements), raw.githubusercontent.com/anthropics/claude-code/main/CHANGELOG.md (verbatim v2.1.257 Containment Escape bullet), code.claude.com/docs/en/security, code.claude.com/docs/en/sandboxing, code.claude.com/docs/en/auto-mode-config, docs.aws.amazon.com/AWSEC2/latest/UserGuide/instance-metadata-v2-how-it-works.html (IMDSv2), AWS security blog on defense-in-depth for open firewalls + SSRF.
+- **Structure:** quick-answer bullet list → what auto mode is (analogy first, jargon second) → Aug 14 flip walkthrough → Sept 1 rule verbatim → three plain-English "what it blocks" sections with hotel-front-desk (IMDSv2), bouncer-guest-list (egress evasion), and different-building (cross-tenant reach) analogies → six-mode reference table → five ways to disable auto mode from CLI → managed-settings.json JSON snippet with 4-layer defense including a hard deny on 169.254.169.254 → fall-back behavior note → 8 H3 FAQs → what we do not know → cluster links
+- **Non-tech readability:** every jargon term (IMDSv2, egress, cross-tenant, classifier, managed settings) gets an analogy or one-line definition before use. Written to a Grade 8-ish reading level per owner request.
+- **Word count:** ~2400
+- **Internal links (4):** `claude-code-weekly-limit-september-2026` · `claude-code-skills-complete-guide` · `claude-code-slow-fix` · `claude-agent-sdk-credit-pool`. Reciprocal cluster with today's other new article.
+- **Plagiarism check:** INCONCLUSIVE by primary WebSearch (session budget was exhausted 200/200 before this workflow began), but 10-phrase fallback via WebFetch of Google + Bing + DuckDuckGo + Brave + Qwant returned zero exact matches across 3-4 engines per phrase. Bing loose-match counts (362k, 179k, 116k) confirmed no exact matches in visible snippets. Analogies were built from the primary-source fact sheet, not lifted. Risk assessed as low; page is publish-safe.
+- **Unanswered items flagged in the article** (not the pending list): full internal Containment Escape rule text is not published on docs — the `auto-mode-config` page directs users to run `claude auto-mode defaults --label "Containment Escape"` locally to print it; exact key name for marking a destination as "expected" in the environment file is not documented on the pages we verified; `code.claude.com/docs/en/security` had no mention of the rule as of Sept 2.
 - 2026-06-13 — ...
 - 2026-06-14 — ...
 - 2026-06-15 — ...
