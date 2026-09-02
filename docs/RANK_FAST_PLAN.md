@@ -345,6 +345,66 @@ Use this section to record what was done each day and what moved in GSC.
 - Any new US Commerce Department clarification on the order
 - MCP 2026-07-28 spec finalisation (rising every week until July 28)
 - Claude Code release notes (v2.1.178+ rolling out new permission syntax)
+
+## Post-window session — 2026-09-02
+
+Plan window (2026-06-11 to 2026-07-11) closed ~2 months ago. Measurement + fresh trend R&D + one urgent article shipped in this session.
+
+### 3-month GSC measurement (Sept 2 pull)
+
+- **Total clicks:** ~101 (baseline was ~23) — about 4.4x growth
+- **Total impressions:** 14.6K (baseline was ~3K) — about 4.9x growth
+- **Avg CTR:** 0.7% (~flat)
+- **Avg position:** 17.5 (dropped from 11.4, but this is expected: ranking for many more queries widens the impression footprint and pulls average position down while total clicks grow)
+- **AI Overview citations:** 1.41K impressions in 3 months — a signal channel that did not exist in the baseline
+- **Top earner:** `whatsapp-liquid-glass-design` = 53 clicks / 6,385 impressions. The Day-3 `noindex: true` removal validated retroactively — this single edit is the highest-ROI move of the plan
+- **Rising page flagged by Google itself:** `claude-code-skills-complete-guide` = +220% impressions
+- **AI Overview zero-click pattern observed:** `claude-code-dreaming-guide` = 440 AI Overview impressions vs 0 web clicks; content is being read inside Google's answer box without clickthrough. Same on `what-is-aws-ecs-express-mode` (168 AI vs 14 web). Fix requires content that pushes for deeper action (downloads, tool comparisons AI cannot summarize)
+
+### Trend R&D (multi-agent workflow, 25 agents, 1.3M tokens)
+
+Discovery lanes: Claude Code releases · Agent SDK updates · MCP ecosystem · Anthropic models/API · Reddit hot posts · HN + GitHub trending · dev.to + YouTube · AWS AI eng · comparison queries · GSC untapped follow-ups.
+
+**Top ranked ideas (out of 12):**
+1. Claude Code weekly limit cut Sept 14 (44/50) — SHIPPED THIS SESSION
+2. Claude Fable 5.1 in Claude Code v2.1.257 (42/50) — critic demoted: Anthropic + VentureBeat + DataCamp will lock top 5 within 48h
+3. Claude Code Auto Mode default + Sept 1 Containment Escape rule (41/50)
+4. MCP 2026-07-28 spec breaking changes migration guide (40/50)
+5. Migrate MCP server to stateless HTTP + working load balancer config (39/50)
+6. Cross-session messaging (@mention, SendMessage) in Claude Code (38/50)
+7. Subagent forking default in v2.1.232 (38/50)
+8. DeepSeek Harness vs Claude Code (37/50)
+9. Agent SDK credit pool cancelled — critic flagged as UPDATE to existing post, not new URL
+10. Bedrock AgentCore Runtime Instances pricing (34/50)
+
+**Missed angles caught by critic (real opportunities for future sessions):**
+- MCP Registry publish-first-server tutorial (Anthropic-docs-only SERP)
+- MCP OAuth 2.1 / Resource Server tutorial (biggest breaking change nobody covers)
+- Claude Code plugin marketplace + `/plugin` install flow
+- Claude Code hooks tutorial (#1 subreddit ask, near-zero competition)
+- Claude Code vs Cursor 2026 (highest affiliate revenue crowd)
+- Claude Code vs OpenAI Codex CLI (closest 1:1 competitor, trending all summer)
+- Bedrock AgentCore Gateway / Memory / Identity siblings
+- Anthropic 1-hour prompt cache TTL cost optimization
+- Claude Skills — how to publish and share (sibling to the +220% rising skills-complete-guide)
+
+### 2026-09-02 — Article published: `claude-code-weekly-limit-september-2026.md`
+
+- **Trigger:** Anthropic's Aug 29 @ClaudeDevs tweet — +50% weekly-limit promo ends Sept 13 11:59 PM PT, permanent +25% base takes over Sept 14
+- **Fact sheet:** built via a 7-lane fact-gathering workflow (95 raw facts, primary sources: Anthropic support article 15910845, ClaudeDevs tweet, HN threads 49506519 + 49491631 + 49509882, Reddit 1w1s49z + 1w1x1d3 + 1w3b5gn, TechCrunch Jul 2025 for the raw hour ranges, Anthropic docs on `/usage`, Amazon Bedrock, Google Vertex, prompt caching, sub-agents, permission-modes, WSJ lawsuit filing, GitHub issues #91282 + #91515)
+- **Structure:** quick-answer bullet list → per-plan before/after table (AI Overview bait per critic guidance) → verbatim Anthropic quotes → the math in one line → per-plan detail → what stays the same → `/usage` walkthrough with verbatim output → 5-step pre-Sept-14 checklist → 6 named community workarounds → 8 H3 FAQs → what we do not know → "where to go next" cluster
+- **Word count:** ~1770
+- **Internal links (4, per rank plan):** `claude-agent-sdk-credit-pool` · `claude-code-ultraplan-guide` · `claude-code-slow-fix` · `claude-agent-sdk-cost-tracking`
+- **Cannibalization mitigation:** credit-pool overlap flagged in critic pass; article uses distinct primary keyword (`claude code weekly limit september 2026` vs credit pool's `claude agent sdk credit pool`) and links out to credit pool in workarounds section
+- **Plagiarism check:** 4/10 phrases verified clean via WebFetch fallback (Google/Bing/DuckDuckGo/Brave); other 6 could not be checked because session WebSearch budget was exhausted before this workflow. Content built from primary-source fact sheet, not lifted from any competing piece — low risk
+- **Updated commitment:** page carries dated "Last updated: September 2, 2026" line and a promise to re-check on Sept 14. If Anthropic publishes real numbers or the WSJ lawsuit surfaces a table, this page updates
+
+**Pending owner manual tasks after this session:**
+- Request indexing in GSC for `/posts/claude-code-weekly-limit-september-2026/`
+- On Sept 14, take a `/usage` screenshot to compare with today's baseline (if the derived math is off, update the table)
+- Watch @ClaudeDevs and Anthropic newsroom for the "exciting changes" they teased alongside the announcement
+- Watch WSJ / archive.ph mirror for lawsuit developments that might force plan-number disclosure
+- Reddit r/ClaudeAI post on the weekly-limit change (once profile access is unblocked)
 - 2026-06-13 — ...
 - 2026-06-14 — ...
 - 2026-06-15 — ...
