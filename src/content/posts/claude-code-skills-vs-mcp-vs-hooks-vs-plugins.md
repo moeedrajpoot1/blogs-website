@@ -1,6 +1,6 @@
 ---
 title: "Claude Code Skills vs MCP vs Hooks vs Plugins: Decision Matrix"
-description: "Claude Code has 5 real primitives — Skills, MCP, Hooks, Plugins, Subagents. Plain guide with a decision tree and Anthropic's own trigger table."
+description: "Claude Code has 5 real primitives: Skills, MCP, Hooks, Plugins, Subagents. Plain guide with a decision tree and Anthropic's own trigger table."
 pubDate: 2026-09-18
 author: "Muhammad Moeed"
 tags: ["claude-code", "claude", "tutorials"]
@@ -19,9 +19,9 @@ keywords: [
 featured: true
 ---
 
-You have written a `deploy.md` file. Or you are staring at Anthropic's docs wondering if you should install an MCP server, write a hook, or just add a slash command. This is one of the most common "which one do I use" questions on r/ClaudeAI right now — and the answer is easier than the docs make it sound.
+You have written a `deploy.md` file. Or you are staring at Anthropic's docs wondering if you should install an MCP server, write a hook, or just add a slash command. This is one of the most common "which one do I use" questions on r/ClaudeAI right now, and the answer is easier than the docs make it sound.
 
-This guide gives you a **decision tree**, Anthropic's own **trigger table** (verbatim), a **side-by-side comparison table** for every primitive, and **six "X vs Y" sections** matching the exact queries people search for. Written in plain English — if you have never shipped a Claude Code hook before, you will still know which one to pick by the end.
+This guide gives you a **decision tree**, Anthropic's own **trigger table** (verbatim), a **side-by-side comparison table** for every primitive, and **six "X vs Y" sections** matching the exact queries people search for. Written in plain English, if you have never shipped a Claude Code hook before, you will still know which one to pick by the end.
 
 ## Quick answer
 
@@ -39,7 +39,7 @@ And one enforcement rule that catches almost everyone:
 
 > An instruction like "never edit .env" in CLAUDE.md or a skill is a request, not a guarantee. A PreToolUse hook that blocks the edit is enforcement. If a rule must hold every time, make it a hook rather than a prompt instruction.
 
-## Wait — 5 primitives or 6? A note on slash commands
+## Wait, 5 primitives or 6? A note on slash commands
 
 You might expect slash commands to be on this list. **They are not, anymore.** Anthropic officially merged custom slash commands into Skills. A file at `.claude/commands/deploy.md` and a folder at `.claude/skills/deploy/SKILL.md` **both** create `/deploy` and work the same way. The commands form is still supported for legacy reasons, but new content should live in `.claude/skills/`. So the real primitive count is five.
 
@@ -53,7 +53,7 @@ A folder with a `SKILL.md` file inside. The frontmatter has a `name` and a `desc
 
 Claude reads the description on every turn and auto-invokes the skill if it matches. Or you type `/skill-name` yourself. The name and description are always in the context (~100 tokens per skill at session start), but the full body only loads when the skill is triggered. That is why you can drop huge reference material in a skill without burning your weekly limit.
 
-**Best for:** repeatable procedures, style guides, deploy workflows, review checklists — anything you keep pasting into chat.
+**Best for:** repeatable procedures, style guides, deploy workflows, review checklists. Anything you keep pasting into chat.
 
 **Worst for:** hard enforcement. If Claude decides to skip your skill's instructions, it can. Skills are a request, not a guarantee.
 
@@ -65,19 +65,21 @@ A separate process (local or remote) that speaks the Model Context Protocol. It 
 
 Anthropic's own one-liner: **"MCP handles connectivity; Skills handle expertise."** MCP gives Claude *access* to a system. A paired skill explains *how your team uses it*.
 
-**Best for:** connecting Claude to something it cannot reach today — database, Slack, browser, internal API, GitHub, Google Drive.
+**Best for:** connecting Claude to something it cannot reach today: database, Slack, browser, internal API, GitHub, Google Drive.
 
 **Worst for:** explaining how to do something (that is a Skill's job). Or enforcing policy (that is a Hook's job).
 
 ### Hooks
 
-Small scripts Claude Code runs automatically at specific moments in a session — before a tool call, after a tool call, on session start, when Claude finishes replying. The harness runs them, not the model. If a hook exits with code 2, the next action is **blocked, no matter what the model wants to do**.
+Small scripts Claude Code runs automatically at specific moments in a session: before a tool call, after a tool call, on session start, when Claude finishes replying. The harness runs them, not the model. If a hook exits with code 2, the next action is **blocked, no matter what the model wants to do**.
 
 **Analogy:** git pre-commit hooks or middleware. The system runs them on an event regardless of what anyone else says.
 
 **Best for:** rules that must hold every time. Block `.env` writes. Run Prettier after every edit. Send a Slack notification when Claude finishes. Reject any Bash command starting with `rm -rf`.
 
-**Worst for:** anything the model should interpret or adapt. Hooks are deterministic and blind. Also invisible to Claude — if you want the user to browse or discover it, use a skill or a slash command.
+
+
+**Worst for:** anything the model should interpret or adapt. Hooks are deterministic and blind. Also invisible to Claude, if you want the user to browse or discover it, use a skill or a slash command.
 
 For a deep dive: [Claude Code Hooks Tutorial](/posts/claude-code-hooks-tutorial).
 
@@ -89,7 +91,7 @@ A folder with a `.claude-plugin/plugin.json` manifest that bundles skills, hooks
 
 **Best for:** sharing a working setup across multiple repos, teammates, or a public marketplace. Versioning, semver dependencies, namespaced skills like `/my-plugin:deploy`.
 
-**Worst for:** quick personal iteration — start standalone in `.claude/`, and convert to a plugin only when you are ready to share.
+**Worst for:** quick personal iteration. Start standalone in `.claude/`, and convert to a plugin only when you are ready to share.
 
 ### Subagents
 
@@ -97,9 +99,9 @@ A separate Claude session with its own context window, its own system prompt, it
 
 **Analogy:** a junior researcher you send off with a task. They come back with a one-page brief, not the whole stack of PDFs.
 
-**Best for:** side tasks that would flood main context — log grepping, file scanning, exploratory reads, big-repo searches. Also for parallelism if you want two workstreams at once.
+**Best for:** side tasks that would flood main context: log grepping, file scanning, exploratory reads, big-repo searches. Also for parallelism if you want two workstreams at once.
 
-**Worst for:** iterative work where you need frequent back-and-forth. Non-fork subagents start fresh with no history, no output style, no CLAUDE.md — you lose all that. For work where planning, implementation, and testing must share state, stay in the main conversation.
+**Worst for:** iterative work where you need frequent back-and-forth. Non-fork subagents start fresh with no history, no output style, no CLAUDE.md, you lose all that. For work where planning, implementation, and testing must share state, stay in the main conversation.
 
 ## Head-to-head comparison table
 
@@ -120,16 +122,16 @@ A separate Claude session with its own context window, its own system prompt, it
 
 **Key difference:** Skills are instructions Claude reads. MCP is a wire protocol that gives Claude *tools* to reach external systems.
 
-- **Pick a Skill when** you are explaining how to do something — a workflow, a style guide, a checklist.
-- **Pick MCP when** Claude needs to reach something outside its sandbox — a database, Slack, a browser, an internal API.
+- **Pick a Skill when** you are explaining how to do something: a workflow, a style guide, a checklist.
+- **Pick MCP when** Claude needs to reach something outside its sandbox: a database, Slack, a browser, an internal API.
 - **Use them together:** install the Notion MCP server for *access*, and write a Skill that explains your team's Notion schema and naming rules for *expertise*.
 
 ### Skills vs Hooks
 
-**Key difference:** A Skill is a request Claude *may* follow or override. A Hook is deterministic — the harness runs it on the event, whether Claude wants it to or not.
+**Key difference:** A Skill is a request Claude *may* follow or override. A Hook is deterministic, the harness runs it on the event, whether Claude wants it to or not.
 
-- **Pick a Skill when** you want Claude to read and interpret procedural knowledge — deploy checklists, code review rules.
-- **Pick a Hook when** the action must happen every time — lint after every edit, block `.env` writes, notify on Stop.
+- **Pick a Skill when** you want Claude to read and interpret procedural knowledge: deploy checklists, code review rules.
+- **Pick a Hook when** the action must happen every time: lint after every edit, block `.env` writes, notify on Stop.
 - **Use them together:** a skill can walk Claude through a deploy checklist; a `PreToolUse` hook can block writes to `terraform.tfvars` even if the skill forgets to mention it.
 
 ### Skills vs Plugins
@@ -146,7 +148,7 @@ A separate Claude session with its own context window, its own system prompt, it
 
 - **Pick a Skill when** the workflow needs iterative back-and-forth in the main conversation.
 - **Pick a Subagent when** the side task would flood main context with logs, search results, or file contents you will not reference again. Also when you need parallelism or isolation.
-- **Common mistake:** using a non-fork subagent for planning + implementation + testing. The subagent starts fresh with no history — planning context is lost. Stay in the main conversation for stateful work.
+- **Common mistake:** using a non-fork subagent for planning + implementation + testing. The subagent starts fresh with no history, planning context is lost. Stay in the main conversation for stateful work.
 
 ### Skills vs Commands
 
@@ -157,7 +159,7 @@ A separate Claude session with its own context window, its own system prompt, it
 
 ### Hooks vs MCP
 
-**Key difference:** MCP adds new tools Claude can *choose* to call. Hooks are harness-side interceptors that run *automatically* on lifecycle events and can block or transform behavior. They live on different layers of the agentic loop — MCP extends capabilities, Hooks enforce policy.
+**Key difference:** MCP adds new tools Claude can *choose* to call. Hooks are harness-side interceptors that run *automatically* on lifecycle events and can block or transform behavior. They live on different layers of the agentic loop, MCP extends capabilities, Hooks enforce policy.
 
 - **Pick a Hook when** you need deterministic behavior on an event.
 - **Pick MCP when** you need Claude to reach a system it cannot touch today.
@@ -194,17 +196,17 @@ ELSE IF the wrong convention has been used twice in the same repo
 
 ## Common confusions (and how to avoid them)
 
-**"I put 'never edit .env' in CLAUDE.md — why did Claude still edit it?"** CLAUDE.md and Skills are requests the model can override. Only a `PreToolUse` hook is real enforcement. This is Anthropic's own wording.
+**"I put 'never edit .env' in CLAUDE.md, why did Claude still edit it?"** CLAUDE.md and Skills are requests the model can override. Only a `PreToolUse` hook is real enforcement. This is Anthropic's own wording.
 
 **"I installed a Notion MCP server but Claude still fumbles our schema."** MCP handles connectivity; you also need a Skill that explains your team's schema and naming rules. Access without expertise fails.
 
 **"My CLAUDE.md is 800 lines and Claude is ignoring most of it."** Anthropic's best-practices doc explicitly caps CLAUDE.md at ~200 lines and warns that bloated files cause the model to skip instructions. Move procedural content into Skills.
 
-**"Skills save tokens at execution, right?"** No. The saving is at session *start* — only the ~100-token description is loaded until the skill is triggered. Once invoked, a Skill's body sits in context like any other message.
+**"Skills save tokens at execution, right?"** No. The saving is at session *start*, only the ~100-token description is loaded until the skill is triggered. Once invoked, a Skill's body sits in context like any other message.
 
 **"Are slash commands and skills different things?"** Not anymore. Slash commands were merged into Skills. `.claude/commands/deploy.md` and `.claude/skills/deploy/SKILL.md` both produce `/deploy`.
 
-**"Is a Plugin a runtime primitive?"** No — it is a packaging layer. What actually runs are the skills, hooks, MCP servers, subagents, and commands inside it.
+**"Is a Plugin a runtime primitive?"** No, it is a packaging layer. What actually runs are the skills, hooks, MCP servers, subagents, and commands inside it.
 
 **"I put my planning in a subagent and it forgot everything."** A non-fork subagent starts fresh with no history, no CLAUDE.md, no output style. Use it only for side tasks that do not need the parent's context. For stateful multi-phase work, stay in the main conversation.
 
@@ -212,11 +214,11 @@ ELSE IF the wrong convention has been used twice in the same repo
 
 ### What is the difference between Claude Code skills and MCP servers?
 
-Skills are instructions Claude reads (procedural knowledge, style guides, workflows). MCP is a protocol that gives Claude *tools* to reach external systems (database, Slack, browser). Anthropic's own line: "MCP handles connectivity; Skills handle expertise." Use them together — install the MCP server for access, write a skill that explains your team's schema.
+Skills are instructions Claude reads (procedural knowledge, style guides, workflows). MCP is a protocol that gives Claude *tools* to reach external systems (database, Slack, browser). Anthropic's own line: "MCP handles connectivity; Skills handle expertise." Use them together, install the MCP server for access, write a skill that explains your team's schema.
 
 ### What is the difference between Claude Code hooks and skills?
 
-A Skill is a request Claude may follow or override. A Hook is deterministic — the harness runs it on a lifecycle event, whether Claude wants it to or not. If a rule must hold every time (block `.env`, run linter after every edit), it must be a hook. If it is guidance you want the model to interpret, it is a skill.
+A Skill is a request Claude may follow or override. A Hook is deterministic, the harness runs it on a lifecycle event, whether Claude wants it to or not. If a rule must hold every time (block `.env`, run linter after every edit), it must be a hook. If it is guidance you want the model to interpret, it is a skill.
 
 ### What is the difference between Claude Code plugins and skills?
 
@@ -240,21 +242,21 @@ Anthropic does not publish a per-server figure. Community estimates put tool-sch
 
 ### Can I put a hook inside a skill?
 
-Yes. Skills can declare hooks in their YAML frontmatter. When the skill is invoked, its hooks register too. Same for allowed-tools — a skill can pre-approve certain tools while active. This makes skills a convenient way to ship a mini-plugin (instructions + hooks + tool grants) without going through the full plugin format.
+Yes. Skills can declare hooks in their YAML frontmatter. When the skill is invoked, its hooks register too. Same for allowed-tools, a skill can pre-approve certain tools while active. This makes skills a convenient way to ship a mini-plugin (instructions + hooks + tool grants) without going through the full plugin format.
 
 ## What we still do not know
 
-- Exact per-server context overhead for a connected MCP server — no official figure.
-- Order-of-fire when a user prompt arrives: whether `UserPromptSubmit` fires before or after skill matching. Docs say only "before Claude processes" — pairwise ordering is not stated.
+- Exact per-server context overhead for a connected MCP server, no official figure.
+- Order-of-fire when a user prompt arrives: whether `UserPromptSubmit` fires before or after skill matching. Docs say only "before Claude processes", pairwise ordering is not stated.
 - Per-invocation token price for a subagent. Docs describe context sizing and the 15k combined-description warning but no cost formula.
-- Whether subagents launched via the Task tool inherit `PreToolUse` hooks — GitHub issue #27661 says no; docs say yes. Unresolved.
+- Whether subagents launched via the Task tool inherit `PreToolUse` hooks, GitHub issue #27661 says no; docs say yes. Unresolved.
 
 ## Where to go next
 
-- [Claude Code Hooks Tutorial](/posts/claude-code-hooks-tutorial) — deep dive on the 25+ hook events and the exit-code-2 rule.
-- [Claude Code Skills Complete Guide](/posts/claude-code-skills-complete-guide) — how to write and share a Skill.
-- [MCP Apps vs OpenAI Apps SDK](/posts/mcp-apps-vs-openai-apps-sdk) — MCP explained against the closest alternative.
-- [Claude Code Auto Mode + Containment Escape](/posts/claude-code-auto-mode-default-guide) — how hooks and permission modes sit on top of each other.
-- [Claude Code Weekly Limit Cut Sept 14](/posts/claude-code-weekly-limit-september-2026) — why the token-cost differences between primitives now matter more than they used to.
+- [Claude Code Hooks Tutorial](/posts/claude-code-hooks-tutorial): deep dive on the 25+ hook events and the exit-code-2 rule.
+- [Claude Code Skills Complete Guide](/posts/claude-code-skills-complete-guide): how to write and share a Skill.
+- [MCP Apps vs OpenAI Apps SDK](/posts/mcp-apps-vs-openai-apps-sdk): MCP explained against the closest alternative.
+- [Claude Code Auto Mode + Containment Escape](/posts/claude-code-auto-mode-default-guide): how hooks and permission modes sit on top of each other.
+- [Claude Code Weekly Limit Cut Sept 14](/posts/claude-code-weekly-limit-september-2026): why the token-cost differences between primitives now matter more than they used to.
 
 **Last updated: September 18, 2026.** I will re-check this page when Anthropic publishes an official per-server MCP overhead figure or clarifies subagent hook inheritance.
