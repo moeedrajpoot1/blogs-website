@@ -21,7 +21,7 @@ featured: true
 
 If you have used Claude Code for even a week, you have probably wished for one of these three things: **"Please stop deleting files without asking me"**, **"Please run Prettier every time you edit a JS file"**, or **"Please remember the two build tools we use whenever you start a new session"**.
 
-All three of those are exactly what a **hook** is for. A hook is a small script — a shell script, a Python script, a one-line command, or even an HTTP call — that Claude Code runs automatically at a moment you pick. Some hooks can watch. Some can decide. And a few can say **"no, do not do that"** and stop Claude in its tracks.
+All three of those are exactly what a **hook** is for. A hook is a small script that Claude Code runs automatically at a moment you pick. It can be a shell script, a Python script, a one-line command, or even an HTTP call. Some hooks can watch. Some can decide. And a few can say **"no, do not do that"** and stop Claude in its tracks.
 
 This guide is a beginner-friendly walk-through: what a hook actually is, the events you can hook into, how to wire one into `settings.json` correctly (with the two gotchas that trip up almost everyone), five real hooks you can copy today, and the security warning Anthropic itself puts on the docs.
 
@@ -35,16 +35,16 @@ This guide is a beginner-friendly walk-through: what a hook actually is, the eve
 
 ## What is a hook (in plain words)
 
-Think of Claude Code as a co-worker sitting next to you. Every time they are about to do something — save a file, run a shell command, send a message — they walk past a **doorway**. A hook is a security camera you can put on any doorway.
+Think of Claude Code as a co-worker sitting next to you. Every time they are about to do something (save a file, run a shell command, send a message) they walk past a **doorway**. A hook is a security camera you can put on any doorway.
 
-Some cameras just record ("log every Bash command that runs"). Some cameras raise their hand ("hey, this file has `.env` in the name — do not touch it"). And some cameras hand you a note when you enter the room ("welcome back; remember, we use Bun, not npm").
+Some cameras just record ("log every Bash command that runs"). Some cameras raise their hand ("hey, this file has `.env` in the name, do not touch it"). And some cameras hand you a note when you enter the room ("welcome back; remember, we use Bun, not npm").
 
 The camera does not have to be a real security system. It can be:
 
 - A **one-line shell command** (`jq -r '.tool_input.command' >> ~/.claude/log.txt`)
 - A **bash or Python script** on your disk
 - An **HTTP POST** to a service you run
-- Even a **small model call** — Claude Code can ask another Claude to check the action for you
+- Even a **small model call**: Claude Code can ask another Claude to check the action for you
 
 You pick the moment. Claude Code fires the script for you.
 
@@ -54,14 +54,14 @@ Claude Code exposes more than 20 events. Here are the 8 you will actually use mo
 
 | Event | When it fires | Can it block? |
 |---|---|---|
-| **PreToolUse** | Before Claude runs any tool (Bash, Edit, Write, etc.) | Yes — exit 2 stops the tool |
-| **PostToolUse** | After a tool call succeeds | No — the tool already ran |
-| **UserPromptSubmit** | When you press Enter on a prompt | Yes — exit 2 erases the prompt |
-| **SessionStart** | When a session begins or resumes | No — but its stdout is added to Claude's context |
-| **SessionEnd** | When a session closes | No — cleanup only |
-| **Stop** | When Claude finishes replying | Yes — exit 2 forces Claude to continue |
-| **Notification** | When Claude Code sends a notification (idle, permission prompt, etc.) | No — for pinging you on your desktop |
-| **PreCompact** | Right before Claude auto-compacts the conversation | Yes — exit 2 blocks the compaction |
+| **PreToolUse** | Before Claude runs any tool (Bash, Edit, Write, etc.) | Yes, exit 2 stops the tool |
+| **PostToolUse** | After a tool call succeeds | No, the tool already ran |
+| **UserPromptSubmit** | When you press Enter on a prompt | Yes, exit 2 erases the prompt |
+| **SessionStart** | When a session begins or resumes | No, but its stdout is added to Claude's context |
+| **SessionEnd** | When a session closes | No, cleanup only |
+| **Stop** | When Claude finishes replying | Yes, exit 2 forces Claude to continue |
+| **Notification** | When Claude Code sends a notification (idle, permission prompt, etc.) | No, for pinging you on your desktop |
+| **PreCompact** | Right before Claude auto-compacts the conversation | Yes, exit 2 blocks the compaction |
 
 The most powerful pair is `PreToolUse` (to block) and `PostToolUse` (to react). Almost every useful hook is one of those two.
 
@@ -69,7 +69,7 @@ The most powerful pair is `PreToolUse` (to block) and `PostToolUse` (to react). 
 
 Hooks live in a top-level key called `hooks`. Each event has an array. Each array item is a **matcher group** with a filter (like `Bash`, or `Edit|Write`) and one or more scripts to run.
 
-Here is the shape, with three real hooks wired at once — a `rm` blocker, a Prettier formatter, and a cleanup script on Stop:
+Here is the shape, with three real hooks wired at once: a `rm` blocker, a Prettier formatter, and a cleanup script on Stop:
 
 ```json
 {
@@ -117,15 +117,15 @@ A few things worth knowing:
 - **`type` is required.** Values: `command`, `http`, `mcp_tool`, `prompt`, or `agent`. If you forget it, the hook is silently dropped (a real GitHub issue people file over and over).
 - **`matcher` filters which tools trigger the hook.** For tool events, it matches the tool name. `Bash`, `Edit`, `Write`, `mcp__github__*` all work. On events like `SessionStart` or `Notification`, the matcher matches something else (see below).
 - **`if` is a finer-grained filter** using the same syntax as Claude Code's permission rules. `Bash(rm *)` fires the hook only when the Bash command starts with `rm`. It only works on tool events.
-- **`timeout` is in seconds.** Default is 600 for command/http/mcp_tool hooks. A timed-out `PreToolUse` hook does **not** block the tool — the tool just runs.
+- **`timeout` is in seconds.** Default is 600 for command/http/mcp_tool hooks. A timed-out `PreToolUse` hook does **not** block the tool, the tool just runs.
 - **`$CLAUDE_PROJECT_DIR` is an environment variable Claude Code exports** so your hook scripts can use paths that work no matter where the user runs Claude from.
 
-## Exit code 2 — the one big gotcha
+## Exit code 2: the one big gotcha
 
 This is the mistake almost everyone makes on their first hook. **Exit code 1 does not block.** Only exit code 2 does.
 
 - **Exit 0** = success. If your hook wrote JSON to stdout, Claude Code parses it. Otherwise it does nothing.
-- **Exit 1** = a normal Unix "failure" code — but Claude Code treats it as **non-blocking**. Your action proceeds.
+- **Exit 1** = a normal Unix "failure" code, but Claude Code treats it as **non-blocking**. Your action proceeds.
 - **Exit 2** = block. Claude Code stops the action and sends the stderr line back to Claude as the reason.
 
 So the pattern for a hook that says "no" is:
@@ -143,18 +143,18 @@ exit 0
 
 The `>&2` sends the message to stderr, not stdout. That is how Claude gets the reason.
 
-## Matcher syntax — the second big gotcha
+## Matcher syntax: the second big gotcha
 
 The matcher field looks simple, but it flips modes based on the characters inside it:
 
-- If the matcher contains **only letters, digits, underscore, hyphen, spaces, commas, or pipes** — it is treated as an exact match. `Bash`, `Edit|Write`, `Edit, Write` all work as literal names.
-- If the matcher contains **any other character** (`.`, `*`, `^`, `[`, `]`) — it switches to unanchored JavaScript regex.
+- If the matcher contains **only letters, digits, underscore, hyphen, spaces, commas, or pipes**, it is treated as an exact match. `Bash`, `Edit|Write`, `Edit, Write` all work as literal names.
+- If the matcher contains **any other character** (`.`, `*`, `^`, `[`, `]`), it switches to unanchored JavaScript regex.
 
-That flip catches people. `Edit.*` looks harmless, but it is a regex — and because it is unanchored, it matches both `Edit` **and** `NotebookEdit`. If you want an exact regex match, use `^Edit$`.
+That flip catches people. `Edit.*` looks harmless, but it is a regex, and because it is unanchored, it matches both `Edit` **and** `NotebookEdit`. If you want an exact regex match, use `^Edit$`.
 
 Comma separators need Claude Code v2.1.191 or newer. Hyphens in exact-match names need v2.1.195 or newer.
 
-Also worth knowing: the matcher matches **different things on different events**. On `PreToolUse`, `PostToolUse`, and friends it matches the tool name. On `SessionStart` it matches the source (`startup`, `resume`, `clear`, `compact`, `fork`). On `Notification` it matches the notification type. Events like `UserPromptSubmit`, `Stop`, `MessageDisplay`, and `CwdChanged` have **no matcher support at all** — putting one in is silently ignored.
+Also worth knowing: the matcher matches **different things on different events**. On `PreToolUse`, `PostToolUse`, and friends it matches the tool name. On `SessionStart` it matches the source (`startup`, `resume`, `clear`, `compact`, `fork`). On `Notification` it matches the notification type. Events like `UserPromptSubmit`, `Stop`, `MessageDisplay`, and `CwdChanged` have **no matcher support at all**, putting one in is silently ignored.
 
 ## Five hooks you can copy today
 
@@ -186,7 +186,7 @@ Also worth knowing: the matcher matches **different things on different events**
 
 ### 2. Block edits to protected files (`.env`, lockfiles, `.git/`)
 
-**Purpose:** stop Claude from ever touching secrets, lockfiles, or the `.git` directory — even in acceptEdits mode.
+**Purpose:** stop Claude from ever touching secrets, lockfiles, or the `.git` directory, even in acceptEdits mode.
 
 ```json
 {
@@ -223,7 +223,7 @@ done
 exit 0
 ```
 
-Do not forget `chmod +x .claude/hooks/protect-files.sh`. Only catches `Edit`/`Write` — a `Bash(echo >> .env)` bypasses this unless you also add a `Bash` matcher.
+Do not forget `chmod +x .claude/hooks/protect-files.sh`. Only catches `Edit`/`Write`, a `Bash(echo >> .env)` bypasses this unless you also add a `Bash` matcher.
 
 ### 3. Audit-log every Bash command Claude runs
 
@@ -247,7 +247,7 @@ Do not forget `chmod +x .claude/hooks/protect-files.sh`. Only catches `Edit`/`Wr
 }
 ```
 
-**Caveat:** it is audit-only, not prevention. And the log grows forever — add `logrotate` if you use it long-term.
+**Caveat:** it is audit-only, not prevention. And the log grows forever, add `logrotate` if you use it long-term.
 
 ### 4. Re-inject project context after auto-compaction
 
@@ -301,7 +301,7 @@ Anything the hook writes to stdout is added to Claude's next context. Swap `echo
 - Linux: `notify-send 'Claude Code' 'Claude Code needs your attention'` (needs `libnotify-bin`).
 - Windows: PowerShell `[System.Windows.Forms.MessageBox]::Show(...)`.
 
-**Caveat on macOS:** osascript notifications go through Script Editor. Grant Script Editor notification permission in System Settings → Notifications, or it fails silently. Also narrow the matcher — an empty matcher fires on every notification type, including `auth_success` and every `quota_auto_resume` event.
+**Caveat on macOS:** osascript notifications go through Script Editor. Grant Script Editor notification permission in System Settings → Notifications, or it fails silently. Also narrow the matcher, an empty matcher fires on every notification type, including `auth_success` and every `quota_auto_resume` event.
 
 ## The security warning
 
@@ -314,7 +314,7 @@ Two important protections are built in:
 1. **The first time you open a project with `hooks` defined in `.claude/settings.json`, Claude Code shows a trust dialog.** If you say no, none of the project's hooks run.
 2. **Non-interactive `-p` and Agent SDK sessions skip that trust dialog** and will run project-committed hooks in folders you have never opened interactively. Review `.claude/` before you point `claude -p` at an unfamiliar repo. Or pass `--settings '{"disableAllHooks": true}'` to disable them all.
 
-Also good to know: hooks **merge** across scopes (user + shared project + local project + managed) instead of overriding. So a project-scoped hook does not "win" over your user-scoped hook — both run in parallel. Exact duplicates are deduplicated so they run once.
+Also good to know: hooks **merge** across scopes (user + shared project + local project + managed) instead of overriding. So a project-scoped hook does not "win" over your user-scoped hook, both run in parallel. Exact duplicates are deduplicated so they run once.
 
 ## Common mistakes (from GitHub issues + subreddit posts)
 
@@ -331,7 +331,7 @@ Also good to know: hooks **merge** across scopes (user + shared project + local 
 
 ### What is a hook in Claude Code?
 
-A hook is a small script Claude Code runs automatically at a specific moment — before a tool runs, after a tool runs, when a session starts, when Claude finishes replying, etc. Some events let you **block** the next action if the hook exits with code 2. You wire hooks in a `hooks` block inside `settings.json`.
+A hook is a small script Claude Code runs automatically at a specific moment, before a tool runs, after a tool runs, when a session starts, when Claude finishes replying, etc. Some events let you **block** the next action if the hook exits with code 2. You wire hooks in a `hooks` block inside `settings.json`.
 
 ### How do I create a Claude Code hook?
 
@@ -343,7 +343,7 @@ Three steps: (1) pick an event (`PreToolUse`, `PostToolUse`, `SessionStart`, etc
 
 ### Where does the `hooks` key go in Claude Code `settings.json`?
 
-At the top level, alongside `permissions` and other settings. You can put it in `.claude/settings.json` (shared with the team via git), `.claude/settings.local.json` (your machine only), `~/.claude/settings.json` (every project on your machine), or a managed `managed-settings.json` (team-wide). Unlike normal settings, hooks **merge** across scopes rather than overriding — all matching hooks run in parallel.
+At the top level, alongside `permissions` and other settings. You can put it in `.claude/settings.json` (shared with the team via git), `.claude/settings.local.json` (your machine only), `~/.claude/settings.json` (every project on your machine), or a managed `managed-settings.json` (team-wide). Unlike normal settings, hooks **merge** across scopes rather than overriding, all matching hooks run in parallel.
 
 ### How do I block a Bash `rm` command in Claude Code?
 
@@ -351,7 +351,7 @@ Wire a `PreToolUse` hook with `matcher: "Bash"` (or add an `if: "Bash(rm *)"` fi
 
 ### Do Claude Code hooks run in `bypassPermissions` mode?
 
-Yes — this is important. Even when Claude Code is running in `bypassPermissions` mode (or with `--dangerously-skip-permissions`), a `PreToolUse` hook that exits 2 still blocks the tool. Hooks are a layer above permissions.
+Yes, this is important. Even when Claude Code is running in `bypassPermissions` mode (or with `--dangerously-skip-permissions`), a `PreToolUse` hook that exits 2 still blocks the tool. Hooks are a layer above permissions.
 
 ### Do hooks fire for subagents (Task-spawned)?
 
@@ -369,13 +369,13 @@ As many as you want. All matching hooks across all settings scopes (user, shared
 
 ## The full list of hook events (for reference)
 
-Beyond the 8 above, Claude Code as of Sept 2026 also exposes: `Setup`, `UserPromptExpansion`, `PermissionRequest`, `PermissionDenied`, `PostToolUseFailure`, `PostToolBatch`, `MessageDisplay`, `SubagentStart`, `SubagentStop`, `TaskCreated`, `TaskCompleted`, `StopFailure`, `TeammateIdle`, `InstructionsLoaded`, `ConfigChange`, `CwdChanged`, `FileChanged`, `PreCompact`, `PostCompact`, `PreModelSwitch`, `PostModelSwitch`, `WorktreeCreate`, `WorktreeRemove`, `DirectoryAdded`, `SessionEnd`. Most of these are for tooling authors and MCP server developers — start with the 8 in the main table.
+Beyond the 8 above, Claude Code as of Sept 2026 also exposes: `Setup`, `UserPromptExpansion`, `PermissionRequest`, `PermissionDenied`, `PostToolUseFailure`, `PostToolBatch`, `MessageDisplay`, `SubagentStart`, `SubagentStop`, `TaskCreated`, `TaskCompleted`, `StopFailure`, `TeammateIdle`, `InstructionsLoaded`, `ConfigChange`, `CwdChanged`, `FileChanged`, `PreCompact`, `PostCompact`, `PreModelSwitch`, `PostModelSwitch`, `WorktreeCreate`, `WorktreeRemove`, `DirectoryAdded`, `SessionEnd`. Most of these are for tooling authors and MCP server developers, start with the 8 in the main table.
 
 ## Where to go next
 
-- [Claude Code Skills Complete Guide](/posts/claude-code-skills-complete-guide) — hooks and skills often ship together in a plugin; here is how skills are structured.
-- [Claude Code Auto Mode Default + Sept 1 Containment Escape Rule](/posts/claude-code-auto-mode-default-guide) — hooks are the layer above permission modes; this is how the two fit together.
-- [Claude Code Weekly Limit Cut on Sept 14](/posts/claude-code-weekly-limit-september-2026) — hooks that turn off subagent forking or auto mode can save you real tokens.
-- [Claude Code Slow Fix](/posts/claude-code-slow-fix) — the wider "make Claude Code cheaper and faster" guide that pairs well with hooks.
+- [Claude Code Skills Complete Guide](/posts/claude-code-skills-complete-guide): hooks and skills often ship together in a plugin; here is how skills are structured.
+- [Claude Code Auto Mode Default + Sept 1 Containment Escape Rule](/posts/claude-code-auto-mode-default-guide): hooks are the layer above permission modes; this is how the two fit together.
+- [Claude Code Weekly Limit Cut on Sept 14](/posts/claude-code-weekly-limit-september-2026): hooks that turn off subagent forking or auto mode can save you real tokens.
+- [Claude Code Slow Fix](/posts/claude-code-slow-fix): the wider "make Claude Code cheaper and faster" guide that pairs well with hooks.
 
 **Last updated: September 2, 2026.** I will re-check when Anthropic publishes per-event minimum versions or the missing output schemas.

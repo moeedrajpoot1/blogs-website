@@ -29,17 +29,17 @@ On June 12, 2026 at 5:21 PM Eastern Time, Anthropic received a letter from the U
 
 ## The timeline, step by step
 
-- **June 9, 2026** — Anthropic launches Claude Fable 5 and Claude Mythos 5. Fable 5 was their new top-tier coding and reasoning model. Mythos 5 was a sister model in the same generation.
-- **June 12, 2026 at 5:21 PM ET** — Anthropic receives a formal order from the US Commerce Department. The order is signed by Commerce Secretary Howard Lutnick. It bars foreign nationals from using Fable 5 and Mythos 5.
-- **June 12, 2026, evening** — Anthropic disables both models for all users worldwide. They publish a short statement on their news page explaining why.
-- **June 13, 2026** — Tech press covers the story. Axios had reported the Commerce Secretary's letter just before Anthropic's own announcement.
-- **June 16, 2026 (today)** — Both models are still off. No restoration timeline has been announced.
+- **June 9, 2026**, Anthropic launches Claude Fable 5 and Claude Mythos 5. Fable 5 was their new top-tier coding and reasoning model. Mythos 5 was a sister model in the same generation.
+- **June 12, 2026 at 5:21 PM ET**, Anthropic receives a formal order from the US Commerce Department. The order is signed by Commerce Secretary Howard Lutnick. It bars foreign nationals from using Fable 5 and Mythos 5.
+- **June 12, 2026, evening**, Anthropic disables both models for all users worldwide. They publish a short statement on their news page explaining why.
+- **June 13, 2026**, Tech press covers the story. Axios had reported the Commerce Secretary's letter just before Anthropic's own announcement.
+- **June 16, 2026 (today)**, Both models are still off. No restoration timeline has been announced.
 
 The whole thing happened in three days. The models were live for the same number of days they have now been turned off.
 
 ## What the US Commerce Department actually said
 
-The Commerce Secretary's letter cited "national security authorities" and described the action as an "export control directive." The substance of the concern, as reported by news outlets covering the letter, is that the government believed someone had found a way to "jailbreak" Fable 5 — meaning, get the model to do something the safety rules were supposed to stop.
+The Commerce Secretary's letter cited "national security authorities" and described the action as an "export control directive." The substance of the concern, as reported by news outlets covering the letter, is that the government believed someone had found a way to "jailbreak" Fable 5 (that is, get the model to do something the safety rules were supposed to stop).
 
 According to administration officials quoted by reporters, "another company claimed it was able to jailbreak Mythos, alarming the administration about possible national security risks."
 
@@ -55,7 +55,7 @@ Anthropic's own statement is calm and direct. The key parts, in their own words:
 
 > "We believe this is a misunderstanding and are working to restore access as soon as possible."
 
-Anthropic also pushed back on the technical claim. They say the "jailbreak" the government was shown is "narrow and non-universal" — meaning, it only works in a specific situation, not as a general bypass. They also said the same capability is "widely available elsewhere", and named OpenAI's GPT-5.5 as a model that has the same ability without needing any special trick.
+Anthropic also pushed back on the technical claim. They say the "jailbreak" the government was shown is "narrow and non-universal" (that is, it only works in a specific situation, not as a general bypass). They also said the same capability is "widely available elsewhere", and named OpenAI's GPT-5.5 as a model that has the same ability without needing any special trick.
 
 In their own description, the jailbreak "essentially consists of asking the model to read a specific codebase and fix any software flaws." In plain words: somebody asked Claude to look at some software code and find the security bugs in it. That is something many AI models can do today, including for free. Anthropic argues that turning off Fable 5 over this does not actually make anyone safer, because the same task can be done with other tools.
 
@@ -69,16 +69,16 @@ Anthropic chose to follow the order in the safest possible way, which is to turn
 
 ## What is a "jailbreak", in plain words
 
-A jailbreak is when somebody finds a clever way to make an AI model do something its safety training was supposed to prevent. Most jailbreaks are tricks of phrasing or context — for example, asking the model to roleplay as a fictional character that does not have any rules.
+A jailbreak is when somebody finds a clever way to make an AI model do something its safety training was supposed to prevent. Most jailbreaks are tricks of phrasing or context, for example, asking the model to roleplay as a fictional character that does not have any rules.
 
 The specific jailbreak in this case was unusual. According to Anthropic, it works by asking the model to read a piece of software code and find security weaknesses in it. The government's worry seems to be that a foreign attacker could use this to find weaknesses in important software faster than they otherwise could.
 
 Anthropic's pushback is that:
 - The same task can be done with many other AI models, including free ones
 - The vulnerabilities the model finds are usually already known and minor
-- Calling this a "jailbreak" is a stretch — the model is doing what it was built to do (read code and help)
+- Calling this a "jailbreak" is a stretch. The model is doing what it was built to do (read code and help)
 
-Whether you agree with the government or with Anthropic, the underlying technical work — asking an AI to read code and look for bugs — is a normal everyday use of these tools.
+Whether you agree with the government or with Anthropic, the underlying technical work, asking an AI to read code and look for bugs, is a normal everyday use of these tools.
 
 ## When will Claude Fable 5 come back? The honest answer
 
@@ -98,7 +98,7 @@ If you need Fable 5 specifically for ongoing work, plan as if it is not coming b
 
 Mythos 5 was suspended at the same time, for the same reason, in the same way. The news has focused on Fable 5 because it was the headline coding model, but Mythos 5 is in the same situation.
 
-Mythos 5 sits in the same model family as Fable 5 but was aimed at slightly different work (longer reasoning chains, agentic tasks). Users who built on Mythos 5 are in the same boat as Fable 5 users — the model is off, no return date, no clear next step except to switch.
+Mythos 5 sits in the same model family as Fable 5 but was aimed at slightly different work (longer reasoning chains, agentic tasks). Users who built on Mythos 5 are in the same boat as Fable 5 users, the model is off, no return date, no clear next step except to switch.
 
 ## What to do if your code used Fable 5
 
@@ -108,9 +108,9 @@ If you have an Agent SDK app, a Claude Code workflow, or a service in production
 
 The simplest fix is to swap the model name. The closest still-available models are:
 
-- **Opus 4.8** — `claude-opus-4-8`. The top-tier model still on the menu. Closest match to Fable 5 on most coding tasks.
-- **Sonnet 4.6** — `claude-sonnet-4-6`. Mid-tier, much cheaper, fine for most everyday work.
-- **Haiku 4.5** — `claude-haiku-4-5`. Smallest and cheapest, good for triage and simple tasks.
+- **Opus 4.8**, `claude-opus-4-8`. The top-tier model still on the menu. Closest match to Fable 5 on most coding tasks.
+- **Sonnet 4.6**, `claude-sonnet-4-6`. Mid-tier, much cheaper, fine for most everyday work.
+- **Haiku 4.5**, `claude-haiku-4-5`. Smallest and cheapest, good for triage and simple tasks.
 
 Pick Opus 4.8 if your code was relying on Fable 5's reasoning and coding strength. Drop down to Sonnet or Haiku for cheaper work.
 
@@ -150,7 +150,7 @@ For the record, the following models are unaffected by the June 12 order and rem
 | Fable 5 | `claude-fable-5` | **Suspended** since June 12, 2026 |
 | Mythos 5 | `claude-mythos-5` | **Suspended** since June 12, 2026 |
 
-If you are using Claude Code interactively (typing in your terminal), it works fine. Claude Code never used Fable 5 by default — it sits on Opus.
+If you are using Claude Code interactively (typing in your terminal), it works fine. Claude Code never used Fable 5 by default, it sits on Opus.
 
 ## Frequently asked questions
 
@@ -160,7 +160,7 @@ Claude Fable 5 was suspended on June 12, 2026, after the US Commerce Department 
 
 ### Why was Fable 5 banned?
 
-It was not banned in the usual sense — it was suspended under a US Commerce Department export-control order. The government cited national security and said they believed someone had found a way to "jailbreak" the model. Anthropic disagrees with the technical claim but had to comply with the order.
+It was not banned in the usual sense, it was suspended under a US Commerce Department export-control order. The government cited national security and said they believed someone had found a way to "jailbreak" the model. Anthropic disagrees with the technical claim but had to comply with the order.
 
 ### When is Claude Fable 5 coming back?
 

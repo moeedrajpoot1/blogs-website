@@ -104,7 +104,7 @@ try:
 except APIStatusError as e:
     body = str(e)
     if e.status_code == 429 and "credit pool" in body.lower():
-        # The pot is empty. Don't retry blindly — either stop, show a
+        # The pot is empty. Don't retry blindly, either stop, show a
         # clear error, or switch to a separate billable API key.
         handle_credit_exhaustion()
     elif e.status_code == 429:

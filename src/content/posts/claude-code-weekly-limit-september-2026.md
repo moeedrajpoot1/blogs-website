@@ -117,7 +117,7 @@ Below the Session block, on paid plans, you see:
 
 Press `w` to switch from the last 24 hours view to the last 7 days view. Press `d` to switch back. Press `r` to retry if the plan-limits endpoint is rate-limited.
 
-If your bars look normal today, come back on Sept 14 and compare. Same session, same codebase, same prompt style — you should see the weekly percent bar climb faster.
+If your bars look normal today, come back on Sept 14 and compare. Same session, same codebase, same prompt style: you should see the weekly percent bar climb faster.
 
 ## What to do before Sept 14
 
@@ -161,7 +161,7 @@ The promo ends on **September 13, 2026 at 11:59 PM PT**, per Anthropic's support
 
 Both are true. Compared to your pre-May 2026 baseline, the new limit is +25%. Compared to what you have this week (baseline × 1.50), the new limit (baseline × 1.25) is about 17% lower. Anthropic's own tweet uses the "17% reduction" framing.
 
-### Which plans are affected — Pro, Max 5x, Max 20x, Team, Enterprise?
+### Which plans are affected, Pro, Max 5x, Max 20x, Team, Enterprise?
 
 All paid consumer plans get the +25% base: Pro, Max 5x, Max 20x, Team, and legacy seat-based Enterprise. Free plan and the newer consumption-based Enterprise are not affected.
 
@@ -169,9 +169,9 @@ All paid consumer plans get the +25% base: Pro, Max 5x, Max 20x, Team, and legac
 
 Run `/usage` inside Claude Code v2.1.251 or newer. You get a Session block plus a plan-usage view. Press `w` for the 7-day view, `d` for the 24-hour view, and `r` to retry if the plan-limits endpoint fails.
 
-### What happens when I hit the weekly limit — can I still use Opus or Sonnet?
+### What happens when I hit the weekly limit, can I still use Opus or Sonnet?
 
-If you hit the **overall weekly cap**, `/model` does not help — you are locked out of all models until the reset. If you hit a **model-specific cap** (like "Opus limit reached"), switching to another family with `/model` keeps you working. Usage credits (Settings > Usage) let you keep going at standard API rates.
+If you hit the **overall weekly cap**, `/model` does not help, you are locked out of all models until the reset. If you hit a **model-specific cap** (like "Opus limit reached"), switching to another family with `/model` keeps you working. Usage credits (Settings > Usage) let you keep going at standard API rates.
 
 ### How do I avoid getting throttled after September 14, 2026?
 
@@ -200,9 +200,9 @@ I will update this page once Anthropic publishes an official numbers table or th
 
 ## Where to go next
 
-- [Claude Agent SDK credit pool guide](/posts/claude-agent-sdk-credit-pool) — how the API-key billing pool works, and why moving automation there gets it off your weekly cap.
-- [Claude Code Ultraplan guide](/posts/claude-code-ultraplan-guide) — how plan mode and session structure affect cost.
-- [Claude Code slow fix guide](/posts/claude-code-slow-fix) — session-level habits that stretch the same weekly budget further.
-- [Agent SDK cost tracking guide](/posts/claude-agent-sdk-cost-tracking) — what to measure so the Sept 14 shift is not a surprise on your bill.
+- [Claude Agent SDK credit pool guide](/posts/claude-agent-sdk-credit-pool): how the API-key billing pool works, and why moving automation there gets it off your weekly cap.
+- [Claude Code Ultraplan guide](/posts/claude-code-ultraplan-guide): how plan mode and session structure affect cost.
+- [Claude Code slow fix guide](/posts/claude-code-slow-fix): session-level habits that stretch the same weekly budget further.
+- [Agent SDK cost tracking guide](/posts/claude-agent-sdk-cost-tracking): what to measure so the Sept 14 shift is not a surprise on your bill.
 
 **Last updated: September 2, 2026.** I will re-check on Sept 14 and update the per-plan numbers if Anthropic publishes a real table, or if community `/usage` reports show the derived math is off.
