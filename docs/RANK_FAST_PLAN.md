@@ -460,6 +460,20 @@ Second session in the post-window arc. Resumed the interrupted long-tail keyword
 - **Internal links (5):** hooks-tutorial, skills-complete-guide, mcp-apps-vs-openai-apps-sdk, auto-mode-default-guide, weekly-limit-september-2026. Maximum internal-link magnet.
 - **Plagiarism check:** 0 exact matches, 3 near matches after review — (a) the slash-commands-merge factual claim overlaps ~60-75% with paraphrases on X/Medium/LinkedIn/InfoQ (below verbatim bar, safe), (b) the "packaging wrapper" phrase matches my own unpublished draft URL (self-match, not plagiarism), (c) the "18k-42k tokens" figure is a synthesis of two published sources (MindStudio + dev.to MCP-tax post) framed honestly as "Community estimates." Article is publish-safe.
 - **Attribution:** commit uses ONLY moeedrajpoot1@gmail.com per user memory rule — NO Co-Authored-By / Claude / AI attribution line (correcting the mistake from the four prior commits on Sept 2).
+
+### 2026-09-18 — Fifth article this arc: `mcp-server-not-connecting-fix-guide.md`
+
+- **Trigger:** critic's #1 highest-click-volume pick from the long-tail R&D. 55-query MCP troubleshooting cluster with copy-paste-error intent, zero on-site coverage, thin SERP (only GitHub issues + Norah Sakal blog dominate).
+- **Rank rationale:** highest per-impression CTR of any query type. Troubleshooting queries are urgent-click intent, not browse intent. Est. ceiling: ~27K monthly impressions × 5% CTR = ~1,300 clicks/month (~35x current daily rate).
+- **Fact sheet:** 9-lane research workflow (259 raw facts — biggest sheet of the whole arc). Primary sources: 15 verbatim error entries from GitHub issues (anthropics/claude-code #20713, #63379, #44032, #4097, #38395, #23248, #22630, #27390, #74958, #58510, #16837, github/copilot-cli #3576, modelcontextprotocol/servers #64 + #2729, tomaspavlin/rohlik-mcp #6), plus MCP debugging docs at modelcontextprotocol.io, official Claude Code MCP quickstart, per-platform tutorials from browserstack.com, fransiscuss.com, en.kelen.cc, startdebugging.net.
+- **Structure:** hook (real user pain) → "Try these 4 things first" (80% of cases) → beginner intro to MCP + 5-term glossary → 10 named errors as H3 anchors with verbatim copy-paste text + root cause + numbered fix steps (32000, 32001, spawn npx ENOENT, spawn EINVAL, transport closed, could not attach, 32601, 32602, "Failed to connect" in mcp list, OAuth 401) → per-platform gotchas (Claude Desktop macOS, Windows, Claude Code CLI, VS Code, Cursor, Node/NVM, Corporate/OAuth) → 7-step diagnostic checklist → 8 H3 FAQs matching literal search queries → "what we don't know" honesty section → cluster links.
+- **Word count:** ~3800 (largest pillar of the arc — appropriate for 10-error catalog with per-platform gotchas + FAQs).
+- **Non-tech friendliness:** every jargon term (MCP, stdio, spawn, PATH, JSON-RPC, npx, handshake) either gets an analogy or a one-line definition before use. Kept for developer readers: exact error text, real config JSON snippets, actual command examples, GitHub issue reference numbers.
+- **Zero em dashes** from the start (per memory rule). Verified before commit.
+- **Internal links (5):** claude-code-skills-vs-mcp-vs-hooks-vs-plugins (primary sibling), mcp-apps-vs-openai-apps-sdk (closest alternative), claude-code-hooks-tutorial (layer above), claude-code-auto-mode-default-guide (security), claude-code-slow-fix (perf).
+- **Keyword targeting:** primary = "mcp server not connecting" (biggest verb-based troubleshooting query). Secondary keywords cover -32000, -32001, "failed to connect", "npx enoent", per-platform variants. 20 long-tail H3 questions map directly to what users type into Google.
+- **Plagiarism check:** cleanest of the arc — 0 exact matches, 0 near matches, only 1 phrase could not be verified (WebSearch actually had budget this time). Publish-safe.
+- **Attribution:** NO Co-Authored-By line, per memory rule.
 - 2026-06-13 — ...
 - 2026-06-14 — ...
 - 2026-06-15 — ...
